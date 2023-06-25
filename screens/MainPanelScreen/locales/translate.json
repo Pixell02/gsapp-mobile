@@ -1,0 +1,94 @@
+
+{
+  "teamPanel": {
+  "pl": "Panel Drużyny",
+  "en": "Team Panel",
+  "es": "Panel de Equipo",
+  "de": "Team-Panel",
+  "fr": "Panneau d'équipe"
+  },
+  "addTeam": {
+  "pl": "Dodaj drużynę",
+  "en": "Add Team",
+  "es": "Agregar Equipo",
+  "de": "Team hinzufügen",
+  "fr": "Ajouter une équipe"
+  },
+  "editTeam": {
+  "pl": "Edytuj drużynę",
+  "en": "Edit Team",
+  "es": "Editar Equipo",
+  "de": "Team bearbeiten",
+  "fr": "Modifier l'équipe"
+  },
+  "emptyField": {
+  "pl": "puste pole",
+  "en": "empty field",
+  "es": "campo vacío",
+  "de": "leeres Feld",
+  "fr": "champ vide"
+  },
+  "firstTeamName": {
+  "pl": "pierwsza część nazwy drużyny",
+  "en": "first part of team name",
+  "es": "primera parte del nombre del equipo",
+  "de": "erster Teil des Teamnamens",
+  "fr": "première partie du nom de l'équipe"
+  },
+  "secondTeamName": {
+  "pl": "druga część nazwy drużyny",
+  "en": "second part of team name",
+  "es": "segunda parte del nombre del equipo",
+  "de": "zweiter Teil des Teamnamens",
+  "fr": "deuxième partie du nom de l'équipe"
+  },
+  "football": {
+  "pl": "piłka nożna",
+  "en": "football",
+  "es": "fútbol",
+  "de": "Fußball",
+  "fr": "football"
+  },
+  "volleyball": {
+  "pl": "siatkówka",
+  "en": "volleyball",
+  "es": "voleibol",
+  "de": "Volleyball",
+  "fr": "volleyball"
+  },
+  "hockey": {
+  "pl": "hokej",
+  "en": "hockey",
+  "es": "hockey",
+  "de": "Hockey",
+  "fr": "hockey"
+  },
+  "handball": {
+  "pl": "piłka ręczna",
+  "en": "handball",
+  "es": "balonmano",
+  "de": "Handball",
+  "fr": "handball"
+  },
+  "basketball": {
+  "pl": "koszykówka",
+  "en": "basketball",
+  "es": "baloncesto",
+  "de": "Basketball",
+  "fr": "basketball"
+  },
+  "addImage": {
+  "pl": "Dodaj logo",
+  "en": "Add Image",
+  "es": "Agregar Imagen",
+  "de": "Bild hinzufügen",
+  "fr": "Ajouter une image"
+  },
+  "save": {
+  "pl": "Zapisz",
+  "en": "Save",
+  "es": "Guardar",
+  "de": "Speichern",
+  "fr": "Enregistrer"
+  }
+  }

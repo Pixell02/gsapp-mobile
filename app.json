@@ -2,9 +2,13 @@
   "expo": {
     "name": "gsapp",
     "slug": "gsapp",
-    "version": "1.0.0",
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      "expo-localization"
+    ],
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -18,13 +22,21 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": "3",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pixeu.gsapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptive-icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1a33f716-7f98-497a-a469-e1e1f4ddf1a0"
+      }
     }
   }
 }

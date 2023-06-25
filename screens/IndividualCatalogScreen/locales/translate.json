@@ -1,0 +1,16 @@
+{
+  "yourGraphics": {
+    "pl": "Twoje Grafiki",
+    "en": "Your Graphics",
+    "es": "Tus Gráficos",
+    "de": "Deine Grafiken",
+    "fr": "Vos Graphiques"
+  },
+  "yourFavorite": {
+    "pl": "Twoje Ulubione",
+    "en": "Your Favorites",
+    "es": "Tus Favoritos",
+    "de": "Deine Favoriten",
+    "fr": "Vos Favoris"
+  }
+}

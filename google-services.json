@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "230369778825",
+    "project_id": "poster-dd714",
+    "storage_bucket": "poster-dd714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230369778825:android:5be458d39263ca60acfa58",
+        "android_client_info": {
+          "package_name": "com.pixeu.gsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230369778825-atlg6qn65295h1h1iqshm58ibc4tuspk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pixeu.gsapp",
+            "certificate_hash": "7ad1a789c2c285073580b2ad1f4d899be2f377e8"
+          }
+        },
+        {
+          "client_id": "230369778825-t7efcljki21gs1mcg25sv351lhvviofj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pixeu.gsapp",
+            "certificate_hash": "a5258916070490efc0e7fbc2bb02e408b3f6f86f"
+          }
+        },
+        {
+          "client_id": "230369778825-rsjla41trfrehb1jqdq2f6024dth5ndu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADcbFfSifWa_ogdBDJa-HQ4lQ0AHOx3ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230369778825-rsjla41trfrehb1jqdq2f6024dth5ndu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

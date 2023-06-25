@@ -1,0 +1,65 @@
+{
+  "title": {
+    "pl": "Przeciwnicy",
+    "en": "Opponents",
+    "es": "Adversarios",
+    "de": "Gegner",
+    "fr": "Adversaires"
+  },
+  "addOpponent": {
+    "pl": "Dodaj Przeciwnika",
+    "en": "Add Opponent",
+    "es": "Agregar Adversario",
+    "de": "Gegner hinzufügen",
+    "fr": "Ajouter un adversaire"
+  },
+  "editOpponent": {
+    "pl": "Edytuj Przeciwnika",
+    "en": "Edit Opponent",
+    "es": "Editar Adversario",
+    "de": "Gegner bearbeiten",
+    "fr": "Modifier l'adversaire"
+  },
+  "emptyField": {
+    "pl": "puste pole",
+    "en": "empty field",
+    "es": "campo vacío",
+    "de": "leeres Feld",
+    "fr": "champ vide"
+    },
+  "firstOpponentName": {
+    "pl": "Pierwsza część nazwy przeciwnika",
+    "en": "First part of opponent's name",
+    "es": "Primera parte del nombre del adversario",
+    "de": "Erster Teil des Gegnernamens",
+    "fr": "Première partie du nom de l'adversaire"
+  },
+  "secondOpponentName": {
+    "pl": "Druga część nazwy przeciwnika",
+    "en": "Second part of opponent's name",
+    "es": "Segunda parte del nombre del adversario",
+    "de": "Zweiter Teil des Gegnernamens",
+    "fr": "Deuxième partie du nom de l'adversaire"
+  },
+  "team": {
+    "pl": "Drużyna",
+    "en": "Team",
+    "es": "Equipo",
+    "de": "Team",
+    "fr": "Équipe"
+  },
+  "addPhoto": {
+    "pl": "Dodaj zdjęcie",
+    "en": "Add Photo",
+    "es": "Agregar Foto",
+    "de": "Foto hinzufügen",
+    "fr": "Ajouter une photo"
+  },
+  "save": {
+    "pl": "Zapisz",
+    "en": "Save",
+    "es": "Guardar",
+    "de": "Speichern",
+    "fr": "Enregistrer"
+  }
+}

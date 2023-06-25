@@ -1,0 +1,114 @@
+{
+  "editPanel": {
+    "pl": "Panel Edycji",
+    "en": "Edit Panel"
+  },
+  "themes": {
+    "pl": "Motywy kolorystyczne",
+    "en": "Color themes"
+  },
+  "typeDate": {
+    "pl": "Data i godzina",
+    "en": "Date and time"
+  },
+  "typePlace": {
+    "pl": "Miejsce",
+    "en": "Place"
+  },
+  "typeLeague": {
+    "pl": "Liga",
+    "en": "League"
+  },
+  "typeRound": {
+    "pl": "Kolejka",
+    "en": "Round"
+  },
+  "typeMonth": {
+    "pl": "Miesiąc",
+    "en": "Month"
+  },
+  "yourTeam": {
+    "pl": "Twoje drużyny",
+    "en": "Your Teams"
+  },
+  "host": {
+    "pl": "Gospodarz",
+    "en": "Host"
+  },
+  "guest": {
+    "pl": "Gość",
+    "en": "Guest"
+  },
+  "Opponents": {
+    "pl": "Przeciwnicy",
+    "en": "Opponents"
+  },
+  "addPlayers": {
+    "pl": "Dodaj zawodników",
+    "en": "Add Players"
+  },
+  "addReserve": {
+    "pl": "Dodaj rezerwowych",
+    "en": "Add reserve players"
+  },
+  "addYourTeamGoals": {
+    "pl": "Dodaj gole zawodników",
+    "en": "Add players goals"
+  },
+  "addOpponentTeamGoals": {
+    "pl": "Dodaj gole przeciwników",
+    "en": "Add opponent goals"
+  },
+  "setRules": {
+    "pl": "Ustaw role graczy",
+    "en": "Set Players roles"
+  },
+  "save": {
+    "pl": "Zapisz",
+    "en": "Save"
+  },
+  "close": {
+    "pl": "Zamknij",
+    "en": "Close"
+  },
+  "players": {
+    "pl": "Zawodnicy",
+    "en": "Players"
+  },
+  "roles": {
+    "pl": "Role",
+    "en": "Roles"
+  },
+  "reserve": {
+    "pl": "Rezerwowi",
+    "en": "Reserve Players"
+  },
+  "yourTeamGoals": {
+    "pl": "Gole zawodników",
+    "en": "Your goals"
+  },
+  "capitan": {
+    "pl": "Kapitan",
+    "en": "Capitan"
+  },
+  "goalkeeper": {
+    "pl": "Bramkarz",
+    "en": "Goalkeeper"
+  },
+  "opponentTeamGoals": {
+    "pl": "Gole przeciwników",
+    "en": "Opponent goals"
+  },
+  "noPlayers": {
+    "pl": "Brak zawodników",
+    "en": "No Players"
+  },
+  "hostResult": {
+    "pl": "Wynik gospodarza",
+    "en": "Host result"
+  },
+  "opponentResult": {
+    "pl": "Wynik gościa",
+    "en": "Guest result"
+  }
+}

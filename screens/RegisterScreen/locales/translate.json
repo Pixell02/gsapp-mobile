@@ -1,0 +1,37 @@
+{
+  "email": {
+  "pl": "email",
+  "en": "email",
+  "es": "correo electrónico",
+  "de": "E-Mail",
+  "fr": "email"
+  },
+  "password": {
+  "pl": "hasło",
+  "en": "password",
+  "es": "contraseña",
+  "de": "Passwort",
+  "fr": "mot de passe"
+  },
+  "registerWithGoogle": {
+  "pl": "Zarejestruj się z Google",
+  "en": "Register with Google",
+  "es": "Registrarse con Google",
+  "de": "Mit Google registrieren",
+  "fr": "S'inscrire avec Google"
+  },
+  "register": {
+  "pl": "Zarejestruj się",
+  "en": "Register",
+  "es": "Registrarse",
+  "de": "Registrieren",
+  "fr": "S'inscrire"
+  },
+  "terms": {
+  "pl": "Rejestrując się do gsapp, akceptujesz nasz regulamin oraz politykę prywatności",
+  "en": "By registering for gsapp, you accept our terms and privacy policy",
+  "es": "Al registrarte en gsapp, aceptas nuestros términos y política de privacidad",
+  "de": "Durch die Registrierung bei gsapp akzeptieren Sie unsere Nutzungsbedingungen und Datenschutzrichtlinie",
+  "fr": "En vous inscrivant à gsapp, vous acceptez nos conditions d'utilisation et notre politique de confidentialité"
+  }
+  }

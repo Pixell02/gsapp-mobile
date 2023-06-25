@@ -1,0 +1,72 @@
+{
+  "account": {
+    "pl": "Konto",
+    "en": "Account",
+    "es": "Cuenta",
+    "de": "Konto",
+    "fr": "Compte"
+  },
+  "logOut": {
+    "pl": "Wyloguj się",
+    "en": "Log Out",
+    "es": "Cerrar sesión",
+    "de": "Abmelden",
+    "fr": "Déconnexion"
+  },
+  "accountId": {
+    "pl": "ID Konta",
+    "en": "Account ID",
+    "es": "ID de Cuenta",
+    "de": "Konto-ID",
+    "fr": "Identifiant de Compte"
+  },
+  "email": {
+    "pl": "E-mail",
+    "en": "Email",
+    "es": "Correo electrónico",
+    "de": "E-Mail",
+    "fr": "Email"
+  },
+  "license": {
+    "pl": "Licencja",
+    "en": "License",
+    "es": "Licencia",
+    "de": "Lizenz",
+    "fr": "Licence"
+  },
+  "stats": {
+    "pl": "Statystyki",
+    "en": "Stats",
+    "es": "Estadísticas",
+    "de": "Statistiken",
+    "fr": "Statistiques"
+  },
+  "freeUsesFirstPart": {
+    "pl": "Masz jeszcze dostępne",
+    "en": "You still have",
+    "es": "Todavía tienes",
+    "de": "Du hast noch",
+    "fr": "Il vous reste"
+  },
+  "uses": {
+    "pl": "użyć",
+    "en": "uses",
+    "es": "usos",
+    "de": "Verwendungen",
+    "fr": "utilisations"
+  },
+  "licenseType": {
+    "pl": "Typ Licencji",
+    "en": "License Type",
+    "es": "Tipo de Licencia",
+    "de": "Lizenztyp",
+    "fr": "Type de Licence"
+  },
+  "expireDate": {
+    "pl": "Data ważności",
+    "en": "Expiration Date",
+    "es": "Fecha de Caducidad",
+    "de": "Ablaufdatum",
+    "fr": "Date d'Expiration"
+  }
+}
