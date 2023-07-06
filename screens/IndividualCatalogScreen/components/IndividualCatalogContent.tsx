@@ -1,31 +1,37 @@
-import React, { useContext } from 'react'
-import {View} from 'react-native'
-import Title from '../../components/Title'
-import { useCollection } from '../../../hooks/useCollection'
-import { useAuthContext } from '../../../hooks/useAuthContext'
-import ItemBlock from '../../components/ItemBlock'
-import ItemCenter from '../../components/ItemCenter'
-import { LanguageContext } from '../../../context/LanguageContext'
-import translate from "../locales/translate.json"
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import Title from '../../components/Title';
+import { useCollection } from '../../../hooks/useCollection';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import ItemBlock from '../../components/ItemBlock';
+import ItemCenter from '../../components/ItemCenter';
+import { LanguageContext } from '../../../context/LanguageContext';
+import translate from "../locales/translate.json";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../StartingScreen/type";
 
-export default function IndividualCatalogContent({navigation}) {
-  const { user } = useAuthContext() 
-  const {documents: individualPoster} = useCollection("yourCatalog", ["uid", "==", user.uid])
-  const {language} = useContext(LanguageContext)
+type IndividualCatalogContentNavigationProp = StackNavigationProp<RootStackParamList, "CreatorScreen">;
+
+export default function IndividualCatalogContent() {
+  const { user } = useAuthContext();
+  const { documents: individualPoster } = useCollection("yourCatalog", ["uid", "==", user.uid]);
+  const { language } = useContext(LanguageContext);
+  const navigation = useNavigation<IndividualCatalogContentNavigationProp>();
 
   const handleNavigate = (uid: string) => {
-    navigation.navigate("CreatorScreen", {uid: uid})
-  }
+    navigation.navigate("CreatorScreen", {uid: uid});
+  };
 
   return (
     <View>
       <Title name={translate.yourGraphics[language]} />
       <ItemCenter>
-      {individualPoster && individualPoster.map((item) => ( 
-        <ItemBlock key={item.id} firstName={item.name} secondName={""} img={item.src} onPress={() => handleNavigate(item.uuid)} />
-      ))}
+        {individualPoster && individualPoster.map((item) => (
+          <ItemBlock key={item.id} firstName={item.name} secondName={""} img={item.src} onPress={() => handleNavigate(item.uuid)} />
+        ))}
       </ItemCenter>
       <Title name={translate.yourFavorite[language]} />
     </View>
-  )
+  );
 }

@@ -6,16 +6,26 @@ import TopBar from "../components/TopBar";
 import MainContent from "../components/MainContent";
 import ItemCenter from "../components/ItemCenter";
 import NavBar from "../components/NavBar";
+import { useCollection } from "../../hooks/useCollection";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import NoLicense from "./NoLicense";
+import { LicenseContextProvider } from "./context/licenseContext";
 function CreatorScreen({ navigation, route }) {
   const { uid } = route.params;
+  const {user} = useAuthContext();
+  const {documents: License} = useCollection("user", ["uid", "==", user.uid])
+  
   return (
+    <LicenseContextProvider>
     <ScreenContainer>
-      <TopBar navigation={navigation} />
+      <TopBar />
         <ItemCenter>
-          <WorkSpace uid={uid} />
+         {License && License[0].license !== "no-license" &&  <WorkSpace uid={uid} />}
+         {License && License[0].license === "no-license" && <NoLicense />}
         </ItemCenter>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </ScreenContainer>
+    </LicenseContextProvider>
   );
 }
 

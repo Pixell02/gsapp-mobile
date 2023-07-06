@@ -23,9 +23,9 @@ export default function StartingScreen({ navigation }){
     <ImageBackground source={require("../../assets/do_tla.png")} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.block}>
-          <Text style={styles.text}>{translate.haveAccount[language]}</Text>
+          <Text style={styles.text}>{(translate.haveAccount[language] || translate.haveAccount["en"])}</Text>
           <View style={styles.button}>
-            <RoundedButton text={translate.login[language]} onPress={handleLoginPress} />
+            <RoundedButton text={(translate.login[language] || translate.login["en"])} onPress={handleLoginPress} />
           </View>
         </View>
         <View style={styles.block}>
@@ -33,8 +33,8 @@ export default function StartingScreen({ navigation }){
         </View>
         <View style={styles.block}>
           <View style={styles.block}>
-            <Text style={styles.text}>{translate.wantToChange[language]}</Text>
-            <RoundedButton text={translate.register[language]} onPress={handleRegisterPress} />
+            <Text style={styles.text}>{(translate.wantToChange[language] || translate.wantToChange["en"])}</Text>
+            <RoundedButton text={(translate.register[language] || translate.register["en"])} onPress={handleRegisterPress} />
           </View>
         </View>
       </View>

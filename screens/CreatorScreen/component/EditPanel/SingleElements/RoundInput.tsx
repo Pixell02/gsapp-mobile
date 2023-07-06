@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
-import Input from '../../../components/Input'
-import translate from "../../locales/translate.json"
-import { LanguageContext } from '../../../../context/LanguageContext'
+import Input from '../../../../components/Input'
+import translate from "../../../locales/translate.json"
+import { LanguageContext } from '../../../../../context/LanguageContext'
+import { ThemeOptionContext } from '../../../context/themeOptionContext'
 const RoundInput = ({webViewRef, coords}) => {
 
   const {language} = useContext(LanguageContext)
+  const { selectedTheme } = useContext(ThemeOptionContext);
   const [typeRound, setTypeRound] = useState(null)
 
   useEffect(() => {
@@ -17,6 +19,9 @@ const RoundInput = ({webViewRef, coords}) => {
         }
       });
       fabricCanvas.renderAll();
+      var themeOption = ${JSON.stringify(coords.yourKolejka.themeOption)}
+      var font = new FontFaceObserver("${coords.yourKolejka.FontFamily}")
+      font.load().then(() => {
         var text = new fabric.Text("${typeRound}", {
           top: ${ coords.yourKolejka.Top},
           left: ${coords.yourKolejka.Left},
@@ -31,11 +36,21 @@ const RoundInput = ({webViewRef, coords}) => {
         if(text.width > ${coords.yourKolejka.ScaleToWidth}){
           text.scaleToWidth(${coords.yourKolejka.ScaleToWidth});
         }
+        if(themeOption){
+          themeOption.forEach((theme, i) => {
+            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+              text.set({
+                fill: theme.Fill
+              })
+            }
+          })
+        }
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
+      });
     `);
     }
-  },[typeRound])
+  },[typeRound, selectedTheme])
 
 
 

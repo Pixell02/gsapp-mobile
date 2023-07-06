@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { PanResponder, BackHandler } from 'react-native';
+import { PanResponder, BackHandler, Alert } from 'react-native';
 
 const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
   const panResponder = useRef(
@@ -10,48 +10,24 @@ const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
       onPanResponderRelease: (evt, gestureState) => {
         if (gestureState.dy > 50) {
           setIsOpen(false);
-          if(data){
-          data(prev => ({
-            ...prev,
-            firstName: "",
-            secondName: "",
-            img: "",
-            sport: "",
-          }))
-        }
-        if(id) {
-          id("")
-        }
+          if (data) {
+            data(prev => ({
+              ...prev,
+              firstName: "",
+              secondName: "",
+              img: "",
+              sport: "",
+            }))
+          }
+          if (id) {
+            id("")
+          }
         }
       },
     })
   ).current;
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      // Obsługa naciśnięcia przycisku cofnij
-      setIsOpen(false);
-      if(data){
-      data(prev => ({
-        ...prev,
-        firstName: "",
-        secondName: "",
-        img: "",
-        sport: "",
-      }));
-      
-    }
-    if(id) {
-      id("")
-    }
-      // Zwrócenie true uniemożliwia domyślne zachowanie przycisku cofnij (np. zamknięcie aplikacji)
-      return true;
-    });
-
-    return () => {
-      backHandler.remove();
-    };
-  }, [isOpen, setIsOpen, data]);
+  
 
   return panResponder;
 };

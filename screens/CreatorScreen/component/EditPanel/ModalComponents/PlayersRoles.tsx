@@ -3,30 +3,26 @@ import { StyleSheet, Text, View } from "react-native";
 import Header from "./components/Header";
 import translate from "../../../locales/translate.json";
 import { LanguageContext } from "../../../../../context/LanguageContext";
-import { useAuthContext } from "../../../../../hooks/useAuthContext";
-import { Picker } from "@react-native-picker/picker";
-import { useCollection } from "../../../../../hooks/useCollection";
 import SelectPicker from "../../../../components/SelectPicker";
 import usePlayers from "../../../hooks/usePlayers";
 
 const PlayersRoles = ({ capitan, setCapitan, goalkeeper, setGoalkeeper }) => {
-  const { user } = useAuthContext();
+  
   const { language } = useContext(LanguageContext);
   const {playerOptions} = usePlayers();
-  
   return (
     <View style={{ width: "100%", alignItems: "center" }}>
       <Header title={translate.setRules[language]} />
       <SelectPicker 
       options={playerOptions} 
       name={translate.capitan[language]}
-      onValueChange={(value) => setCapitan(value.split("...")[0] + " " + value.split("")[1])}
+      onValueChange={(value) => setCapitan(value)}
       selectedValue={capitan}
        />
       <SelectPicker 
       options={playerOptions} 
       name={translate.goalkeeper[language]}
-      onValueChange={(value) => setGoalkeeper(value.split("...")[0] + " " + value.split("")[1])}
+      onValueChange={(value) => setGoalkeeper(value)}
       selectedValue={goalkeeper}
        />
     </View>

@@ -53,7 +53,7 @@ export default function OpponentsScreen({ navigation }: Props) {
           setSelectedValue={setSelectedValue}
         />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </ScreenContainer>
   );
 }

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Input from '../../../components/Input'
-import translate from "../../locales/translate.json"
-import { LanguageContext } from '../../../../context/LanguageContext'
+import Input from '../../../../components/Input'
+import translate from "../../../locales/translate.json"
+import { LanguageContext } from '../../../../../context/LanguageContext'
+import { ThemeOptionContext } from '../../../context/themeOptionContext'
 const PlaceInput = ({webViewRef, coords}) => {
 
   const {language} = useContext(LanguageContext)
   const [typePlace, setTypePlace] = useState(null);
-
+  const {selectedTheme} = useContext(ThemeOptionContext)
   useEffect(() => {
     if(webViewRef.current && typePlace) {
       webViewRef.current.injectJavaScript(`
@@ -17,6 +18,9 @@ const PlaceInput = ({webViewRef, coords}) => {
         }
       });
       fabricCanvas.renderAll();
+      var themeOption = ${JSON.stringify(coords.typePlace.themeOption)}
+      var font = new FontFaceObserver("${coords.typePlace.FontFamily}")
+      font.load().then(() => {
         var text = new fabric.Text("${typePlace}", {
           top: ${ coords.typePlace.Top},
           left: ${coords.typePlace.Left},
@@ -31,11 +35,21 @@ const PlaceInput = ({webViewRef, coords}) => {
         if(text.width > ${coords.typePlace.ScaleToWidth}){
           text.scaleToWidth(${coords.typePlace.ScaleToWidth});
         }
+        if(themeOption){
+          themeOption.forEach((theme, i) => {
+            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+              text.set({
+                fill: theme.Fill
+              })
+            }
+          })
+        }
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
+      });
     `);
     }
-  },[typePlace])
+  },[typePlace, selectedTheme])
 
   return (
     <View>

@@ -5,7 +5,7 @@ import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import Title from "../../components/Title";
 import InputData from "../../components/InputData";
@@ -14,6 +14,7 @@ import translate from "../locales/translate.json"
 import RoundedButton from "../../components/RoundedButton";
 import { useCollection } from "../../../hooks/useCollection";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
@@ -30,6 +31,11 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
     }));
     setPreview(null)
     setIsImage(false)
+  }
+  const handleDeleteItem = () => {
+    const docRef = doc(db, "Players", teamData.id);
+    deleteDoc(docRef);
+    setIsEditOpen();
   }
 
 
@@ -76,10 +82,10 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
             const docRef = doc(db, "Players", teamData.id)
             updateDoc(docRef, {
-              firstName: teamData.firstName,
-              secondName: teamData.secondName,
+              firstName: teamData.firstName.trim(),
+              secondName: teamData.secondName.trim(),
               img: downloadURL,
-              number: teamData.number,
+              number: teamData.number.trim(),
               uid: user.uid,
             });
           }
@@ -87,9 +93,9 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
       } else {
         const docRef = doc(db, "Players", teamData.id)
         updateDoc(docRef, {
-          firstName: teamData.firstName,
-          secondName: teamData.secondName,
-          number: teamData.number,
+          firstName: teamData.firstName.trim(),
+          secondName: teamData.secondName.trim(),
+          number: teamData.number.trim(),
           img: teamData.img?teamData.img:"",
           uid: user.uid,
         });
@@ -107,9 +113,10 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isEditOpen}>
+      <Modal animationType="slide" visible={isEditOpen} onRequestClose={() => setIsEditOpen(false)}>
         <View style={styles.modalContent}>
           <Title name={translate.editPlayer[language]} />
+          <ScrollView>
           <View style={styles.inputCenter}>
             <InputData
               name={translate.name[language]}
@@ -172,9 +179,13 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
               )}
             </View>
             <View>
-              <RoundedButton text={translate.save[language]} onPress={handleSave} />
+              <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={handleSave} />
+            </View>
+            <View style={{marginTop: 20}}>
+              <RoundedButton text={(translate.delete[language] || translate.delete["en"])} onPress={(handleDeleteItem)} />
             </View>
           </View>
+          </ScrollView>
         </View>
       </Modal>
     </View>

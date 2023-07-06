@@ -5,15 +5,15 @@ export default function useCreateOpponentGoals(initialState) {
     const [opponentGoalMinute, setOpponentGoalMinute] = useState(initialState);
     const handleOpponentGoalChange = (e, i) => {
         const newGoalValue = [...opponentGoals];
-        newGoalValue[i] = e.target.value;
+        newGoalValue[i] = e;
         setOpponentGoals(newGoalValue);
     }
     const handleOpponentMinuteChange = (e, i) => {
         const newMinuteValue = [...opponentGoalMinute];
-        newMinuteValue[i] = e.target.value;
+        newMinuteValue[i] = e;
         setOpponentGoalMinute(newMinuteValue);
         
     }
     
-    return [opponentGoals, handleOpponentGoalChange, handleOpponentMinuteChange, opponentGoalMinute]
+    return {opponentGoals, handleOpponentGoalChange, handleOpponentMinuteChange, opponentGoalMinute}
 }

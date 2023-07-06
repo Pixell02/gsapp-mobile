@@ -20,6 +20,7 @@ export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }
   const {language} = useContext(LanguageContext)
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
   const { imageUri, setImageUri, handleAddPhoto, preview } = useAddImage();
+  console.log(teamData.team)
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
     useEffect(() => {
       if(Teams) {
@@ -99,7 +100,7 @@ export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen}>
+      <Modal animationType="slide" visible={isOpen} onRequestClose={() => setIsOpen(false)}>
         <View style={styles.modalContent}>
           <Title name={translate.addOpponent[language]} />
           <View style={styles.inputCenter}>
@@ -118,7 +119,7 @@ export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }
               <View style={styles.picker}>
                 <Picker
                   selectedValue={teamData.team}
-                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, sport: itemValue }))}
+                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
                 >
                   {Teams &&
                     Teams.map((item) => (

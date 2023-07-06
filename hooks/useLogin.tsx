@@ -25,9 +25,6 @@ export const useLogin = () => {
       if (error) {
         Alert.alert("Złe dane");
       }
-      if (user) {
-        navigation.navigate("MainScreen");
-      }
     };
 
     return { error, login, handleOnPress }

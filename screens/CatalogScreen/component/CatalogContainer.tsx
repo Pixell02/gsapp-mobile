@@ -1,7 +1,7 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useCollection } from '../../../hooks/useCollection';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
   name: string;
@@ -15,8 +15,10 @@ interface Props {
 
 export default function CatalogContainer(props: Props): JSX.Element {
 
+  
 
   const handleTouch = (name: string, id: string) => {
+    
     props.open()
     props.setName(name)
     props.setId(id)
@@ -28,9 +30,6 @@ export default function CatalogContainer(props: Props): JSX.Element {
       <TouchableOpacity onPress={() => handleTouch(props.name, props.id)}>
       <View style={styles.name}>
         <Text>{props.name}</Text>
-      </View>
-      <View>
-
       </View>
       </TouchableOpacity>
     </View>
@@ -45,6 +44,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderColor: '#cccccc',
+    backgroundColor: "white"
   },
   name: {
     justifyContent: "center",

@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Register: undefined;
   MainScreen: undefined;
   CatalogScreen: undefined;
+  CreatorScreen: undefined;
   YourCatalogScreen: undefined;
   PlayersScreen: undefined;
   OpponentsScreen: undefined;

@@ -21,9 +21,9 @@ export default function IndividualCatalogScreen({navigation}: Props) {
     <ScreenContainer>
        <TopBar navigation={navigation} />
       <MainContent>
-        <IndividualCatalogContent navigation={navigation} />
+        <IndividualCatalogContent />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </ScreenContainer>
   )
 }

@@ -38,10 +38,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins-SemiBold",
     fontSize: 12,
-    marginLeft: 10,
+    marginLeft: 40,
   },
   textContainer: {
     alignItems: "center",
+    justifyContent: "center",
     paddingRight: 20
   },
 });

@@ -1,33 +1,26 @@
 import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
 import { View, Text, StyleSheet, Image } from "react-native";
-import Svg, { Path } from "react-native-svg";
 import { RootStackParamList } from "../StartingScreen/type";
 import { TouchableOpacity } from "react-native-gesture-handler";
-// import personCircle from './icons/person-circle.svg';
-
+import { useNavigation } from "@react-navigation/native";
 interface imageProps {
   source: any;
 }
 
-const Stack = createStackNavigator<RootStackParamList>();
 
-type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, "AccountScreen">;
-type OfferScreenNavigationProp = StackNavigationProp<RootStackParamList, "OfferScreen">;
-
-type Props = {
-  navigation: AccountScreenNavigationProp;
-};
 
 const logo = require("../img/logo.png");
 const personCircle = require("../img/icons/person-circle.png");
 const cash = require("../img/icons/cash.png");
 
-export default function TopBar({ navigation }: { navigation: StackNavigationProp<RootStackParamList> }): JSX.Element {
+export default function TopBar(): JSX.Element {
+  
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const handleNavigate = () => {
-    navigation.navigate("AccountScreen");
+    navigation.navigate("AccountScreen", null);
   };
   const handleOfferNavigate = () => {
-    navigation.navigate("OfferScreen");
+    navigation.navigate("OfferScreen", null);
   }
 
   return (

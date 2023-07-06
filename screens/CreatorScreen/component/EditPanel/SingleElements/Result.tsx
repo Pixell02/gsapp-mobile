@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import Input from '../../../components/Input'
-import InputData from '../../../components/InputData'
-import RadioContext from '../../context/radioContext'
-import translate from "../../locales/translate.json"
-import { LanguageContext } from '../../../../context/LanguageContext'
+import Input from '../../../../components/Input'
+import InputData from '../../../../components/InputData'
+import RadioContext from '../../../context/radioContext'
+import translate from "../../../locales/translate.json"
+import { LanguageContext } from '../../../../../context/LanguageContext'
+import { ThemeOptionContext } from '../../../context/themeOptionContext'
 
 const Result = ({webViewRef, coords}) => {
 
   const {language} = useContext(LanguageContext)
   const {radioChecked} = useContext(RadioContext);
+  const {selectedTheme} = useContext(ThemeOptionContext)
   const [yourResult, setYourResult] = useState(null);
   const [opponentResult, setOpponentResult] = useState(null);
   
@@ -22,6 +24,9 @@ const Result = ({webViewRef, coords}) => {
         }
       });
       fabricCanvas.renderAll();
+      var themeOption = ${JSON.stringify(coords.yourTeamResult.themeOption)}
+      var font = new FontFaceObserver("${coords.yourTeamResult.FontFamily}")
+      font.load().then(() => {
         var text = new fabric.Text("${yourResult}", {
           top: ${radioChecked === "radio1" ? coords.yourTeamResult.Top : coords.yourOpponentResult.Top},
           left: ${radioChecked === "radio1" ? coords.yourTeamResult.Left : coords.yourOpponentResult.Left},
@@ -36,8 +41,18 @@ const Result = ({webViewRef, coords}) => {
         if(text.width > ${coords.yourTeamResult.ScaleToWidth}){
           text.scaleToWidth(${coords.yourTeamResult.ScaleToWidth});
         }
+        if(themeOption){
+          themeOption.forEach((theme, i) => {
+            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+              text.set({
+                fill: theme.Fill
+              })
+            }
+          })
+        }
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
+      });
       `)
     }
     if(webViewRef.current && opponentResult && coords.yourOpponentResult) {
@@ -48,6 +63,9 @@ const Result = ({webViewRef, coords}) => {
         }
       });
       fabricCanvas.renderAll();
+      var themeOption = ${JSON.stringify(coords.yourOpponentResult.themeOption)}
+      var font = new FontFaceObserver("${coords.yourOpponentResult.FontFamily}")
+      font.load().then(() => {
         var text = new fabric.Text("${opponentResult}", {
           top: ${radioChecked === "radio1" ? coords.yourOpponentResult.Top : coords.yourTeamResult.Top},
           left: ${radioChecked === "radio1" ? coords.yourOpponentResult.Left : coords.yourTeamResult.Left},
@@ -62,19 +80,29 @@ const Result = ({webViewRef, coords}) => {
         if(text.width > ${coords.yourOpponentResult.ScaleToWidth}){
           text.scaleToWidth(${coords.yourOpponentResult.ScaleToWidth});
         }
+        if(themeOption){
+          themeOption.forEach((theme, i) => {
+            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+              text.set({
+                fill: theme.Fill
+              })
+            }
+          })
+        }
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
+      });
       `)
     }
-  },[yourResult,opponentResult, radioChecked])
+  },[yourResult,opponentResult, radioChecked, selectedTheme])
 
   return (
-    <View style={{flexDirection: "row", width: "65%", justifyContent: "center"}}>
-      <View style={{width: "45%", marginRight: 10}}>
-        <InputData type="numeric" name={translate.hostResult[language]} text={yourResult} onChangeText={(value) => setYourResult(value)} />
+    <View style={{flexDirection: "row", width: "70%", justifyContent: "center"}}>
+      <View style={{width: "55%", marginRight: 10}}>
+        <InputData type="numeric" name={(translate.hostResult[language] || translate.hostResult["en"])} text={yourResult} onChangeText={(value) => setYourResult(value)} />
       </View>
-      <View style={{width: "45%"}}>
-        <InputData type="numeric" name={translate.opponentResult[language]} text={opponentResult} onChangeText={(value) => setOpponentResult(value)} />
+      <View style={{width: "55%"}}>
+        <InputData type="numeric" name={(translate.opponentResult[language] || translate.opponentResult["en"])} text={opponentResult} onChangeText={(value) => setOpponentResult(value)} />
       </View>
     </View>
   )

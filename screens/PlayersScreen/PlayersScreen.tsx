@@ -32,7 +32,7 @@ export default function PlayersScreen({navigation}: Props):JSX.Element {
   })
   return (
     <View style={styles.container}>
-      <TopBar navigation={navigation} />
+      <TopBar />
       {(isOpen || isEditOpen) && (
         <PlayerModal isOpen={isOpen} setIsOpen={() => setIsOpen(false)} isEditOpen={isEditOpen} setIsEditOpen={() => setIsEditOpen(false)} playerData={playerData} setPlayerData={setPlayerData} />
       )}
@@ -46,7 +46,7 @@ export default function PlayersScreen({navigation}: Props):JSX.Element {
         setSelectedValue={setSelectedValue}
         />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </View>
   )
 }

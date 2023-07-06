@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
-import Input from '../../../components/Input'
-import translate from "../../locales/translate.json"
-import { LanguageContext } from '../../../../context/LanguageContext'
+import Input from '../../../../components/Input'
+import translate from "../../../locales/translate.json"
+import { LanguageContext } from '../../../../../context/LanguageContext'
+import { ThemeOptionContext } from '../../../context/themeOptionContext'
 const MonthInput = ({webViewRef, coords}) => {
 
   const {language} = useContext(LanguageContext);
   const [typeMonth, setTypeMonth] = useState(null);
-
+  const {selectedTheme} = useContext(ThemeOptionContext)
   useEffect(() => {
     if(webViewRef.current && typeMonth) {
       webViewRef.current.injectJavaScript(`
@@ -17,6 +18,9 @@ const MonthInput = ({webViewRef, coords}) => {
         }
       });
       fabricCanvas.renderAll();
+      var font = new FontFaceObserver("${coords.typeMonth.FontFamily}")
+      var themeOption = ${JSON.stringify(coords.typeMonth.themeOption)}
+      font.load().then(() => {
         var text = new fabric.Text("${typeMonth}", {
           top: ${ coords.typeMonth.Top},
           left: ${coords.typeMonth.Left},
@@ -31,11 +35,22 @@ const MonthInput = ({webViewRef, coords}) => {
         if(text.width > ${coords.typeMonth.ScaleToWidth}){
           text.scaleToWidth(${coords.typeMonth.ScaleToWidth});
         }
+        if(themeOption){
+          themeOption.forEach((theme, i) => {
+            
+            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+              text.set({
+                fill: theme.Fill
+              })
+            }
+          })
+        }
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
+      });
     `);
     }
-  },[typeMonth])
+  },[typeMonth, selectedTheme])
 
   return (
     <View>

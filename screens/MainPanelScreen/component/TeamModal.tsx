@@ -20,8 +20,7 @@ interface props {
 }
 
 export default function TeamModal({ isOpen, setIsOpen, teamData, setTeamData, isEditOpen, setIsEditOpen }: props) {
-  // const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
-  
+ 
   return (
     <>
       {isOpen && (

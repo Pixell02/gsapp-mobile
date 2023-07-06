@@ -29,7 +29,7 @@ export default function MainPanelScreen({ navigation }: Props): JSX.Element {
   });
   return (
     <View style={styles.container}>
-      <TopBar navigation={navigation} />
+      <TopBar />
       {(isOpen || isEditOpen) && (
         <TeamModal
           isOpen={isOpen}
@@ -44,7 +44,7 @@ export default function MainPanelScreen({ navigation }: Props): JSX.Element {
       <MainContent>
         <MainPanelContent setIsOpen={() => setIsEditOpen(true)} setTeamData={setTeamData} teamData={teamData} />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </View>
   );
 }

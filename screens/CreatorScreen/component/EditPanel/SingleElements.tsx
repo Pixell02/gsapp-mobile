@@ -1,31 +1,36 @@
 import React, { useContext } from "react";
 import { View } from "react-native";
-import RadioContainer from "../EditPanel/RadioContainer";
-import YourTeam from "../EditPanel/YourTeam";
+import RadioContainer from "./SingleElements/RadioContainer";
+import YourTeam from "./SingleElements/YourTeam";
 import useBackgrounds from "../../hooks/useBackgrounds";
-import OpponentSelect from "../EditPanel/OpponentSelect";
-import DateInput from "../EditPanel/DateInput";
-import LeagueInput from "../EditPanel/LeagueInput";
-import PlaceInput from "../EditPanel/PlaceInput";
+import OpponentSelect from "./SingleElements/OpponentSelect";
+import DateInput from "./SingleElements/DateInput";
+import LeagueInput from "./SingleElements/LeagueInput";
+import PlaceInput from "./SingleElements/PlaceInput";
 import SaveButton from "../EditPanel/SaveButton";
 import RoundedButton from "../../../components/RoundedButton";
 import { LanguageContext } from "../../../../context/LanguageContext";
 import ModalWindows from "../EditPanel/ModalWindows";
 import translate from "../../locales/translate.json";
-import ThemeOption from "./ThemeOption";
+import ThemeOption from "./SingleElements/ThemeOption";
 import Title from "./Title";
-import Result from "./Result";
+import Result from "./SingleElements/Result";
+import Player from "./SingleElements/Player";
 
-const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen }) => {
+const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen, size }) => {
   const { language } = useContext(LanguageContext);
   return (
     <>
       <Title />
-      <ThemeOption webViewRef={webViewRef} uid={uid} />
+      <ThemeOption webViewRef={webViewRef} uid={uid} size={size} />
       {(coords.opponentFirstName || coords.opponentSecondName || coords.opponentImage || coords.opponentName) && (
         <RadioContainer />
       )}
+
       <YourTeam webViewRef={webViewRef} coords={coords} />
+      {(coords.player || coords.playerImage) && (
+        <Player webViewRef={webViewRef} coords={coords} />
+      )}
       {(coords.opponentFirstName || coords.opponentSecondName || coords.opponentImage || coords.opponentName) && (
         <OpponentSelect webViewRef={webViewRef} coords={coords} />
       )}
@@ -56,7 +61,9 @@ const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen }
           />
         </View>
       )}
-      {coords.yourTeamResultOne && (
+      
+      {(coords.yourTeamResult || coords.opponentTeamResult) && <Result webViewRef={webViewRef} coords={coords} />}
+    {coords.yourPlayerOneGoal && (
         <View style={{ marginTop: 10, marginBottom: 10 }}>
           <RoundedButton
             text={translate.addYourTeamGoals[language]}
@@ -64,7 +71,7 @@ const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen }
           />
         </View>
       )}
-      {coords.opponentTeamResultOne && (
+      {coords.opponentPlayerOneGoal && (
         <View style={{ marginTop: 10, marginBottom: 10 }}>
           <RoundedButton
             text={translate.addOpponentTeamGoals[language]}
@@ -72,10 +79,6 @@ const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen }
           />
         </View>
       )}
-      {(coords.yourTeamResult || coords.opponentTeamResult) && (
-        <Result webViewRef={webViewRef} coords={coords} />
-      )}
-      
     </>
   );
 };

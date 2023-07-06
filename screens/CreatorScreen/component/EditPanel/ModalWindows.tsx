@@ -9,19 +9,29 @@ import RoundedButton from "../../../components/RoundedButton";
 import translate from "../../locales/translate.json";
 import { LanguageContext } from "../../../../context/LanguageContext";
 
-const ModalWindows = ({ isModalOpen, setIsModalOpen }) => {
+const ModalWindows = ({ webViewRef, isModalOpen, setIsModalOpen, coords }) => {
   const { language } = useContext(LanguageContext);
   const [capitan, setCapitan] = useState(null);
   const [goalkeeper, setGoalkeeper] = useState(null);
   return (
     <View style={styles.modalContainer}>
-      {isModalOpen.type === "squadPlayers" && <SquadPlayers capitan={capitan} goalkeeper={goalkeeper} />}
-      {isModalOpen.type === "reservePlayers" && <ReservePlayers goalkeeper={goalkeeper} />}
-      {isModalOpen.type === "yourTeamGoals" && <YourTeamGoals />}
-      {isModalOpen.type === "opponentTeamGoals" && <OpponentTeamGoals />}
-      {isModalOpen.type === "PlayersRoles" && (
-        <PlayersRoles capitan={capitan} setCapitan={setCapitan} setGoalkeeper={setGoalkeeper} goalkeeper={goalkeeper} />
+      {isModalOpen.type === ("squadPlayers" || "PlayersRoles") &&
+      <SquadPlayers
+        isModalOpen={isModalOpen}
+        coords={coords}
+        webViewRef={webViewRef}
+        capitan={capitan}
+        setCapitan={setCapitan}
+        goalkeeper={goalkeeper}
+        setGoalkeeper={setGoalkeeper}
+      />
+      }
+      {isModalOpen.type === "reservePlayers" && (
+        <ReservePlayers capitan={capitan} webViewRef={webViewRef} coords={coords} goalkeeper={goalkeeper} />
       )}
+      {isModalOpen.type === "yourTeamGoals" && <YourTeamGoals webViewRef={webViewRef} coords={coords} />}
+      {isModalOpen.type === "opponentTeamGoals" && <OpponentTeamGoals webViewRef={webViewRef} coords={coords} />}
+      
       <View>
         <RoundedButton
           text={translate.close[language]}

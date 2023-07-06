@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Modal, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { View, Modal, Text, StyleSheet, TouchableOpacity, BackHandler } from "react-native";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import { useCollection } from "../../../hooks/useCollection";
 import ItemCenter from "../../components/ItemCenter";
@@ -8,20 +8,24 @@ import MainContent from "../../components/MainContent";
 import CatalogBlock from "../../components/CatalogBlock";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "../../StartingScreen/type";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type IndividualCatalogContentNavigationProp = StackNavigationProp<RootStackParamList, "CreatorScreen">;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-export default function CatalogModal({ isOpen, setIsOpen, name, id, setId, navigation }) {
+export default function CatalogModal({ isOpen, setIsOpen, name, id, setId }) {
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, null, setId);
   const { documents: posters } = useCollection("piecesOfPoster", ["themeId", "==", id]);
-
-  const handlePress = (item) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const handlePress = (item: any) => {
     navigation.navigate("CreatorScreen", { uid: item.uid });
+    setIsOpen(false);
   };
-
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType={"slide"} visible={isOpen} transparent={true}>
+      <Modal animationType={"slide"} visible={isOpen}  onRequestClose={() => setIsOpen(false)}>
         <View style={style.modalContent}>
           <Text style={style.name}>{name}</Text>
           <MainContent>

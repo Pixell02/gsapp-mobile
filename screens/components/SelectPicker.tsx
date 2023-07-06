@@ -25,6 +25,7 @@ const SelectPicker: FC<SelectPickerProps> = ({name, options, onValueChange, sele
         selectedValue={selectedValue ? selectedValue : null}
         onValueChange={(value) => onValueChange(value)}
         >
+          <Picker.Item label='' value='' />
         {options && options.map((option: any, i: number) => (
           <Picker.Item
           key={i}

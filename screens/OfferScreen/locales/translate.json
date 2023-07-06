@@ -1,11 +1,15 @@
 {
   "title": {
-    "pl": "Slep"
+    "pl": "Sklep"
   },
   "license": {
     "pl": "licencja"
   },
   "services": {
     "pl": "usługi"
+  },
+  "temporary": {
+    "pl": "Aktualnie sklep dostępny tylko na",
+    "en": "For now shop is available on"
   }
 }

@@ -5,7 +5,7 @@ import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import Title from "../../components/Title";
 import InputData from "../../components/InputData";
@@ -21,6 +21,13 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
   const { imageUri, setImageUri, handleAddPhoto, preview, setPreview, isImage, setIsImage } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   const {language} = useContext(LanguageContext)
+
+  const handleDeleteItem = () => {
+    const docRef = doc(db, "Opponents", teamData.id);
+    deleteDoc(docRef);
+    setIsEditOpen();
+  }
+
   const handleDeletePhoto = () => {
     setTeamData((prev) => ({
       ...prev,
@@ -104,7 +111,7 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isEditOpen}>
+      <Modal animationType="slide" visible={isEditOpen} onRequestClose={() => setIsEditOpen(false)}>
         <View style={styles.modalContent}>
           <Title name={translate.title[language]} />
           <View style={styles.inputCenter}>
@@ -123,7 +130,7 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
               <View style={styles.picker}>
                 <Picker
                   selectedValue={teamData.team}
-                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, sport: itemValue }))}
+                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
                 >
                   {Teams &&
                     Teams.map((item) => (
@@ -153,6 +160,9 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
             </View>
             <View>
               <RoundedButton text={translate.save[language]} onPress={handleSave} />
+            </View>
+            <View style={{marginTop: 20}}>
+              <RoundedButton text={(translate.delete[language] || translate.delete["en"])} onPress={(handleDeleteItem)} />
             </View>
           </View>
         </View>

@@ -1,18 +1,22 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { View, Modal, StyleSheet, Text, PanResponder, Animated } from "react-native";
+import React, { useState, useRef, useEffect, useContext, useCallback } from "react";
+import { View, Modal, StyleSheet, Text, PanResponder, Animated, BackHandler, Alert } from "react-native";
 import Title from "../../components/Title";
 import ItemCenter from "../../components/ItemCenter";
 import CatalogContainer from "./CatalogContainer";
 import { useCollection } from "../../../hooks/useCollection";
-import { useFocusEffect } from "@react-navigation/native";
 import CatalogModal from "./CatalogModal";
-import translate from "../locales/translate.json"
+import translate from "../locales/translate.json";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../StartingScreen/type";
 
-export default function CatalogContent({navigation}): JSX.Element {
+export default function CatalogContent(): JSX.Element {
   const { documents: catalog } = useCollection("catalog", ["public", "==", true]);
-  const {language} = useContext(LanguageContext)
+  const navigation = useNavigation();
+  const { language } = useContext(LanguageContext);
   const [theme, setTheme] = useState([]);
+
   useEffect(() => {
     if (catalog) {
       const sortedCatalog = [...catalog]; // Tworzenie kopii tablicy catalog
@@ -28,10 +32,10 @@ export default function CatalogContent({navigation}): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
+  console.log(isOpen)
   return (
     <View>
-      {isOpen && <CatalogModal isOpen={isOpen} setIsOpen={setIsOpen} name={name} id={id} setId={setId} navigation={navigation} />}
-
+      {id && isOpen && <CatalogModal isOpen={isOpen} setIsOpen={setIsOpen} name={name} id={id} setId={setId} />}
       <Title name={translate.catalog[language]} />
       <ItemCenter>
         {theme &&
@@ -40,7 +44,6 @@ export default function CatalogContent({navigation}): JSX.Element {
               key={theme.id}
               id={theme.id}
               name={theme.theme}
-              // favorite={theme.favorite}
               open={() => setIsOpen(true)}
               setName={setName}
               setId={setId}

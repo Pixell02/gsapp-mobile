@@ -1,15 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { LanguageContext } from "../../../../context/LanguageContext";
-import { useCollection } from "../../../../hooks/useCollection";
-import { useAuthContext } from "../../../../hooks/useAuthContext";
-import useOpponents from "../../hooks/useOpponents";
-import translate from "../../locales/translate.json";
+import { LanguageContext } from "../../../../../context/LanguageContext";
+import { useCollection } from "../../../../../hooks/useCollection";
+import { useAuthContext } from "../../../../../hooks/useAuthContext";
+import useOpponents from "../../../hooks/useOpponents";
+import translate from "../../../locales/translate.json";
 import { Picker } from "@react-native-picker/picker";
-import RadioContext from "../../context/radioContext";
+import RadioContext from "../../../context/radioContext";
+import { ThemeOptionContext } from "../../../context/themeOptionContext";
 const OpponentSelect = ({webViewRef, coords}) => {
   const { language } = useContext(LanguageContext);
   const { opponentSelect, selectedOpponent, handleFetchOpponent } = useOpponents();
+  const {selectedTheme} = useContext(ThemeOptionContext)
   const { radioChecked } = useContext(RadioContext)
   useEffect(() => {
     if (webViewRef.current && selectedOpponent && coords.opponentImage) {
@@ -50,6 +52,9 @@ const OpponentSelect = ({webViewRef, coords}) => {
           }
         });
         fabricCanvas.renderAll();
+        var themeOption = ${JSON.stringify(coords.opponentFirstName.themeOption)}
+        var font = new FontFaceObserver("${coords.opponentFirstName.FontFamily}")
+      font.load().then(() => {
           var text = new fabric.Text("${selectedOpponent.firstName}", {
             top: ${radioChecked === "radio1" ? coords.opponentFirstName.Top : coords.yourTeamFirstName.Top},
             left: ${radioChecked === "radio1" ? coords.opponentFirstName.Left : coords.yourTeamFirstName.Left},
@@ -64,8 +69,18 @@ const OpponentSelect = ({webViewRef, coords}) => {
           if(text.width > ${coords.opponentFirstName.ScaleToWidth}){
             text.scaleToWidth(${coords.opponentFirstName.ScaleToWidth});
           }
+          if(themeOption){
+            themeOption.forEach((theme, i) => {
+              if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+                text.set({
+                  fill: theme.Fill
+                })
+              }
+            })
+          }
           fabricCanvas.add(text);
           fabricCanvas.renderAll();
+        });
       `);
    
     } if(webViewRef.current && selectedOpponent && coords.opponentSecondName) {
@@ -76,6 +91,9 @@ const OpponentSelect = ({webViewRef, coords}) => {
           }
         });
         fabricCanvas.renderAll();
+        var themeOption = ${JSON.stringify(coords.opponentSecondName.themeOption)}
+        var font = new FontFaceObserver("${coords.opponentSecondName.FontFamily}")
+      font.load().then(() => {
           var text = new fabric.Text("${selectedOpponent.secondName}", {
             top: ${radioChecked === "radio1" ? coords.opponentSecondName.Top : coords.yourTeamSecondName.Top},
             left: ${radioChecked === "radio1" ? coords.opponentSecondName.Left : coords.yourTeamSecondName.Left},
@@ -90,8 +108,19 @@ const OpponentSelect = ({webViewRef, coords}) => {
           if(text.width > ${coords.opponentSecondName.ScaleToWidth}){
             text.scaleToWidth(${coords.opponentSecondName.ScaleToWidth});
           }
+          if(themeOption){
+            themeOption.forEach((theme, i) => {
+              
+              if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+                text.set({
+                  fill: theme.Fill
+                })
+              }
+            })
+          }
           fabricCanvas.add(text);
           fabricCanvas.renderAll();
+        });
       `);
     } if(webViewRef.current && selectedOpponent && coords.opponentName) {
       webViewRef.current.injectJavaScript(`
@@ -101,6 +130,9 @@ const OpponentSelect = ({webViewRef, coords}) => {
           }
         });
         fabricCanvas.renderAll();
+        var themeOption = ${JSON.stringify(coords.opponentName.themeOption)}
+        var font = new FontFaceObserver("${coords.opponentName.FontFamily}")
+      font.load().then(() => {
           var text = new fabric.Text("${selectedOpponent.firstName + " " + selectedOpponent.secondName}", {
             top: ${radioChecked === "radio1" ? coords.opponentName.Top : coords.yourTeamName.Top},
             left: ${radioChecked === "radio1" ? coords.opponentName.Left : coords.yourTeamName.Left},
@@ -115,11 +147,22 @@ const OpponentSelect = ({webViewRef, coords}) => {
           if(text.width > ${coords.opponentName.ScaleToWidth}){
             text.scaleToWidth(${coords.opponentName.ScaleToWidth});
           }
+          if(themeOption){
+            themeOption.forEach((theme, i) => {
+              
+              if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+                text.set({
+                  fill: theme.Fill
+                })
+              }
+            })
+          }
           fabricCanvas.add(text);
           fabricCanvas.renderAll();
+        });
       `);
     }
-  },[selectedOpponent, radioChecked])
+  },[selectedOpponent, radioChecked, selectedTheme])
 
   return (
    <>

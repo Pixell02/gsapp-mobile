@@ -33,7 +33,7 @@ export default function AccountContent({navigation}): JSX.Element {
               <UserAccountData key={data.name} name={data.name} value={data.value} type="normal" backGround="light" />
             ))}
           {license && <LicenseContainer license={license[0]} />}
-          <Stats />
+          {/* <Stats /> */}
         </ItemCenter>
       </View>
     </ScrollView>

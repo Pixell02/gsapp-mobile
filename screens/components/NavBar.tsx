@@ -6,12 +6,12 @@ import { StackNavigationProp, createStackNavigator } from "@react-navigation/sta
 import { RootStackParamList } from "../../screens/StartingScreen/type";
 import translate from "./locales/translateNavbar.json"
 import { LanguageContext } from "../../context/LanguageContext";
-const logo = require("../img/logo.png");
 const cardList = require("../img/icons/card-list.png");
 const gridFill = require("../img/icons/grid-fill.png");
 const people = require("../img/icons/people.png");
 const personRolodex = require("../img/icons/person-rolodex.png");
 const vs = require("../img/icons/vs.png");
+import { useNavigation } from "@react-navigation/native";
 
 interface NavItemProps {
   name: string;
@@ -19,25 +19,24 @@ interface NavItemProps {
   link: keyof RootStackParamList;
 }
 
-const Stack = createStackNavigator<RootStackParamList>();
 
 
-
-const NavBar = ({ navigation }: { navigation: StackNavigationProp<RootStackParamList> }): JSX.Element => {
-  
-  const {language} = useContext(LanguageContext)
+const NavBar = (): JSX.Element => {
+  const { language } = useContext(LanguageContext);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const navItem: NavItemProps[] = [
-  { name: translate.Catalog[language], image: cardList, link: "CatalogScreen" },
-  { name: translate.YourCatalog[language], image: personRolodex, link: "YourCatalogScreen" },
-  { name: translate.YourTeamPanel[language], image: gridFill, link: "MainScreen" },
-  { name: translate.Players[language], image: people, link: "PlayersScreen" },
-  { name: translate.Opponents[language], image: vs, link: "OpponentsScreen" },
-];
+    { name: (translate.Catalog[language] || translate.Catalog["en"]), image: cardList, link: "CatalogScreen" },
+    { name: (translate.YourCatalog[language] || translate.YourCatalog["en"]), image: personRolodex, link: "YourCatalogScreen" },
+    { name: (translate.YourTeamPanel[language] || translate.YourTeamPanel["en"]), image: gridFill, link: "MainScreen" },
+    { name: (translate.Players[language] || translate.Players["en"]), image: people, link: "PlayersScreen" },
+    { name: (translate.Opponents[language] || translate.Opponents["en"]), image: vs, link: "OpponentsScreen" },
+  ];
+
   const handlePress = (item: NavItemProps) => {
-    navigation.navigate(item.link)
-  }
-  
+    navigation.navigate(item.link, null);
+  };
+
   return (
     <View style={styles.navbarContainer}>
       {navItem.map((item) => (

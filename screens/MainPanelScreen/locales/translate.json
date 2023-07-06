@@ -42,6 +42,10 @@
   "de": "zweiter Teil des Teamnamens",
   "fr": "deuxième partie du nom de l'équipe"
   },
+  "sport": {
+    "pl": "sport",
+    "en": "sport"
+  },
   "football": {
   "pl": "piłka nożna",
   "en": "football",
@@ -90,5 +94,12 @@
   "es": "Guardar",
   "de": "Speichern",
   "fr": "Enregistrer"
+  },
+  "delete": {
+    "pl": "Usuń",
+    "en": "Delete",
+    "es": "Eliminar",
+    "de": "Löschen",
+    "fr": "Supprimer"
   }
   }

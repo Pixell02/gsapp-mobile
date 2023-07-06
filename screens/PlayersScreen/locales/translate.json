@@ -68,5 +68,12 @@
     "es": "Guardar",
     "de": "Speichern",
     "fr": "Enregistrer"
+  },
+  "delete": {
+    "pl": "Usuń",
+    "en": "Delete",
+    "es": "Eliminar",
+    "de": "Löschen",
+    "fr": "Supprimer"
   }
 }

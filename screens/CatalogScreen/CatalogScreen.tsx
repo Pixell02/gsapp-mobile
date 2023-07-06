@@ -9,20 +9,16 @@ import CatalogContent from './component/CatalogContent';
 import NavBar from '../components/NavBar';
 
 
-type CatalogScreenNavigationProp = StackNavigationProp<RootStackParamList, "CatalogScreen">;
 
-type Props = {
-  navigation: CatalogScreenNavigationProp;
-};
-
-export default function CatalogScreen({navigation}: Props): JSX.Element {
+export default function CatalogScreen({navigation}): JSX.Element {
+  
   return (
     <ScreenContainer>
-      <TopBar navigation={navigation} />
+      <TopBar />
       <MainContent>
-        <CatalogContent navigation={navigation} />
+        <CatalogContent />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </ScreenContainer>
   )
 }

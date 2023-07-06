@@ -18,11 +18,11 @@ type Props = {
 export default function AccountScreen({navigation}: Props) {
   return (
     <ScreenContainer>
-      <TopBar navigation={navigation} />
+      <TopBar />
       <MainContent>
         <AccountContent navigation={navigation} />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </ScreenContainer>
   )
 }

@@ -1,14 +1,15 @@
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useCollection } from '../../../hooks/useCollection';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import { SelectedTeamContext } from '../context/selectedTeamContext';
 
 const useYourTeam = () => {
   const { user } = useAuthContext();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   const [yourTeams, setYourTeams] = useState(null);
-  const [selectedTeam, setSelectedTeam] = useState(null);
+  const {selectedTeam, setSelectedTeam} = useContext(SelectedTeamContext);
   useEffect(() => {
     if(Teams && Teams.length > 0) {
       
@@ -20,6 +21,9 @@ const useYourTeam = () => {
       setYourTeams(teamOption);
     }
   },[Teams])
+  
+
+  
 
   const handleSelectTeam = (team: any) => {
     if(team.split("...")[2]){

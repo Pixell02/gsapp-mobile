@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useCreateOpponentGoals from "../../hooks2/useCreateOpponentGoals";
-import useCreateYourTeamGoals from "../../hooks2/useCreateYourTeamGoals";
+import useCreateYourTeamGoals from "../../hooks/useCreateYourTeamGoals";
 import yourTeamResult from "./result/yourTeamResult";
 import { useContext } from "react";
 import radioContext from "../../context/radioContext";

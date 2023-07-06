@@ -6,6 +6,7 @@ import MainContent from '../components/MainContent'
 import TopBar from '../components/TopBar'
 import OfferContainer from './component/OfferContainer'
 import LoadingScreen from '../components/LoadingScreen'
+import TemporaryContainer from './component/TemporaryContainer'
 
 const OfferScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,11 +15,12 @@ const OfferScreen = ({navigation}) => {
       {isLoading && <LoadingScreen />}
       {!isLoading &&  (
         <>
-        <TopBar navigation={navigation} />
+        <TopBar />
       <MainContent>
-        <OfferContainer />
+        {/* <OfferContainer /> */}
+        <TemporaryContainer />
       </MainContent>
-      <NavBar navigation={navigation} />
+      <NavBar />
       </>
       )}
       

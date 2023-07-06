@@ -1,25 +1,35 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { useAuthContext } from "../../../../hooks/useAuthContext";
-import { useCollection } from "../../../../hooks/useCollection";
-import translate from "../../locales/translate.json";
-import { LanguageContext } from "../../../../context/LanguageContext";
-import useBackgrounds from "../../hooks/useBackgrounds";
+import { useAuthContext } from "../../../../../hooks/useAuthContext";
+import { useCollection } from "../../../../../hooks/useCollection";
+import translate from "../../../locales/translate.json";
+import { LanguageContext } from "../../../../../context/LanguageContext";
+import useBackgrounds from "../../../hooks/useBackgrounds";
+import { ThemeOptionContext } from "../../../context/themeOptionContext";
 
-export default function ThemeOption({
-  webViewRef,
-  uid,
-}) {
+export default function ThemeOption({ webViewRef, uid, size}) {
   const { language } = useContext(LanguageContext);
   const { backgrounds, selectedBackground, dataURL, handleFetchBackground } = useBackgrounds(uid ? uid : null);
+  const { setSelectedTheme } = useContext(ThemeOptionContext);
   useEffect(() => {
-    if (webViewRef.current) {
+    if(selectedBackground){
+      setSelectedTheme(selectedBackground.split("...")[1]);
+    }
+  }, [selectedBackground]);
+    
+  useEffect(() => {
+    if (webViewRef.current && dataURL) {
       webViewRef.current.injectJavaScript(`
         var fabricCanvas;
         var backgroundImage = new Image();
         backgroundImage.src = "${dataURL}";
+        
         backgroundImage.onload = function() {
+          var image = document.querySelector("#image");
+      var computedStyle = window.getComputedStyle(image);
+      var transformValue = computedStyle.getPropertyValue("transform");
+      image.style.transform = "scale(${600 / size})";
           if(!fabricCanvas){
            fabricCanvas = new fabric.Canvas(canvas, {
             width: backgroundImage.width,
@@ -34,15 +44,21 @@ export default function ThemeOption({
             height: backgroundImage.height
           });
           fabricCanvas.setBackgroundImage(bg, fabricCanvas.renderAll.bind(fabricCanvas));
-         
+         var data = {
+            width: backgroundImage.width,
+            height: backgroundImage.height,
+            type: 'resolution'
+          }
+          window.ReactNativeWebView.postMessage(JSON.stringify(data));
         };
-        
       `);
     }
-  }, [dataURL]);
+  }, [dataURL, size]);
+  
+     
 
   useEffect(() => {
-    if (backgrounds && backgrounds.length === 1) {
+    if (backgrounds && backgrounds.length > 0) {
       handleFetchBackground(backgrounds[0].src + "..." + backgrounds[0].color);
     }
   }, [backgrounds]);

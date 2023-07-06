@@ -11,10 +11,15 @@ export default function LicenseContainer({license}) {
   
   const {language} = useContext(LanguageContext)
  
-  const [licenseData, setLicenseData] = useState([
-    {name: translate.licenseType[language], value: license.license},
-    {name: translate.expireDate[language], value: license.expireDate}
-  ])
+  const [licenseData, setLicenseData] = useState([]);
+
+  console.log(licenseData)
+  useEffect(() => {
+    setLicenseData([
+      { name: translate.licenseType[language], value: license.license },
+      { name: translate.expireDate[language], value: license.expireDate }
+    ]);
+  }, [license, language]);
   
 
   return (
@@ -22,6 +27,9 @@ export default function LicenseContainer({license}) {
       <Text style={styles.title}>{translate.license[language]}</Text>
       <View style={styles.margin}>
       {license.license === "full-license" && licenseData.map(data => (
+        <UserAccountData key={data.name} name={data.name} value={data.value} type='medium' backGround="asd" />
+      ))}
+      {license.license === "no-license" && licenseData.map(data => (
         <UserAccountData key={data.name} name={data.name} value={data.value} type='medium' backGround="asd" />
       ))}
       {license.license === "free-trial" && (

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { View, Text, StyleSheet, BackHandler, Alert } from "react-native";
 import Title from "../../components/Title";
 import ItemBlock from "../../components/ItemBlock";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -29,11 +29,10 @@ export default function MainPanelContent(props: props): JSX.Element {
     }))
     props.setIsOpen();
   }
-  
 
   return (
     <View>
-      <Title name={translate.teamPanel[language]} />
+      <Title name={(translate.teamPanel[language] || translate.teamPanel["en"])} />
       <ItemCenter>
         {Team &&
           Team.map((team) => (

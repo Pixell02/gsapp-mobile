@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { View, Alert, Modal, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import { View, Alert, Modal, Image, TouchableOpacity, Text, TextInput, ScrollView } from "react-native";
 import { styles } from "../../MainPanelScreen/component/styles/styles";
 import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
@@ -20,7 +20,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
   const { imageUri, setImageUri, handleAddPhoto, preview } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-  const {language} = useContext(LanguageContext)
+  const {language} = useContext(LanguageContext);
   useEffect(() => {
     if (preview) {
       setTeamData((prev) => ({
@@ -30,7 +30,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
     }
   }, [preview]);
   const handleSave = async () => {
-    if (!teamData.firstName || !teamData.secondName || !teamData.sport) {
+    if (!teamData.firstName || !teamData.secondName || !teamData.number) {
       Alert.alert(translate.emptyField[language]);
     } else {
       if (teamData.img) {
@@ -63,8 +63,8 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
           async () => {
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
             addDoc(collection(db, "Players"), {
-              firstName: teamData.firstName,
-              secondName: teamData.secondName,
+              firstName: teamData.firstName.trim(),
+              secondName: teamData.secondName.trim(),
               img: downloadURL,
               team: teamData.team,
               uid: user.uid,
@@ -74,8 +74,8 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
       } else {
         const docRef = collection(db, "Players");
         addDoc(docRef, {
-          firstName: teamData.firstName,
-          secondName: teamData.secondName,
+          firstName: teamData.firstName.trim(),
+          secondName: teamData.secondName.trim(),
           img: "",
           team: teamData.team,
           uid: user.uid,
@@ -94,22 +94,23 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen}>
+      <Modal animationType="slide" visible={isOpen} onRequestClose={() => setIsOpen(false)}>
         <View style={styles.modalContent}>
-          <Title name={translate.addPlayer[language]} />
+          <Title name={(translate.addPlayer[language] || translate.addPlayer["en"])} />
+          <ScrollView>
           <View style={styles.inputCenter}>
             <InputData
-              name={translate.name[language]}
+              name={(translate.name[language] || translate.name["en"])}
               text={teamData.firstName}
               onChangeText={(value) => setTeamData((prev) => ({ ...prev, firstName: value }))}
             />
             <InputData
-              name={translate.surName[language]}
+              name={(translate.surName[language] || translate.surName["en"])}
               text={teamData.secondName}
               onChangeText={(value) => setTeamData((prev) => ({ ...prev, secondName: value }))}
             />
             <View style={{width: "100%"}}>
-              <Text style={{fontFamily: "Poppins_Medium"}}>{translate.number[language]}</Text>
+              <Text style={{fontFamily: "Poppins_Medium"}}>{(translate.number[language] || translate.number["en"])}</Text>
             <TextInput 
             keyboardType="numeric"
             style={{borderColor: "#7f7f7f",
@@ -124,14 +125,14 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
             />
             </View>
             <View style={{width: "100%"}}>
-              <Text style={{fontFamily: "Poppins_Medium"}}>{translate.team[language]}</Text>
+              <Text style={{fontFamily: "Poppins_Medium"}}>{(translate.team[language] || translate.team["en"])}</Text>
               <View style={styles.picker}>
                 <Picker
                   selectedValue={teamData.team}
                   onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
                 >
                   {Teams &&
-                    Teams.map((item) => (
+                    Teams.map((item: any) => (
                       <Picker.Item
                         key={item.id}
                         label={item.firstName + " " + item.secondName}
@@ -142,7 +143,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
               </View>
             </View>
             <View style={styles.margin}>
-              <RoundedButton text={translate.addPhoto[language]} onPress={handleAddPhoto} />
+              <RoundedButton text={(translate.addPhoto[language] || translate.addPhoto["en"])} onPress={handleAddPhoto} />
             </View>
             <View style={styles.imageContainer}>
               {preview && (
@@ -159,9 +160,10 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
               )}
             </View>
             <View>
-              <RoundedButton text={translate.save[language]}  onPress={handleSave} />
+              <RoundedButton text={(translate.save[language] || translate.save["en"])}  onPress={handleSave} />
             </View>
           </View>
+          </ScrollView>
         </View>
       </Modal>
     </View>

@@ -39,36 +39,36 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground source={require("../../assets/do_tla.png")} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Input name={translate.email[language]}  onChangeText={(text) => handleInputChange(text, "email")} text={loginData.email} />
+          <Input name={(translate.email[language] || translate.email["en"])}  onChangeText={(text) => handleInputChange(text, "email")} text={loginData.email} />
         </View>
         <View style={styles.inputContainer}>
           <Input
             isPassword={true}
-            name={translate.password[language]} 
+            name={(translate.password[language] || translate.password["en"])} 
             onChangeText={(text) => handleInputChange(text, "password")}
             text={loginData.password}
           />
         </View>
         <View style={styles.buttonContainer}>
           <SocialLoginButton
-            name={translate.loginWithGoogle[language]} 
+            name={(translate.loginWithGoogle[language] || translate.loginWithGoogle["en"])} 
             img={googleLogo}
             press={() => googleLogin(navigation)}
           />
         </View>
         <View style={styles.buttonContainer}>
           <LoginButton
-            name={translate.login[language]} 
+            name={(translate.login[language] || translate.login["en"])} 
             onPress={() => handleOnPress(navigation, loginData.email, loginData.password)}
           />
         </View>
         {error && (
           <View style={{ marginTop: 10 }}>
-            <Text style={{ color: "red" }}>{translate.error[language]}</Text>
+            <Text style={{ color: "red" }}>{(translate.error[language] || translate.error["en"])}</Text>
           </View>
         )}
         <View style={styles.footerContainer}>
-          <Text style={styles.footer}>{translate.terms[language]}</Text>
+          <Text style={styles.footer}>{(translate.terms[language] || translate.terms["en"])}</Text>
         </View>
       </View>
     </ImageBackground>
