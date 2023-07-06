@@ -1,0 +1,147 @@
+{
+  "guide": {
+    "pl": "Samouczek",
+    "en": "Guide",
+    "es": "Guía",
+    "de": "Anleitung",
+    "fr": "Guide"
+  },
+  "chapters": [
+    {
+      "id": "1",
+      "title": {
+        "pl": "1. Panel drużyny",
+        "en": "1. Team Panel",
+        "es": "1. Panel de equipo",
+        "de": "1. Team-Panel",
+        "fr": "1. Panneau d'équipe"
+      },
+      "description": {
+        "pl": "W panelu drużyny znajdują się twoje drużyny. W celu dodania drużyny należy kliknąć przycisk + w prawym dolnym rogu i wypełnić potrzebne pola, czyli pierwsza część nazwy drużyny, druga, wybieramy drużynę oraz opcjonalnie dodajemy herb i klikamy zapisz. W celu edytowania drużyny naciskamy na drużynę, pokazuje się okienko z wypełnionymi polami tekstowymi oraz z widocznym herbem, jeśli jest dostępny.",
+        "en": "The team panel contains your teams. To add a team, click the + button in the lower right corner and fill in the required fields, such as the first part of the team name, the second part, select the team, and optionally add a crest, then click save. To edit a team, click on the team, and an window will appear with filled-in text fields, including the crest if available.",
+        "es": "El panel de equipo contiene tus equipos. Para agregar un equipo, haz clic en el botón + en la esquina inferior derecha y completa los campos necesarios, como la primera parte del nombre del equipo, la segunda parte, selecciona el equipo y, opcionalmente, agrega un escudo, luego haz clic en guardar. Para editar un equipo, haz clic en el equipo y aparecerá una ventana con los campos de texto completos, incluido el escudo si está disponible.",
+        "de": "Das Team-Panel enthält Ihre Teams. Um ein Team hinzuzufügen, klicken Sie auf die Schaltfläche + in der unteren rechten Ecke und füllen Sie die erforderlichen Felder aus, wie den ersten Teil des Teamnamens, den zweiten Teil, wählen Sie das Team aus und fügen Sie optional ein Wappen hinzu, dann klicken Sie auf Speichern. Um ein Team zu bearbeiten, klicken Sie auf das Team, und es wird ein Fenster mit ausgefüllten Textfeldern angezeigt, einschließlich des Wappens, sofern verfügbar.",
+        "fr": "Le panneau d'équipe contient vos équipes. Pour ajouter une équipe, cliquez sur le bouton + dans le coin inférieur droit et remplissez les champs requis, tels que la première partie du nom de l'équipe, la deuxième partie, sélectionnez l'équipe et ajoutez éventuellement un blason, puis cliquez sur Enregistrer. Pour modifier une équipe, cliquez sur l'équipe, et une fenêtre apparaîtra avec les champs de texte remplis, y compris le blason s'il est disponible."
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "pl": "2. Zawodnicy",
+        "en": "2. Players",
+        "es": "2. Jugadores",
+        "de": "2. Spieler",
+        "fr": "2. Joueurs"
+      },
+      "description": {
+        "pl": "W panelu zawodnicy znajdują się posortowani zawodnicy, przy pomocy opcji wyboru drużyny w górnej części ekranu, możemy wybrać zawodników której drużyny chcemy wyświetlić. W celu dodania zawodnika klikamy przycisk + w prawym dolnym rogu ekranu, który spowoduje wyświetlenie się okienka z możliwością wypełnienia pól do dodania danych zawodnika, imię oraz nazwisko są polami obowiązkowymi a numer i zdjęcie są opcjonalne, klikamy zapisz. W celu edytowania danych zawodnika klikamy na zawodnika, pokazuje nam się w ten sposób okienko z wypełnionymi danymi, które możemy edytować, a następnie kliknąć zapisz w celu zapisania zmian.",
+        "en": "The players panel contains sorted players. Using the team selection option at the top of the screen, you can choose which team's players to display. To add a player, click the + button in the lower right corner of the screen, which will bring up a window with fields to enter the player's data. First name and last name are mandatory fields, while number and photo are optional. Click save to add the player. To edit a player's data, click on the player, and a window will appear with filled-in data that you can edit. Click save to save the changes.",
+        "es": "El panel de jugadores contiene jugadores ordenados. Utilizando la opción de selección de equipo en la parte superior de la pantalla, puedes elegir qué jugadores del equipo mostrar. Para agregar un jugador, haz clic en el botón + en la esquina inferior derecha de la pantalla, lo que abrirá una ventana con campos para ingresar los datos del jugador. El nombre y apellido son campos obligatorios, mientras que el número y la foto son opcionales. Haz clic en guardar para agregar al jugador. Para editar los datos de un jugador, haz clic en el jugador y aparecerá una ventana con los datos completos que puedes editar. Haz clic en guardar para guardar los cambios.",
+        "de": "Das Spieler-Panel enthält sortierte Spieler. Mit der Teamauswahl-Option oben auf dem Bildschirm können Sie auswählen, welche Spieler des Teams angezeigt werden sollen. Um einen Spieler hinzuzufügen, klicken Sie auf die Schaltfläche + in der unteren rechten Ecke des Bildschirms, um ein Fenster mit Feldern zur Eingabe der Spielerdaten anzuzeigen. Vorname und Nachname sind obligatorische Felder, während Nummer und Foto optional sindsind. Klicken Sie auf Speichern, um den Spieler hinzuzufügen. Um die Daten eines Spielers zu bearbeiten, klicken Sie auf den Spieler, und es erscheint ein Fenster mit ausgefüllten Daten, die Sie bearbeiten können. Klicken Sie auf Speichern, um die Änderungen zu speichern.",
+        "fr": "Le panneau des joueurs contient des joueurs triés. En utilisant l'option de sélection d'équipe en haut de l'écran, vous pouvez choisir quels joueurs de l'équipe afficher. Pour ajouter un joueur, cliquez sur le bouton + dans le coin inférieur droit de l'écran, ce qui ouvrira une fenêtre avec des champs pour saisir les données du joueur. Le prénom et le nom de famille sont des champs obligatoires, tandis que le numéro et la photo sont facultatifs. Cliquez sur Enregistrer pour ajouter le joueur. Pour modifier les données d'un joueur, cliquez sur le joueur, et une fenêtre apparaîtra avec les données remplies que vous pouvez modifier. Cliquez sur Enregistrer pour enregistrer les modifications."
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "pl": "3. Przeciwnicy",
+        "en": "3. Opponents",
+        "es": "3. Oponentes",
+        "de": "3. Gegner",
+        "fr": "3. Adversaires"
+      },
+      "description": {
+        "pl": "W panelu przeciwnicy znajdują się posortowani przeciwnicy, przy pomocy opcji wyboru drużyny w górnej części ekranu, możemy wybrać przeciwników której drużyny chcemy wyświetlić. W celu dodania przeciwnika klikamy przycisk + w prawym dolnym rogu ekranu, który spowoduje wyświetlenie się okienka z możliwością wypełnienia pól do dodania danych przeciwników, pierwsza oraz druga część nazwy drużyny są obowiązkowe, a zdjęcie jest opcjonalne. Klikamy zapisz. W celu edytowania danych przeciwnika klikamy na przeciwnika, pokazuje nam się w ten sposób okienko z wypełnionymi danymi, które możemy edytować, a następnie kliknąć zapisz w celu zapisania zmian.",
+        "en": "The opponents panel contains sorted opponents. Using the team selection option at the top of the screen, you can choose which team's opponents to display. To add an opponent, click the + button in the lower right corner of the screen, which will bring up a window with fields to enter the opponent's data. The first and second part of the team name are mandatory, and the photo is optional. Click save to add the opponent. To edit an opponent's data, click on the opponent, and a window will appear with filled-in data that you can edit. Click save to save the changes.",
+        "es": "El panel de oponentes contiene oponentes ordenados. Utilizando la opción de selección de equipo en la parte superior de la pantalla, puedes elegir qué oponentes del equipo mostrar. Para agregar un oponente, haz clic en el botón + en la esquina inferior derecha de la pantalla, lo que abrirá una ventana con campos para ingresar los datos del oponente. La primera y segunda parte del nombre del equipo son obligatorias y la foto es opcional. Haz clic en guardar para agregar al oponente. Para editar los datos de un oponente, haz clic en el oponente y aparecerá una ventana con los datos completos que puedes editar. Haz clic en guardar para guardar los cambios.",
+        "de": "Das Gegner-Panel enthält sortierte Gegner. Mit der Teamauswahl-Option oben auf dem Bildschirm können Sie auswählen, welche Gegner des Teams angezeigt werden sollen. Um einen Gegner hinzuzufügen, klicken Sie auf die Schaltfläche + in der unteren rechten Ecke des Bildschirms, um ein Fenster mit Feldern zur Eingabe der Gegnerdaten anzuzeigen. Der erste und zweite Teil des Teamnamens sind obligatorisch, und das Foto ist optional. Klicken Sie auf Speichern, um den Gegner hinzuzufügen. Um die Daten eines Gegners zu bearbeiten, klicken Sie auf den Gegner, und es erscheint ein Fenster mit ausgefüllten Daten, die Sie bearbeiten können. Klicken Sie auf Speichern, um die Änderungen zu speichern.",
+        "fr": "Le panneau des adversaires contient des adversaires triés. En utilisant l'option de sélection d'équipe en haut de l'écran, vous pouvez choisir quels adversaires de l'équipe afficher. Pour ajouter un adversaire, cliquez sur le bouton + dans le coin inférieur droit de l'écran, ce qui ouvrira une fenêtre avec des champs pour saisir les données de l'adversaire. La première et la deuxième partie du nom de l'équipe sont obligatoires, et la photo est facultative. Cliquez sur Enregistrer pour ajouter l'adversaire. Pour modifier les données d'un adversaire, cliquez sur l'adversaire, et une fenêtre apparaîtra avec les données remplies que vous pouvez modifier. Cliquez sur Enregistrer pour enregistrer les modifications."
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "pl": "4. Twój katalog",
+        "en": "4. Your Catalog",
+        "es": "4. Tu catálogo",
+        "de": "4. Ihr Katalog",
+        "fr": "4. Votre catalogue"
+      },
+      "description": {
+        "pl": "W twoim katalogu znajdują się grafiki indywidualne zakupione w naszym sklepie oraz ulubione grafiki z katalogu głównego.",
+        "en": "Your catalog contains individually purchased graphics from our store and favorite graphics from the main catalog.",
+        "es": "Tu catálogo contiene gráficos comprados individualmente en nuestra tienda y gráficos favoritos del catálogo principal.",
+        "de": "Ihr Katalog enthält individuell gekaufte Grafiken aus unserem Geschäft und Lieblingsgrafiken aus dem Hauptkatalog.",
+        "fr": "Votre catalogue contient des graphiques achetés individuellement dans notre magasin et des graphiques favoris du catalogue principal."
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "pl": "5. Katalog",
+        "en": "5. Catalog",
+        "es": "5. Catálogo",
+        "de":"5. Katalog",
+        "fr": "5. Catalogue"
+      },
+      "description": {
+        "pl": "W zakładce katalog znajdują się ogólnodostępne motywy. Po wybraniu motywu można wyświetlić różne rodzaje grafik do wyboru.",
+        "en": "The catalog tab contains publicly available themes. After selecting a theme, various graphics options will be displayed for selection.",
+        "es": "La pestaña de catálogo contiene temas de acceso público. Después de seleccionar un tema, se mostrarán varias opciones de gráficos para elegir.",
+        "de": "Der Katalog-Tab enthält öffentlich zugängliche Themen. Nach der Auswahl eines Themas werden verschiedene Grafikoptionen zur Auswahl angezeigt.",
+        "fr": "L'onglet catalogue contient des thèmes accessibles au public. Après avoir sélectionné un thème, différentes options graphiques seront affichées pour la sélection."
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "pl": "6. Generator",
+        "en": "6. Generator",
+        "es": "6. Generador",
+        "de": "6. Generator",
+        "fr": "6. Générateur"
+      },
+      "description": {
+        "pl": "Po wybraniu grafiki i przekierowaniu do edytora, wyświetla się podgląd grafiki wraz z panelem edycji. Panel edycji umożliwia wybór motywu kolorystycznego, który można dostosować do herbu drużyny. Przy pomocy pól edycji oraz opcji wyboru można dostosować grafikę, a następnie kliknąć zapisz.",
+        "en": "After selecting a graphic and being redirected to the editor, a preview of the graphic is displayed along with an editing panel. The editing panel allows you to choose a color theme that can be customized to match the team's crest. By using the editing fields and selection options, you can customize the graphic, and then click save.",
+        "es": "Después de seleccionar una gráfica y ser redirigido al editor, se muestra una vista previa de la gráfica junto con un panel de edición. El panel de edición te permite elegir un tema de color que se puede personalizar para que coincida con el escudo del equipo. Utilizando los campos de edición y las opciones de selección, puedes personalizar la gráfica y luego hacer clic en guardar.",
+        "de": "Nach der Auswahl einer Grafik und der Weiterleitung zum Editor wird eine Vorschau der Grafik zusammen mit einem Bearbeitungs-Panel angezeigt. Das Bearbeitungs-Panel ermöglicht die Auswahl eines Farbthemas, das an das Wappen des Teams angepasst werden kann. Durch die Verwendung der Bearbeitungsfelder und Auswahlmöglichkeiten können Sie die Grafik anpassen und anschließend auf Speichern klicken.",
+        "fr": "Après avoir sélectionné une image et été redirigé vers l'éditeur, un aperçu de l'image est affiché avec un panneau d'édition. Le panneau d'édition vous permet de choisir un thème de couleur qui peut être personnalisé pour correspondre au blason de l'équipe. En utilisant les champs d'édition et les options de sélection, vous pouvez personnaliser l'image, puis cliquer sur Enregistrer."
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "pl": "7. Kup dostęp",
+        "en": "7. Buy Access",
+        "es": "7. Comprar Acceso",
+        "de": "7. Zugang kaufen",
+        "fr": "7. Acheter l'accès"
+      },
+      "description": {
+        "pl": "Obecnie sklep z przyczyn technicznych znajduje się pod linkiem w zakładce kup dostęp",
+        "en": "Currently, due to technical reasons, the store is located under the link in the 'Buy Access' tab.",
+        "es": "Actualmente, debido a razones técnicas, la tienda se encuentra en el enlace de la pestaña 'Comprar Acceso'.",
+        "de": "Derzeit befindet sich der Shop aus technischen Gründen unter dem Link im Tab 'Zugang kaufen'.",
+        "fr": "Actuellement, pour des raisons techniques, la boutique se trouve sous le lien dans l'onglet 'Acheter l'accès'."
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "pl": "8. Konto",
+        "en": "8. Account",
+        "es": "8. Cuenta",
+        "de": "8. Konto",
+        "fr": "8. Compte"
+      },
+      "description": {
+        "pl": "W panelu konta dostępne są podstawowe informacje o koncie użytkownika.",
+        "en": "The account panel provides basic information about the user's account.",
+        "es": "El panel de cuenta proporciona información básica sobre la cuenta del usuario.",
+        "de": "Das Kontopanel bietet grundlegende Informationen zum Benutzerkonto.",
+        "fr": "Le panneau de compte fournit des informations de base sur le compte de l'utilisateur."
+      }
+    }
+  ]
+}

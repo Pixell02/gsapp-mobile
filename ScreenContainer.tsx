@@ -14,6 +14,7 @@ import PlayersScreen from "./screens/PlayersScreen/PlayersScreen";
 import OpponentsScreen from "./screens/OpponentsScreen/OpponentsScreen";
 import AccountScreen from "./screens/AccountScreen/AccountScreen";
 import OfferScreen from "./screens/OfferScreen/OfferScreen";
+import GuideScreen from "./screens/GuideScreen/GuideScreen";
 const ScreenContainer = () => {
   const { language } = useContext(LanguageContext);
   const Stack = createStackNavigator();
@@ -26,12 +27,13 @@ const ScreenContainer = () => {
         <Stack.Navigator>
           <Stack.Screen name="MainScreen" component={MainPanelScreen} options={{ headerShown: false }} />
           <Stack.Screen name="CatalogScreen" component={CatalogScreen} options={{ headerShown: false }} />
-         <Stack.Screen name="YourCatalogScreen" component={IndividualCatalogScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="YourCatalogScreen" component={IndividualCatalogScreen} options={{ headerShown: false }} />
           <Stack.Screen name="CreatorScreen" component={CreatorScreen} options={{ headerShown: false }} />
           <Stack.Screen name="PlayersScreen" component={PlayersScreen} options={{ headerShown: false }} />
           <Stack.Screen name="OpponentsScreen" component={OpponentsScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AccountScreen" component={AccountScreen} options={{ headerShown: false }} />
           <Stack.Screen name="OfferScreen" component={OfferScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="GuideScreen" component={GuideScreen} options={{headerShown: false }} />
           </Stack.Navigator>
       )}
       {!user && (

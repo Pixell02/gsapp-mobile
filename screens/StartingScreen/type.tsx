@@ -7,12 +7,13 @@ export type RootStackParamList = {
   Register: undefined;
   MainScreen: undefined;
   CatalogScreen: undefined;
-  CreatorScreen: undefined;
+  CreatorScreen: any;
   YourCatalogScreen: undefined;
   PlayersScreen: undefined;
   OpponentsScreen: undefined;
   AccountScreen: undefined;
   OfferScreen: undefined;
+  GuideScreen: undefined;
 };
 
 export type RootStackNavProps<T extends keyof RootStackParamList> = {

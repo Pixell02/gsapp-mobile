@@ -101,5 +101,12 @@
     "es": "Eliminar",
     "de": "Löschen",
     "fr": "Supprimer"
-  }
+  },
+  "guide": {
+    "pl": "Samouczek",
+    "en": "Guide",
+    "es": "Guía",
+    "de": "Anleitung",
+    "fr": "Guide"
+    }
   }
