@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import useProperties from './useProperties';
+import { useEffect, useState } from 'react';
 import useAddMultiplyImageAndText from './useAddMultiplyImageAndText';
 
 const useTextLayer = (fabricRef, coords, properties, selectedMatch) => {

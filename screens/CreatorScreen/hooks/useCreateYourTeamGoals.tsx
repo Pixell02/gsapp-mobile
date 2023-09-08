@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useCollection } from '../../../hooks/useCollection';
+import { useState } from 'react';
 
 export default function useCreateYourTeamGoals(initialState) {
     const [yourTeamGoal, setYourTeamGoal] = useState(initialState);

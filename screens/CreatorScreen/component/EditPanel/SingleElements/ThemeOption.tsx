@@ -1,15 +1,16 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import translate from "../../../locales/translate.json";
+import React, { useContext, useEffect, useRef } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { LanguageContext } from "../../../../../context/LanguageContext";
-import useBackgrounds from "../../../hooks/useBackgrounds";
 import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import useBackgrounds from "../../../hooks/useBackgrounds";
+import translate from "../../../locales/translate.json";
 
 export default function ThemeOption({ webViewRef, uid, size }) {
   const { language } = useContext(LanguageContext);
   const { backgrounds, selectedBackground, dataURL, handleFetchBackground } = useBackgrounds(uid ? uid : null);
   const { setSelectedTheme } = useContext(ThemeOptionContext);
+  const imageRef = useRef(null);
   useEffect(() => {
     if (selectedBackground) {
       setSelectedTheme(selectedBackground.split("...")[1]);
@@ -37,7 +38,8 @@ export default function ThemeOption({ webViewRef, uid, size }) {
             width: backgroundImage.width,
             height: backgroundImage.height
           });
-          fabricCanvas.setBackgroundImage(bg, fabricCanvas.renderAll.bind(fabricCanvas));
+          fabricCanvas.add(bg)
+          // window.ReactNativeWebView.postMessage(JSON.stringify())
          var image = document.querySelector("#image");
       image.style.transform = "scale(${600 / size})";
           var data = {
@@ -45,7 +47,6 @@ export default function ThemeOption({ webViewRef, uid, size }) {
             height: backgroundImage.height,
             type: 'resolution'
           }
-          console.log(data);
           window.ReactNativeWebView.postMessage(JSON.stringify(data));
         };
       `);

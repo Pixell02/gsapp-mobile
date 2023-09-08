@@ -1,77 +1,77 @@
 import React, { useRef, useState } from "react";
 import { View } from "react-native";
 import { WebView } from "react-native-webview";
+import useFetch from "../../hooks/useFetch";
 import EditPanel from "./component/EditPanel";
-import useCoords from "./hooks/useCoords";
-import { poppinsThinItalic } from "./convertedFonts/poppinsThinItalic";
-import { poppinsExtraBoldItalic } from "./convertedFonts/poppinsExtraBoldItalic";
-import { baiJamjureeRegular } from "./convertedFonts/baiJamjureeRegular";
-import { baiJamjureeBoldItalic } from "./convertedFonts/baiJamjureeBoldItalic";
 import { baiJamjureeBold } from "./convertedFonts/baiJamjureeBold";
-import { ralewayMedium } from "./convertedFonts/ralewayMedium";
-import { ralewayBlack } from "./convertedFonts/ralewayBlack";
-import { impact } from "./convertedFonts/impact";
-import { russoOne } from "./convertedFonts/russoOne";
-import { eurostarblack } from "./convertedFonts/eurostarblack";
-import { poppinsRegular } from "./convertedFonts/poppinsRegular";
-import { poppinsBold } from "./convertedFonts/poppinsBold";
-import { poppinsBlack } from "./convertedFonts/poppinsBlack";
-import { poppinsItalic } from "./convertedFonts/poppinsItalic";
+import { baiJamjureeBoldItalic } from "./convertedFonts/baiJamjureeBoldItalic";
+import { baiJamjureeRegular } from "./convertedFonts/baiJamjureeRegular";
 import { baroNeueBlack } from "./convertedFonts/baronNeueBlack";
-import { oxaniumBold } from "./convertedFonts/oxaniumBold";
-import { oxaniumRegular } from "./convertedFonts/oxaniumRegular";
+import { eurostarblack } from "./convertedFonts/eurostarblack";
 import { goldmanBold } from "./convertedFonts/goldmanBold";
 import { goldmanRegular } from "./convertedFonts/goldmanRegular";
+import { gravtec } from "./convertedFonts/gravtec";
+import { helvetica } from "./convertedFonts/helvetica";
+import { impact } from "./convertedFonts/impact";
 import { kenyanCoffe } from "./convertedFonts/kenyanCoffe";
+import { kenyanCoffeBold } from "./convertedFonts/kenyanCoffeBold";
+import { kenyanCoffeBoldItalic } from "./convertedFonts/kenyanCoffeBoldItalic";
+import { kenyanCoffeItalic } from "./convertedFonts/kenyanCoffeItalic";
 import { madeOuterSansBlack } from "./convertedFonts/madeOuterSansBlack";
 import { madeOuterSansRegular } from "./convertedFonts/madeOuterSansRegular";
 import { madeOuterSansThin } from "./convertedFonts/madeOuterSansThin";
-import { helvetica } from "./convertedFonts/helvetica";
+import { motorBlock } from "./convertedFonts/motorBlock";
+import { nexeHeavy } from "./convertedFonts/nexeHeavy";
 import { nowBlack } from "./convertedFonts/nowBlack";
 import { nowLight } from "./convertedFonts/nowLight";
-import { tekoSemiBold } from "./convertedFonts/tekoSemiBold";
 import { nowThin } from "./convertedFonts/nowThin";
-import exportImage from "./functions/exportImage";
-import { useCollection } from "../../hooks/useCollection";
-import { nexeHeavy } from "./convertedFonts/nexeHeavy";
-import { gravtec } from "./convertedFonts/gravtec";
+import { oxaniumBold } from "./convertedFonts/oxaniumBold";
+import { oxaniumRegular } from "./convertedFonts/oxaniumRegular";
 import { paladinsExpanded } from "./convertedFonts/paladinsExpanded";
-import { kenyanCoffeBold } from "./convertedFonts/kenyanCoffeBold";
-import { kenyanCoffeItalic } from "./convertedFonts/kenyanCoffeItalic";
-import { kenyanCoffeBoldItalic } from "./convertedFonts/kenyanCoffeBoldItalic";
-import { motorBlock } from "./convertedFonts/motorBlock";
-import useBackgrounds from "./hooks/useBackgrounds";
+import { poppinsBlack } from "./convertedFonts/poppinsBlack";
+import { poppinsBold } from "./convertedFonts/poppinsBold";
+import { poppinsExtraBoldItalic } from "./convertedFonts/poppinsExtraBoldItalic";
+import { poppinsItalic } from "./convertedFonts/poppinsItalic";
+import { poppinsRegular } from "./convertedFonts/poppinsRegular";
+import { poppinsThinItalic } from "./convertedFonts/poppinsThinItalic";
+import { ralewayBlack } from "./convertedFonts/ralewayBlack";
+import { ralewayMedium } from "./convertedFonts/ralewayMedium";
+import { russoOne } from "./convertedFonts/russoOne";
+import { tekoSemiBold } from "./convertedFonts/tekoSemiBold";
 import { typoSpeedBlackItalic } from "./convertedFonts/typoSpeedBlackItalic";
+import useBackgrounds from "./hooks/useBackgrounds";
+import useCoords from "./hooks/useCoords";
+import useMessageContext from "./hooks/useMessageContext";
 
 function WorkSpace({ uid }) {
   const webViewRef = useRef(null);
-  const [fontLoaded, setFontLoaded] = useState(false);
-  const { backgrounds, selectedBackground, dataURL, handleFetchBackground } = useBackgrounds(uid ? uid : null);
+  const { backgrounds, handleFetchBackground } = useBackgrounds(
+    uid ? uid : null
+  );
+  const {handleMessage} = useMessageContext();
   const [isLoadEnded, setIsLoadEnded] = useState(false);
   const [size, setSize] = useState(700);
   const { coords } = useCoords(uid ? uid : null);
-  const [text, setText] = useState("");
   const handleWebViewError = (syntheticEvent) => {
     const { nativeEvent } = syntheticEvent;
-    console.log(nativeEvent.description);
   };
-  console.log(coords)
+  const { image: watermark } = useFetch(
+    "https://firebasestorage.googleapis.com/v0/b/poster-dd714.appspot.com/o/logo%2Fadaptive-icon.png?alt=media&token=c3970fb2-b78a-4339-868a-79c7763cf9ed"
+  );
 
-  
-  const handleMessage = async (e: any) => {
-    const message = JSON.parse(e.nativeEvent.data);
-    
-    if(message.type === "image") {
-      exportImage(message.message)
-    } else {
-      if(message.width > message.height) {
-      setSize(message.width)
-    } else {
-      setSize(message.height)
-    }
-  }
-  };
-  
+  // const handleMessage = async (e: any) => {
+  //   const message = JSON.parse(e.nativeEvent.data);
+  //   if (message.type === "image") {
+  //     exportImage(message.message);
+  //   } else {
+  //     if (message.width > message.height) {
+  //       setSize(message.width);
+  //     } else {
+  //       setSize(message.height);
+  //     }
+  //   }
+  // };
+
   return (
     <View style={{ flex: 1, width: "100%" }}>
       <WebView
@@ -251,29 +251,40 @@ function WorkSpace({ uid }) {
   </head>
   
   <body  style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-    <div id="image" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-      <canvas id="canvas"></canvas>
+    <div id="image" style="display: flex; align-items:center; justify-content:center;">
+    
+    <img src="${watermark}" id="watermark" style="position: absolute; z-index: 1; opacity: 0"/>
+    <canvas id="canvas"/>
     </div>
     <script>
-      var canvas = document.getElementById("canvas");
+      var canvas = document.getElementById("canvas")
     </script>
   </body>
 </html>
-`
+`,
         }}
-        style={{ width: "100%", flex: 1}}
+        style={{ width: "100%", flex: 1 }}
         javaScriptEnabled={true}
         originWhitelist={["*"]}
         onError={handleWebViewError}
-        onMessage={handleMessage}
+        // onMessage={(e) => handleMessage(e)}
         onLoad={() => console.log("loading")}
         onLoadEnd={() => {
-          handleFetchBackground(backgrounds[0]?.src + "..." + backgrounds[0]?.color)
-          
-            setIsLoadEnded(true);
+          handleFetchBackground(
+            backgrounds[0]?.src + "..." + backgrounds[0]?.color
+          );
+
+          setIsLoadEnded(true);
         }}
       />
-      {coords && isLoadEnded && size && <EditPanel webViewRef={webViewRef} size={size} uid={uid} coords={coords} />}
+      {coords && isLoadEnded && size && (
+        <EditPanel
+          webViewRef={webViewRef}
+          size={size}
+          uid={uid}
+          coords={coords}
+        />
+      )}
     </View>
   );
 }

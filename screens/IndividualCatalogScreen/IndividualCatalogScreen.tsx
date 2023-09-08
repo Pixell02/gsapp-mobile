@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import {StyleSheet, View} from 'react-native'
-import ScreenContainer from '../components/ScreenContainer'
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../StartingScreen/type';
-import TopBar from '../components/TopBar';
-import MainContent from '../components/MainContent';
-import MainPanelContent from '../MainPanelScreen/component/MainPanelContent';
-import NavBar from '../components/NavBar';
-import IndividualCatalogContent from './components/IndividualCatalogContent';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { db } from '../../firebase/config';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Alert from '../MainPanelScreen/Alert';
+import { RootStackParamList } from '../StartingScreen/type';
+import MainContent from '../components/MainContent';
+import ScreenContainer from '../components/ScreenContainer';
+import TopBar from '../components/TopBar';
+import IndividualCatalogContent from './components/IndividualCatalogContent';
 
 type YourCatalogScreenNavigationProp = StackNavigationProp<RootStackParamList, "YourCatalogScreen">;
 
@@ -56,7 +54,6 @@ export default function IndividualCatalogScreen({navigation}: Props) {
       <MainContent>
         <IndividualCatalogContent />
       </MainContent>
-      {/* <NavBar /> */}
     </ScreenContainer>
     )}
     </View>

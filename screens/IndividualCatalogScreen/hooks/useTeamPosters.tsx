@@ -1,11 +1,9 @@
-import React from 'react'
-import { useEffect } from 'react'
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { db } from '../../../firebase/config';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useCollection } from '../../../hooks/useCollection';
 import { useDoc } from '../../../hooks/useDoc';
-import { useAuthContext } from '../../../hooks/useAuthContext';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from '../../../firebase/config';
-import { useState } from 'react';
 
 const useTeamPosters = () => {
   const { user } = useAuthContext();

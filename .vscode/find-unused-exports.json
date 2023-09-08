@@ -1,0 +1,9 @@
+{
+  "ignore": {
+    "files": [
+      "d:/programowanie/G apps/gsapp mobile/2ga wersja/gsapp/App.tsx",
+      "d:/programowanie/G apps/gsapp mobile/2ga wersja/gsapp/context/AuthContext.tsx",
+      "d:/programowanie/G apps/gsapp mobile/2ga wersja/gsapp/screens/StartingScreen/type.tsx"
+    ]
+  }
+}

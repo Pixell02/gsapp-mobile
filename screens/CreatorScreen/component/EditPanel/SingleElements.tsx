@@ -1,23 +1,20 @@
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import RadioContainer from "./SingleElements/RadioContainer";
-import YourTeam from "./SingleElements/YourTeam";
-import useBackgrounds from "../../hooks/useBackgrounds";
-import OpponentSelect from "./SingleElements/OpponentSelect";
+import { LanguageContext } from "../../../../context/LanguageContext";
+import RoundedButton from "../../../components/RoundedButton";
+import translate from "../../locales/translate.json";
 import DateInput from "./SingleElements/DateInput";
 import LeagueInput from "./SingleElements/LeagueInput";
+import OpponentSelect from "./SingleElements/OpponentSelect";
 import PlaceInput from "./SingleElements/PlaceInput";
-import SaveButton from "../EditPanel/SaveButton";
-import RoundedButton from "../../../components/RoundedButton";
-import { LanguageContext } from "../../../../context/LanguageContext";
-import ModalWindows from "../EditPanel/ModalWindows";
-import translate from "../../locales/translate.json";
-import ThemeOption from "./SingleElements/ThemeOption";
-import Title from "./Title";
-import Result from "./SingleElements/Result";
 import Player from "./SingleElements/Player";
-import TextInput from "./SingleElements/TextInput";
+import RadioContainer from "./SingleElements/RadioContainer";
+import Result from "./SingleElements/Result";
 import TextBoxInput from "./SingleElements/TextBoxInput";
+import TextInput from "./SingleElements/TextInput";
+import ThemeOption from "./SingleElements/ThemeOption";
+import YourTeam from "./SingleElements/YourTeam";
+import Title from "./Title";
 
 const SingleElements = ({ coords, webViewRef, uid, isModalOpen, setIsModalOpen, size }) => {
   const { language } = useContext(LanguageContext);

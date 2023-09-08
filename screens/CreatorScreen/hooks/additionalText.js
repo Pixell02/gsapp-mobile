@@ -1,6 +1,5 @@
-import React from "react";
-import FontFaceObserver from "fontfaceobserver";
 import { fabric } from "fabric";
+import FontFaceObserver from "fontfaceobserver";
 
 function additionalText(fabricRef, props) {
   

@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCollection } from '../../../hooks/useCollection'
 
 const useCoords = (uid) => {

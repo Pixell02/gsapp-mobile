@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
-import styles from "./style";
-import ItemCenter from "../../components/ItemCenter";
 import { ScrollView } from "react-native-gesture-handler";
+import ItemCenter from "../../components/ItemCenter";
+import { LicenseContext } from "../context/licenseContext";
 import { RadioProvider } from "../context/radioContext";
-import SaveButton from "./EditPanel/SaveButton";
-import ModalWindows from "./EditPanel/ModalWindows";
-import SingleElements from "./EditPanel/SingleElements";
 import { SelectedTeamProvider } from "../context/selectedTeamContext";
 import { ThemeOptionProvider } from "../context/themeOptionContext";
 import FreeLicenseInformation from "./EditPanel/FreeLicenseInformation";
-import { LicenseContext } from "../context/licenseContext";
+import ModalWindows from "./EditPanel/ModalWindows";
 import MultiElementButton from "./EditPanel/MultiElementButton";
+import SaveButton from "./EditPanel/SaveButton";
+import SingleElements from "./EditPanel/SingleElements";
+import styles from "./style";
 
 const EditPanel = ({ webViewRef, uid, coords, size}) => {
   const { license } = useContext(LicenseContext);

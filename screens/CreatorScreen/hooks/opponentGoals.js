@@ -1,6 +1,5 @@
-import React from "react";
-import FontFaceObserver from "fontfaceobserver";
 import { fabric } from "fabric";
+import FontFaceObserver from "fontfaceobserver";
 
 export default function opponentGoals(fabricRef, props) {
   if (props.opponentGoal && props.opponentGoalMinute && props.coords.opponentPlayerOneGoal) {

@@ -1,21 +1,17 @@
-import React, { useContext } from "react";
-import { View, Image } from "react-native"; // Import Image from react-native
-import Title from "../../components/Title";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import ItemBlock from "../../components/ItemBlock";
-import ItemCenter from "../../components/ItemCenter";
-import { LanguageContext } from "../../../context/LanguageContext";
-import translate from "../locales/translate.json";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useContext } from "react";
+import { View } from "react-native"; // Import Image from react-native
+import { LanguageContext } from "../../../context/LanguageContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { RootStackParamList } from "../../StartingScreen/type";
-import NavBlock from "./NavBlock";
+import ItemBlock from "../../components/ItemBlock";
+import ItemCenter from "../../components/ItemCenter";
 import RoundedButton from "../../components/RoundedButton";
+import Title from "../../components/Title";
 import useTeamPosters from "../hooks/useTeamPosters";
-import MainPanelScreen from "../../MainPanelScreen/MainPanelScreen";
-import PlayersScreen from "../../PlayersScreen/PlayersScreen";
-import OpponentsScreen from "../../OpponentsScreen/OpponentsScreen";
-import CatalogScreen from "../../CatalogScreen/CatalogScreen";
+import translate from "../locales/translate.json";
+import NavBlock from "./NavBlock";
 
 type IndividualCatalogContentNavigationProp = StackNavigationProp<RootStackParamList, "CreatorScreen">;
 
