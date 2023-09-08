@@ -55,6 +55,63 @@
     "de": "Team",
     "fr": "Équipe"
   },
+  "teamPlayers": {
+    "pl": "Zawodnicy drużyny",
+    "en": "Team Players",
+    "es": "Jugadores del equipo",
+    "de": "Mannschaftsspieler",
+    "fr": "Joueurs de l'équipe"
+  },
+  "squadPreset": {
+    "pl": "Wzory składów",
+    "en": "Squad presets",
+    "es": "Preajustes de escuadra",
+    "de": "Mannschafts-Voreinstellungen",
+    "fr": "Préréglages d'équipe"
+  },
+  "addPreset": {
+    "pl": "Dodaj wzór",
+    "en": "Add preset",
+    "es": "Agregar preajuste",
+    "de": "Voreinstellung hinzufügen",
+    "fr": "Ajouter un préréglage"
+  },
+  "addReserve": {
+    "pl": "Rezerwowi",
+    "en": "Add Reserve",
+    "es": "Agregar Reserva",
+    "de": "Reserve hinzufügen",
+    "fr": "Ajouter une réserve"
+},
+"capitan": {
+  "pl": "Kapitan",
+  "en": "Capitan",
+  "es": "Capitán",
+  "de": "Kapitän",
+  "fr": "Capitaine"
+},
+"close": {
+  "pl": "Zamknij",
+  "en": "close",
+  "es": "cerrar",
+  "de": "schließen",
+  "fr": "fermer"
+}
+,
+"goalkeeper": {
+  "pl": "Bramkarz",
+  "en": "Goalkeeper",
+  "es": "Portero",
+  "de": "Torwart",
+  "fr": "Gardien de but"
+},
+"startingSquad": {
+    "pl": "Wyjściowa 11",
+    "en": "Starting Squad",
+    "es": "Plantilla titular",
+    "de": "Startaufstellung",
+    "fr": "Équipe de départ"
+},
   "addPhoto": {
     "pl": "Dodaj zdjęcie",
     "en": "Add Photo",

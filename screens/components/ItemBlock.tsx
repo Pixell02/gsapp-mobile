@@ -41,16 +41,15 @@ export default ItemBlock;
 const styles = StyleSheet.create({
   touchableContainer: {
     zIndex: 10,
-    width: "60%",
+    width: 200,
     height: 150,
     marginTop: 20,
     borderWidth: 1,
-    borderRadius: 10,
     borderColor: "#c4c3c3",
     backgroundColor: "white",
   },
   container: {
-    width: 250,
+    width: 200,
     height: "100%",
     
   },
@@ -71,8 +70,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 100,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
     flex: 1,
     resizeMode: "contain",
   },

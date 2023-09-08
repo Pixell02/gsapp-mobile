@@ -18,7 +18,7 @@ export default StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    width: 350,
+    width: 250,
     borderRadius: 5,
   },
   buttonTitle: {

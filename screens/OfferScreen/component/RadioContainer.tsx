@@ -1,8 +1,14 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {Linking, View, StyleSheet, Text} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 
 const RadioContainer = ({checked, handleCheckedChange}) => {
+
+  const handleClick = () => {
+    const url = `https://grafika-sportowa.pl/sklep/`
+    Linking.openURL(url)
+  }
   return (
     <View style={styles.radioContainer}>
       <RadioButton.Group
@@ -14,6 +20,13 @@ const RadioContainer = ({checked, handleCheckedChange}) => {
           <RadioButton.Item label="usługi" value="usługi" />
         </View>
       </RadioButton.Group>
+      {checked === "usługi" && (
+        <View>
+          <TouchableOpacity onPress={handleClick}>
+          <Text style={{color: "blue"}}>Zakup usług dostępne pod linkiem</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   )
 }

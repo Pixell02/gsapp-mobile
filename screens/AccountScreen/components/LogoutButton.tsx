@@ -9,10 +9,11 @@ import { useLogout } from "../../../hooks/useLogout";
 const LogoutButton = ({ navigation }) => {
   const {language} = useContext(LanguageContext)
   const {logout} = useLogout();
+ 
 
   return (
     <TouchableOpacity style={styles.button} onPress={logout}>
-      <Text style={styles.text}>{translate.logOut[language]}</Text>
+      <Text style={styles.text}>{translate.logOut[language] || translate.logOut["en"]}</Text>
     </TouchableOpacity>
   );
 };
@@ -23,14 +24,13 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     marginLeft: 10,
     height: 30,
-    borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
     color: "white",
     fontFamily: "Poppins_Medium",
-    fontSize: 10,
+    fontSize: 12,
   },
 });
 

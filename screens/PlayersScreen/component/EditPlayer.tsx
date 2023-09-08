@@ -5,7 +5,7 @@ import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import Title from "../../components/Title";
 import InputData from "../../components/InputData";
@@ -21,9 +21,9 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
   const { user } = useAuthContext();
   const {language} = useContext(LanguageContext)
   const panResponder = useCustomPanResponder(isEditOpen, setIsEditOpen, setTeamData);
-  const { imageUri, setImageUri, handleAddPhoto, preview, setPreview, isImage, setIsImage } = useAddImage();
+  const { handleAddPhoto, preview, setPreview, isImage, setIsImage } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-  
+ 
   const handleDeletePhoto = () => {
     setTeamData((prev) => ({
       ...prev,
@@ -35,7 +35,17 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
   const handleDeleteItem = () => {
     const docRef = doc(db, "Players", teamData.id);
     deleteDoc(docRef);
-    setIsEditOpen();
+    setTeamData((prev) => ({
+      ...prev,
+      id:"",
+      firstName: "",
+      secondName: "",
+      img: "",
+      team: "",
+      number: "",
+      uid: user.uid,
+    }));
+    setIsEditOpen(0);
   }
 
 
@@ -85,8 +95,7 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
               firstName: teamData.firstName.trim(),
               secondName: teamData.secondName.trim(),
               img: downloadURL,
-              number: teamData.number.trim(),
-              uid: user.uid,
+              number: teamData.number,
             });
           }
         );
@@ -97,23 +106,24 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
           secondName: teamData.secondName.trim(),
           number: teamData.number.trim(),
           img: teamData.img?teamData.img:"",
-          uid: user.uid,
         });
       }
       setTeamData((prev) => ({
         ...prev,
+        id:"",
         firstName: "",
         secondName: "",
         img: "",
         team: "",
+        number: "",
         uid: user.uid,
       }));
-      setIsEditOpen();
+      setIsEditOpen(0);
     }
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isEditOpen} onRequestClose={() => setIsEditOpen(false)}>
+      <Modal animationType="slide" visible={isEditOpen === 2} onRequestClose={() => setIsEditOpen(0)}>
         <View style={styles.modalContent}>
           <Title name={translate.editPlayer[language]} />
           <ScrollView>
@@ -140,7 +150,7 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
             width: "100%",
             backgroundColor: "#fff",}}
             value={teamData.number}
-            onChangeText={(value) => setTeamData((prev) => ({...prev, number: parseFloat(value) }))}
+            onChangeText={(value) => setTeamData((prev) => ({...prev, number: value }))}
             />
             </View>
             <View style={{width: "100%"}}>
@@ -148,7 +158,7 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
               <View style={styles.picker}>
                 <Picker
                   selectedValue={teamData.team}
-                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, sport: itemValue }))}
+                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
                 >
                   {Teams &&
                     Teams.map((item) => (
@@ -178,10 +188,10 @@ const EditPlayer = ({ isEditOpen, teamData, setIsEditOpen, setTeamData }) => {
                 </>
               )}
             </View>
-            <View>
-              <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={handleSave} />
+            <View style={{width: "100%"}}>
+              <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={() => handleSave()} />
             </View>
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 20, width:"100%"}}>
               <RoundedButton text={(translate.delete[language] || translate.delete["en"])} onPress={(handleDeleteItem)} />
             </View>
           </View>

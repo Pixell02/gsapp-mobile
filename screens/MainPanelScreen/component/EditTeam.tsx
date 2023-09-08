@@ -158,13 +158,12 @@ export default function EditTeam({ isEditOpen, teamData, setIsEditOpen, setTeamD
             <View
               style={{
                 borderWidth: 1,
-                borderColor: "black",
+                borderColor: "#7f7f7f",
                 padding: 10,
                 width: "100%",
                 height: 50,
                 alignContent: "center",
                 justifyContent: "center",
-                borderRadius: 10,
               }}
             >
               <Picker
@@ -196,10 +195,10 @@ export default function EditTeam({ isEditOpen, teamData, setIsEditOpen, setTeamD
                 </>
               )}
             </View>
-            <View>
+            <View style={{width: "100%"}}>
               <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={handleSave} />
             </View>
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 40, width: "100%"}}>
               <RoundedButton text={(translate.delete[language] || translate.delete["en"])} onPress={handleDeleteTeam} />
             </View>
           </View>

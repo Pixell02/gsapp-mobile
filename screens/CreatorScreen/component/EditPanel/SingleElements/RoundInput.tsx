@@ -57,7 +57,7 @@ const RoundInput = ({webViewRef, coords}) => {
   return (
     <View>
       <Input 
-      name={translate.typeRound[language]} 
+      name={translate.typeRound[language] || translate.typeRound["en"]} 
       value={typeRound} 
       onChangeText={(value) => setTypeRound(value)} 
       />

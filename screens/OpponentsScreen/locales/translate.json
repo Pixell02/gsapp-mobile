@@ -34,12 +34,48 @@
     "de": "Erster Teil des Gegnernamens",
     "fr": "Première partie du nom de l'adversaire"
   },
+  "add": {
+    "pl": "dodaj",
+    "en": "add",
+    "es": "añadir",
+    "de": "hinzufügen",
+    "fr": "ajouter"
+  },
+  "close": {
+    "pl": "Zamknij",
+    "en": "Close",
+    "es": "Cerrar",
+    "de": "Schließen",
+    "fr": "Fermer"
+},
+"place": {
+    "pl": "Miejsce",
+    "en": "Place",
+    "es": "Lugar",
+    "de": "Ort",
+    "fr": "Endroit"
+}
+,
   "secondOpponentName": {
     "pl": "Druga część nazwy przeciwnika",
     "en": "Second part of opponent's name",
     "es": "Segunda parte del nombre del adversario",
     "de": "Zweiter Teil des Gegnernamens",
     "fr": "Deuxième partie du nom de l'adversaire"
+  },
+  "opponentTeams": {
+    "pl": "Przeciwnicy drużowi",
+    "en": "Teams opponents",
+    "es": "Equipos adversarios",
+    "de": "Gegnerische Teams",
+    "fr": "Équipes adverses"
+  },
+  "places": {
+    "pl": "Miejsca",
+    "en": "Places",
+    "es": "Lugares",
+    "de": "Plätze",
+    "fr": "Places"
   },
   "team": {
     "pl": "Drużyna",

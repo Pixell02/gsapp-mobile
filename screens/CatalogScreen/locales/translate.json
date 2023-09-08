@@ -5,5 +5,9 @@
     "es": "Catálogo",
     "de": "Katalog",
     "fr": "Catalogue"
+  },
+  "sport": {
+    "pl": "sport",
+    "en": "sport"
   }
 }

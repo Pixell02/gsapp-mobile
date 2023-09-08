@@ -24,7 +24,7 @@ const ChapterModal = ({ chapter, isOpen, setIsOpen }) => {
             )}
             
           </View>
-          <View>
+          <View style={{width: 200}}>
             <RoundedButton text="Zamknij" onPress={() => setIsOpen(prev => ({...prev, id: null, open: false}))} />
           </View>
         </ItemCenter>
@@ -38,6 +38,7 @@ export default ChapterModal;
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    width: 200
   }
 })

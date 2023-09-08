@@ -15,8 +15,8 @@ const RadioContainer = () => {
       value={radioChecked}
     >
       <View style={{flexDirection: "row"}}>
-        <RadioButton.Item label={translate.host[language]} value="radio1" />
-        <RadioButton.Item style={{marginLeft: 30}} label={translate.guest[language]} value="radio2" />
+        <RadioButton.Item label={translate.host[language] || translate.host["en"]} value="radio1" />
+        <RadioButton.Item style={{marginLeft: 30}} label={translate.guest[language] || translate.guest["en"]} value="radio2" />
       </View>
     </RadioButton.Group>
   </View>

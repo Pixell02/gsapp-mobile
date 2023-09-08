@@ -1,15 +1,29 @@
-import { Button, ImageBackground, StyleSheet, Switch, Text, View } from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 import RoundedButton from "../components/RoundedButton";
-import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import translate from "./locales/startingScreen.json"
+import translate from "./locales/startingScreen.json";
 import styles from "./style";
 import { LanguageContext } from "../../context/LanguageContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GoogleAuthProvider, getAuth, signInWithCredential } from "firebase/auth";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
+export default function StartingScreen({ navigation }) {
+  const { language } = useContext(LanguageContext);
+  const { dispatch } = useAuthContext();
 
-export default function StartingScreen({ navigation }){
+  useEffect(() => {
+    AsyncStorage.getItem("accessToken").then((res) => {
+      if (res) {
+        const googleCredential = GoogleAuthProvider.credential(null, res);
 
-  const { language } = useContext(LanguageContext) 
+        const userSignIn = signInWithCredential(getAuth(), googleCredential);
+        userSignIn.then((res) => {
+          dispatch({ type: "LOGIN", payload: res.user });
+        });
+      }
+    });
+  }, []);
 
   const handleLoginPress = () => {
     navigation.navigate("Login");
@@ -23,9 +37,9 @@ export default function StartingScreen({ navigation }){
     <ImageBackground source={require("../../assets/do_tla.png")} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.block}>
-          <Text style={styles.text}>{(translate.haveAccount[language] || translate.haveAccount["en"])}</Text>
+          <Text style={styles.text}>{translate.haveAccount[language] || translate.haveAccount["en"]}</Text>
           <View style={styles.button}>
-            <RoundedButton text={(translate.login[language] || translate.login["en"])} onPress={handleLoginPress} />
+            <RoundedButton text={translate.login[language] || translate.login["en"]} onPress={handleLoginPress} />
           </View>
         </View>
         <View style={styles.block}>
@@ -33,8 +47,13 @@ export default function StartingScreen({ navigation }){
         </View>
         <View style={styles.block}>
           <View style={styles.block}>
-            <Text style={styles.text}>{(translate.wantToChange[language] || translate.wantToChange["en"])}</Text>
-            <RoundedButton text={(translate.register[language] || translate.register["en"])} onPress={handleRegisterPress} />
+            <Text style={styles.text}>{translate.wantToChange[language] || translate.wantToChange["en"]}</Text>
+            <View style={styles.button}>
+              <RoundedButton
+                text={translate.register[language] || translate.register["en"]}
+                onPress={handleRegisterPress}
+              />
+            </View>
           </View>
         </View>
       </View>

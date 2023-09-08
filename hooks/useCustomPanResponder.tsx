@@ -1,7 +1,8 @@
-import { useRef, useEffect } from 'react';
-import { PanResponder, BackHandler, Alert } from 'react-native';
+import { useRef } from 'react';
+import { PanResponder } from 'react-native';
 
 const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
+  
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
@@ -9,7 +10,7 @@ const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
       },
       onPanResponderRelease: (evt, gestureState) => {
         if (gestureState.dy > 50) {
-          setIsOpen(false);
+          setIsOpen(typeof isOpen === 'number' ? 0 : false);
           if (data) {
             data(prev => ({
               ...prev,

@@ -3,21 +3,22 @@ import { Image, Text, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 import Header from "./components/Header";
 import translate from "../../../locales/translate.json";
-import { LanguageContext } from "../../../../../context/LanguageContext";
-import { SelectedTeamContext } from "../../../context/selectedTeamContext";
 import PlayersRoles from "./PlayersRoles";
 import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import useSelectedTeamContext from "../../../hooks/useSelectedTeamContext";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 
 const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capitan, setCapitan, coords }) => {
-  const { language } = useContext(LanguageContext);
+
+  const { language } = useLanguageContext();
   const { selectedTheme } = useContext(ThemeOptionContext);
-  const { Players, selectedPlayers, handlePlayerChecked } = useContext(SelectedTeamContext);
+  const { Players, selectedPlayers, handlePlayerChecked } = useSelectedTeamContext();
   
   useEffect(() => {
-    if (webViewRef.current && selectedPlayers) {
+    if (webViewRef.current && selectedPlayers && coords.playerOne) {
       webViewRef.current.injectJavaScript(`
       var array = ${JSON.stringify(selectedPlayers)}
-      var themeOption = ${JSON.stringify(coords.playerOne.themeOption)}
+      var themeOption = ${JSON.stringify(coords.playerOne?.themeOption)}
       var text = "";
       fabricCanvas._objects.forEach((item, i) => {
         if (item.className === "player") {
@@ -28,13 +29,13 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
       array.forEach((player, i) => {
         let formatPlayer;
         
-          if ("${coords.playerOne.format}" === "NumDotSurName") {
+          if ("${coords.playerOne?.format}" === "NumDotSurName") {
           formatPlayer = (player.number || "") + "." + player.secondName;
-        } else if ("${coords.playerOne.format}" === "NumSurName") {
+        } else if ("${coords.playerOne?.format}" === "NumSurName") {
           formatPlayer = (player.number || "") + " " + player.secondName;
-        } else if ("${coords.playerOne.format}" === "dotted") {
+        } else if ("${coords.playerOne?.format}" === "dotted") {
           formatPlayer = (player.number || "") + "." + player.firstName[0] + "." + player.secondName;
-        } else if ("${coords.playerOne.format}" === "oneDot") {
+        } else if ("${coords.playerOne?.format}" === "oneDot") {
           formatPlayer = (player.number || "") + " " + player.firstName[0] + "." + player.secondName;
         } else {
           formatPlayer = player.secondName;
@@ -69,12 +70,14 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
               fontFamily: "${coords.playerOne.FontFamily}",
               splitByGrapheme: true,
             });
-            if (showPlayer.width > ${coords.reserveOne.ScaleToWidth}) {
-              showPlayer.scaleToWidth(${coords.reserveOne.ScaleToWidth})
+            if (showPlayer.width > ${coords.playerOne.ScaleToWidth}) {
+              showPlayer.scaleToWidth(${coords.playerOne.ScaleToWidth})
             }
+            
             if(themeOption){
               themeOption.forEach((theme, i) => {
                 if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
+                  
                   showPlayer.set({
                     fill: theme.Fill
                   })
@@ -89,7 +92,6 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
                 showPlayer.set("fontSize", fontSize - 1);
                 var newWidth = showPlayer.getLineWidth(i);
                 if (newWidth <= ${coords.playerOne.ScaleToWidth} - 50) {
-                  fabricCanvas.add(showPlayer);
                  fabricCanvas.renderAll();
                   break;
                 }
@@ -102,6 +104,7 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
       `);
     }
   }, [selectedPlayers, goalkeeper, capitan, selectedTheme]);
+  
   return (
     <View style={{ width: "100%" }}>
       {isModalOpen.type === "squadPlayers" && (

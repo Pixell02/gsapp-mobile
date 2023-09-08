@@ -90,11 +90,11 @@ const YourTeamGoals = ({webViewRef, coords}) => {
     <View style={{width: "100%"}} >
       <Header title={translate.addYourTeamGoals[language]} />
       {yourTeamGoal.map((goal, i) => (
-        <View style={{flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
-          <View style={{width: "20%", alignItems: "center", marginLeft: 20}}>
+        <View style={{flexDirection: "row", width: "100%", justifyContent: "space-between"}} key={i}>
+          <View style={{width: "20%", marginLeft: 20, justifyContent: "center"}}>
         <InputData name='minuta' type="numeric" text={yourTeamGoalMinute[i]} onChangeText={(value) => handleYourTeamMinuteChange(value, i)} />
           </View>
-          <View style={{width: "80%", alignItems: "center", marginTop: 10}}>
+          <View style={{width: "70%", marginTop: 20}}>
         <SelectPicker name={`zawodnik ${i + 1}`} onValueChange={(value) => handleGoalChange(value, i)} selectedValue={yourTeamGoal[i]} options={playerOptions} />
           </View>
         </View>

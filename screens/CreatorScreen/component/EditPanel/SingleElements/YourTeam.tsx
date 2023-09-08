@@ -37,7 +37,9 @@ const YourTeam = ({ webViewRef, coords }) => {
             originY: "center",
           });
           image.scaleToHeight(${coords.yourTeamLogo.ScaleToHeight});
-         
+          if(${coords.yourTeamLogo?.ScaleToWidth}){
+            image.scaleToWidth(${coords.yourTeamLogo?.ScaleToWidth});
+          }
           fabricCanvas.add(image);
           fabricCanvas.renderAll();
         };
@@ -173,9 +175,9 @@ const YourTeam = ({ webViewRef, coords }) => {
 
   return (
     <>
-     
-        <View style={{ width: "65%" }}>
-          <Text style={styles.textStyle}>{translate.yourTeam[language]}</Text>
+     { (coords?.yourTeamName || coords?.yourTeamSecondName || coords?.yourTeamFirstName || coords?.yourTeamLogo) && (
+       <View style={{ width: "100%" }}>
+          <Text style={styles.textStyle}>{translate.yourTeam[language] || translate.yourTeam["en"]}</Text>
           <View style={styles.pickerContainer}>
             <Picker
               selectedValue={selectedTeam ? selectedTeam.value : ""}
@@ -192,6 +194,8 @@ const YourTeam = ({ webViewRef, coords }) => {
             </Picker>
           </View>
         </View>
+     )}
+       
       
     </>
   );
@@ -202,19 +206,18 @@ export default YourTeam;
 const styles = StyleSheet.create({
   pickerContainer: {
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#7f7f7f",
     justifyContent: "center",
     padding: 10,
     height: 40,
     width: "100%",
     marginTop: 10,
     marginBottom: 20,
-    borderRadius: 10,
   },
   text: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: "65%",
+    width: "100%",
   },
   textStyle: {
     fontFamily: "Poppins-SemiBold",

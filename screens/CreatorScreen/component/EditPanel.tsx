@@ -1,40 +1,26 @@
 import React, { useContext, useState } from "react";
-import translate from "../locales/translate.json";
-import { View, Text, TextInput } from "react-native";
+import { View } from "react-native";
 import styles from "./style";
-import Title from "./EditPanel/Title";
 import ItemCenter from "../../components/ItemCenter";
 import { ScrollView } from "react-native-gesture-handler";
-import ThemeOption from "./EditPanel/SingleElements/ThemeOption";
 import { RadioProvider } from "../context/radioContext";
-import RadioContainer from "./EditPanel/SingleElements/RadioContainer";
-import YourTeam from "./EditPanel/SingleElements/YourTeam";
-import useBackgrounds from "../hooks/useBackgrounds";
-import OpponentSelect from "./EditPanel/SingleElements/OpponentSelect";
-import DateInput from "./EditPanel/SingleElements/DateInput";
-import LeagueInput from "./EditPanel/SingleElements/LeagueInput";
-import PlaceInput from "./EditPanel/SingleElements/PlaceInput";
 import SaveButton from "./EditPanel/SaveButton";
-import RoundedButton from "../../components/RoundedButton";
-import { LanguageContext } from "../../../context/LanguageContext";
 import ModalWindows from "./EditPanel/ModalWindows";
 import SingleElements from "./EditPanel/SingleElements";
 import { SelectedTeamProvider } from "../context/selectedTeamContext";
 import { ThemeOptionProvider } from "../context/themeOptionContext";
-import { useCollection } from "../../../hooks/useCollection";
-import { useAuthContext } from "../../../hooks/useAuthContext";
 import FreeLicenseInformation from "./EditPanel/FreeLicenseInformation";
 import { LicenseContext } from "../context/licenseContext";
+import MultiElementButton from "./EditPanel/MultiElementButton";
 
-const EditPanel = ({ webViewRef, uid, coords, size }) => {
-  const { language } = useContext(LanguageContext);
-  const {user} = useAuthContext();
-  const {license} = useContext(LicenseContext)
+const EditPanel = ({ webViewRef, uid, coords, size}) => {
+  const { license } = useContext(LicenseContext);
   const [isModalOpen, setIsModalOpen] = useState({
     isOpen: false,
     type: "",
   });
-
+  const [selectedMatch, setSelectedMatch] = useState(null);
+  
   return (
     <View style={styles.editContainer}>
       <RadioProvider>
@@ -42,29 +28,30 @@ const EditPanel = ({ webViewRef, uid, coords, size }) => {
           <ThemeOptionProvider>
             <ScrollView>
               <ItemCenter>
-                {isModalOpen.isOpen && (
+                <View style={isModalOpen.isOpen ? styles.showModal: styles.hideModal}>
                   <ModalWindows
                     coords={coords}
                     webViewRef={webViewRef}
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
+                    selectedMatch={selectedMatch}
                   />
-                )}
-                {!isModalOpen.isOpen && (
-                  <>
-                    <SingleElements
-                      coords={coords}
-                      webViewRef={webViewRef}
-                      uid={uid}
-                      isModalOpen={isModalOpen}
-                      setIsModalOpen={setIsModalOpen}
-                      size={size}
-                    />
+                </View>
+                <View style={isModalOpen.isOpen === false ? styles.showModal : styles.hideModal}>
+                  <SingleElements
+                    coords={coords}
+                    webViewRef={webViewRef}
+                    uid={uid}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    size={size}
+                  />
+                  {coords.numberOfMatches && (
+                    <MultiElementButton coords={coords} setIsModalOpen={setIsModalOpen} setSelectedMatch={setSelectedMatch} />
+                  )}
                   {license.license === "free-trial" && <FreeLicenseInformation license={license} />}
-                    
                     <SaveButton webViewRef={webViewRef} />
-                  </>
-                )}
+                </View>
               </ItemCenter>
             </ScrollView>
           </ThemeOptionProvider>

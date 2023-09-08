@@ -23,7 +23,7 @@ function CreatorScreen({ navigation, route }) {
          {License && License[0].license !== "no-license" &&  <WorkSpace uid={uid} />}
          {License && License[0].license === "no-license" && <NoLicense />}
         </ItemCenter>
-      <NavBar />
+      {/* <NavBar /> */}
     </ScreenContainer>
     </LicenseContextProvider>
   );

@@ -29,14 +29,13 @@ export default function TeamPicker({Teams, selectedValue, setSelectedValue}) {
 const styles = StyleSheet.create({
   pickerContainer: {
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#c4c3c3",
     justifyContent: "center",
     padding: 10,
     height: 40,
     width: "65%",
     marginTop: 10,
     marginBottom: 20,
-    borderRadius: 10,
   },
   
 });

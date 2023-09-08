@@ -30,10 +30,9 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "#7f7f7f",
     borderWidth: 1,
-    borderRadius: 5,
     padding: 10,
     height: 40,
-    width: 250,
+    width: "100%",
     backgroundColor: "#fff",
   },
 });

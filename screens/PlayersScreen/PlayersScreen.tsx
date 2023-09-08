@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { RootStackParamList } from "../StartingScreen/type";
 import TopBar from "../components/TopBar";
 import MainContent from "../components/MainContent";
 import PlayersMainContent from "./component/PlayersMainContent";
-import NavBar from "../components/NavBar";
 import AddBtn from "../components/AddBtn";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import PlayerModal from "./component/PlayerModal";
-import { TeamProvider } from "./context/TeamContext";
 
 type PlayersScreenNavigationProp = StackNavigationProp<RootStackParamList, "PlayersScreen">;
 
@@ -18,10 +16,10 @@ type Props = {
 };
 
 export default function PlayersScreen({ navigation }: Props): JSX.Element {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(0);
   const { user } = useAuthContext();
   const [selectedValue, setSelectedValue] = useState("");
+  const [squadData, setSquadData] = useState(null);
   const [playerData, setPlayerData] = useState({
     firstName: "",
     secondName: "",
@@ -31,32 +29,32 @@ export default function PlayersScreen({ navigation }: Props): JSX.Element {
     uid: user.uid,
   });
   return (
-    <TeamProvider>
+    
       <View style={styles.container}>
         <TopBar />
-        {(isOpen || isEditOpen) && (
+        {isOpen !== 0 && (
           <PlayerModal
             isOpen={isOpen}
-            setIsOpen={() => setIsOpen(false)}
-            isEditOpen={isEditOpen}
-            setIsEditOpen={() => setIsEditOpen(false)}
+            setIsOpen={() => setIsOpen(0)}
             playerData={playerData}
             setPlayerData={setPlayerData}
+            squadData={squadData}
+            setSquadData={setSquadData}
           />
         )}
-        <AddBtn onPress={() => setIsOpen(true)} />
+        <AddBtn onPress={() => setIsOpen(1)} />
         <MainContent>
           <PlayersMainContent
-            setIsOpen={() => setIsEditOpen(true)}
+            setIsOpen={setIsOpen}
             setPlayerData={setPlayerData}
             playerData={playerData}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            setSquadData={setSquadData}
           />
         </MainContent>
-        <NavBar />
       </View>
-    </TeamProvider>
+    
   );
 }
 

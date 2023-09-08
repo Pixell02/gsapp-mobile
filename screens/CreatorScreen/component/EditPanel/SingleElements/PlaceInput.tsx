@@ -53,7 +53,7 @@ const PlaceInput = ({webViewRef, coords}) => {
 
   return (
     <View>
-      <Input name={translate.typePlace[language]} value={typePlace} onChangeText={(value) => setTypePlace(value)} /> 
+      <Input name={translate.typePlace[language] || translate.typePlace["en"]} value={typePlace} onChangeText={(value) => setTypePlace(value)} /> 
     </View>
   )
 }

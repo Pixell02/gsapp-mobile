@@ -8,7 +8,6 @@ const useSquadPlayers = () => {
   const { user } = useAuthContext();
   const { language} = useContext(LanguageContext)
   const { documents: Players } = useCollection("Players", ["uid", "==", user.uid]);
-  const [filteredPlayers, setFilteredPlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const handlePlayerChecked = (player) => {
     const { firstName, secondName, number } = player;

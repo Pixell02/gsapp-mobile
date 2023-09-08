@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useAuthContext } from './useAuthContext';
 import * as GoogleSignIn from "expo-google-sign-in";
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useGoogleLogin = () => {
  
@@ -15,15 +16,14 @@ const useGoogleLogin = () => {
         
         if (type === 'success') {
           const { accessToken } = user.auth;
+          console.log(accessToken)
           
+          AsyncStorage.setItem("accessToken", accessToken);
           const googleCredential = GoogleAuthProvider.credential(null, accessToken);
           
           const userSignIn = signInWithCredential(getAuth(), googleCredential);
           userSignIn.then((res) => {
             dispatch({type: 'LOGIN', payload: res.user})
-            if(res.user.uid){
-              navigation.navigate("MainScreen")
-            }
           })
         }
       } catch (error) {

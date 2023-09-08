@@ -9,11 +9,14 @@ import { ThemeOptionContext } from "../../../context/themeOptionContext";
 const Player = ({ webViewRef, coords }) => {
   const { language } = useContext(LanguageContext);
   const { playerOptions } = usePlayers();
+  
   const [player, setPlayer] = useState(null);
   const { selectedTheme } = useContext(ThemeOptionContext);
+  console.log(coords.player.themeOption)
   useEffect(() => {
-    if (webViewRef.current && player && coords.player) {
+    if (webViewRef.current && player) {
       webViewRef.current.injectJavaScript(`
+      var themeOption = ${JSON.stringify(coords.player.themeOption)}
       fabricCanvas._objects.forEach((item, i) => {
         if (item.className === "yourPlayer") {
           fabricCanvas.remove(item);
@@ -21,9 +24,9 @@ const Player = ({ webViewRef, coords }) => {
       });
       fabricCanvas.renderAll();
       var formatPlayer = "";
-      if ("${coords.player.format}" === "dotted") {
+      if ("${coords.player.Format}" === "dotted") {
         formatPlayer = "${player.split("...")[0][0]}" + "." + "${player.split("...")[1]}";
-      } else if ("${coords.player.format}" === "nameSurName") {
+      } else if ("${coords.player.Format}" === "nameSurName") {
         formatPlayer = "${player.split("...")[0]}" + " " +"${player.split("...")[1]}";
       } else {
         formatPlayer = "${player.split("...")[1]}";
@@ -46,8 +49,9 @@ const Player = ({ webViewRef, coords }) => {
         }
         if(themeOption){
           themeOption.forEach((theme, i) => {
+            console.log(theme.color === "${selectedTheme}", theme.Fill)
             if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
-              showPlayer.set({
+              playerName.set({
                 fill: theme.Fill
               })
             }
@@ -58,13 +62,13 @@ const Player = ({ webViewRef, coords }) => {
       })
       `);
     }
-  }, [player]);
+  }, [player, selectedTheme]);
 
   return (
-    <View style={{ width: "100%", alignItems: "center" }}>
+    <View style={{ width: "100%"}}>
       <SelectPicker
         options={playerOptions}
-        name={translate.player[language]}
+        name={translate.player[language] || translate.player["en"]}
         selectedValue={player}
         onValueChange={(value) => setPlayer(value)}
       />

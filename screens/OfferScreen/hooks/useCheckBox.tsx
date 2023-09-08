@@ -1,13 +1,18 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
-const useCheckBox = () => {
-  const [checked, setChecked] = useState("licencja");
-
-  const handleCheckedChange = (value :string) => {
-    setChecked(value);
-  }
-
-  return {checked, handleCheckedChange}
+interface CheckBoxHook {
+  checked: string;
+  handleCheckedChange: (value: string) => void;
 }
 
-export default useCheckBox
+const useCheckBox = (): CheckBoxHook => {
+  const [checked, setChecked] = useState<string>('licencja');
+
+  const handleCheckedChange = (value: string): void => {
+    setChecked(value);
+  };
+
+  return { checked, handleCheckedChange };
+};
+
+export default useCheckBox;

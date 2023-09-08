@@ -12,37 +12,37 @@ import InputData from "../../components/InputData";
 import { Picker } from "@react-native-picker/picker";
 import RoundedButton from "../../components/RoundedButton";
 import { useCollection } from "../../../hooks/useCollection";
-import translate from "../locales/translate.json"
+import translate from "../locales/translate.json";
 import { LanguageContext } from "../../../context/LanguageContext";
 
-export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setTeamData }) {
+export default function EditOpponent({ isOpen, teamData, setIsOpen, setTeamData }) {
   const { user } = useAuthContext();
-  const panResponder = useCustomPanResponder(isEditOpen, setIsEditOpen, setTeamData);
+  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
   const { imageUri, setImageUri, handleAddPhoto, preview, setPreview, isImage, setIsImage } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-  const {language} = useContext(LanguageContext)
+  const { language } = useContext(LanguageContext);
 
   const handleDeleteItem = () => {
     const docRef = doc(db, "Opponents", teamData.id);
     deleteDoc(docRef);
-    setIsEditOpen();
-  }
+    setIsOpen(0);
+  };
 
   const handleDeletePhoto = () => {
     setTeamData((prev) => ({
       ...prev,
       img: "",
     }));
-    setPreview(null)
-    setIsImage(false)
-  }
+    setPreview(null);
+    setIsImage(false);
+  };
   useEffect(() => {
     if (preview) {
       setTeamData((prev) => ({
         ...prev,
         img: preview.substring(preview.lastIndexOf("/") + 1),
       }));
-      setIsImage(true)
+      setIsImage(true);
     }
   }, [preview]);
   const handleSave = async () => {
@@ -80,8 +80,8 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
             const docRef = doc(db, "Opponents", teamData.id);
             updateDoc(docRef, {
-              firstName: teamData.firstName,
-              secondName: teamData.secondName,
+              firstName: teamData.firstName.trim(),
+              secondName: teamData.secondName.trim(),
               img: downloadURL,
               team: teamData.team,
               uid: user.uid,
@@ -91,10 +91,10 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
       } else {
         const docRef = doc(db, "Opponents", teamData.id);
         updateDoc(docRef, {
-          firstName: teamData.firstName,
-          secondName: teamData.secondName,
+          firstName: teamData.firstName.trim(),
+          secondName: teamData.secondName.trim(),
           team: teamData.team,
-          img: teamData.img?teamData.img:"",
+          img: teamData.img ? teamData.img : "",
           uid: user.uid,
         });
       }
@@ -106,12 +106,12 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
         team: "",
         uid: user.uid,
       }));
-      setIsEditOpen();
+      setIsOpen(0);
     }
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isEditOpen} onRequestClose={() => setIsEditOpen(false)}>
+      <Modal animationType="slide" visible={isOpen === 2} onRequestClose={() => setIsOpen(0)}>
         <View style={styles.modalContent}>
           <Title name={translate.title[language]} />
           <View style={styles.inputCenter}>
@@ -158,11 +158,11 @@ export default function EditOpponent({ isEditOpen, teamData, setIsEditOpen, setT
                 </>
               )}
             </View>
-            <View>
+            <View style={{ width: "100%" }}>
               <RoundedButton text={translate.save[language]} onPress={handleSave} />
             </View>
-            <View style={{marginTop: 20}}>
-              <RoundedButton text={(translate.delete[language] || translate.delete["en"])} onPress={(handleDeleteItem)} />
+            <View style={{ marginTop: 20, width: "100%" }}>
+              <RoundedButton text={translate.delete[language] || translate.delete["en"]} onPress={handleDeleteItem} />
             </View>
           </View>
         </View>

@@ -33,11 +33,11 @@ const OpponentSelect = ({webViewRef, coords}) => {
             originX: "center",
             originY: "center",
           });
-          if(${coords.opponentImage.ScaleToWidth}){
-            image.scaleToWidth(${coords.opponentImage.ScaleToWidth});
-          }
-          if (image.height > ${coords.opponentImage.ScaleToHeight}) {
+          
             image.scaleToHeight(${coords.opponentImage.ScaleToHeight});
+          
+          if(${coords.opponentImage?.ScaleToWidth}){
+            image.scaleToWidth(${coords.opponentImage?.ScaleToWidth});
           }
           fabricCanvas.add(image);
           fabricCanvas.renderAll();
@@ -167,7 +167,7 @@ const OpponentSelect = ({webViewRef, coords}) => {
   return (
    <>
     <View style={styles.text}>
-      <Text style={styles.textStyle}>{translate.Opponents[language]}</Text>
+      <Text style={styles.textStyle}>{translate.Opponents[language] || translate.Opponents["en"]}</Text>
     </View>
       <View style={styles.pickerContainer}>
         <Picker selectedValue={selectedOpponent ? selectedOpponent.value : null} onValueChange={(value) => handleFetchOpponent(value)}>
@@ -193,14 +193,13 @@ export default OpponentSelect;
 const styles = StyleSheet.create({
   pickerContainer: {
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#7f7f7f",
     justifyContent: "center",
     padding: 10,
     height: 40,
-    width: "65%",
+    width: "100%",
     marginTop: 10,
     marginBottom: 20,
-    borderRadius: 10,
   },
   text: {
     justifyContent: "flex-start",

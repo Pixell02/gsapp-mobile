@@ -68,5 +68,13 @@
     "es": "Fecha de Caducidad",
     "de": "Ablaufdatum",
     "fr": "Date d'Expiration"
+  },
+  "createTeam": {
+    "pl": "Stwórz pakiet drużynowy i podepnij do 4 użytkowników pod swoją licencje",
+    "en": "Create team package and connect up to 4 users to your license"
+  },
+  "create": {
+    "pl": "Stwórz",
+    "en": "Create"
   }
 }

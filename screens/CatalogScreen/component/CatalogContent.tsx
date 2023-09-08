@@ -1,21 +1,22 @@
-import React, { useState, useRef, useEffect, useContext, useCallback } from "react";
-import { View, Modal, StyleSheet, Text, PanResponder, Animated, BackHandler, Alert } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { Text, View } from "react-native";
 import Title from "../../components/Title";
 import ItemCenter from "../../components/ItemCenter";
 import CatalogContainer from "./CatalogContainer";
-import { useCollection } from "../../../hooks/useCollection";
 import CatalogModal from "./CatalogModal";
 import translate from "../locales/translate.json";
 import { LanguageContext } from "../../../context/LanguageContext";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../StartingScreen/type";
+import useSelectSport from "../hooks/useSelectSport";
+import SelectPicker from "../../components/SelectPicker";
 
 export default function CatalogContent(): JSX.Element {
-  const { documents: catalog } = useCollection("catalog", ["public", "==", true]);
-  const navigation = useNavigation();
+  const { data: catalog, sportOptions, selectedSportKeys, setSelectedSportKeys } = useSelectSport();
   const { language } = useContext(LanguageContext);
   const [theme, setTheme] = useState([]);
+
+  // const langOptions = [
+  //   {}
+  // ]
 
   useEffect(() => {
     if (catalog) {
@@ -28,16 +29,35 @@ export default function CatalogContent(): JSX.Element {
       setTheme(sortedCatalog);
     }
   }, [catalog]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
-  console.log(isOpen)
   return (
     <View>
       {id && isOpen && <CatalogModal isOpen={isOpen} setIsOpen={setIsOpen} name={name} id={id} setId={setId} />}
-      <Title name={translate.catalog[language]} />
+      <Title name={translate.catalog[language] || translate.catalog["en"]} />
+      {sportOptions?.length > 1 && (
+         <View style={{width: "100%", alignItems: "center"}}>
+        <View style={{ width: "90%", marginTop: 10 }}>
+          <SelectPicker
+            name={translate.sport[language]}
+            options={sportOptions}
+            selectedValue={selectedSportKeys}
+            onValueChange={(value) => setSelectedSportKeys(value)}
+          />
+        </View>
+      </View>
+      )}
+      {/* <SelectPicker
+      name="język"
+      options={}
+      /> */}
       <ItemCenter>
+        {theme.length === 0 && (
+          <View>
+            <Text>No Content</Text>
+          </View>
+        )}
         {theme &&
           theme.map((theme, i) => (
             <CatalogContainer

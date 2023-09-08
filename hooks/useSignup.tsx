@@ -12,7 +12,6 @@ export const useSignup = () => {
         setError(null);
         createUserWithEmailAndPassword(auth, email, password)
           .then((res) => {
-            console.log(res.user)
             dispatch({type: 'LOGIN', payload: res.user})
           })
           .catch((err) => {

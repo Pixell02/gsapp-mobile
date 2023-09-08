@@ -18,8 +18,7 @@ type Props = {
 };
 
 export default function OpponentsScreen({ navigation }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(0);
   const { user } = useAuthContext();
   const [selectedValue, setSelectedValue] = useState("");
   const [opponentData, setOpponentData] = useState({
@@ -29,31 +28,33 @@ export default function OpponentsScreen({ navigation }: Props) {
     team: "",
     uid: user.uid,
   });
+  const [place, setPlace]= useState(null)
+
 
   return (
     <ScreenContainer>
-      <TopBar navigation={navigation} />
-      {(isOpen || isEditOpen) && (
+      <TopBar />
+      {isOpen !== 0 && (
         <OpponentModal
           isOpen={isOpen}
-          setIsOpen={() => setIsOpen(false)}
-          isEditOpen={isEditOpen}
-          setIsEditOpen={() => setIsEditOpen(false)}
+          setIsOpen={() => setIsOpen(0)}
           opponentData={opponentData}
           setOpponentData={setOpponentData}
+          place={place}
+          setPlace={setPlace}
         />
       )}
-      <AddBtn onPress={() => setIsOpen(true)} />
+      <AddBtn onPress={() => setIsOpen(1)} />
       <MainContent>
         <OpponentsContent
-          setIsOpen={() => setIsEditOpen(true)}
           setOpponentData={setOpponentData}
           opponentData={opponentData}
+          setIsOpen={setIsOpen}
           selectedValue={selectedValue}
           setSelectedValue={setSelectedValue}
+          setPlace={setPlace}
         />
       </MainContent>
-      <NavBar />
     </ScreenContainer>
   );
 }

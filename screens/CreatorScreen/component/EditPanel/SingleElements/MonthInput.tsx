@@ -54,7 +54,7 @@ const MonthInput = ({webViewRef, coords}) => {
 
   return (
     <View>
-      <Text>{translate.typeMonth[language]}</Text>
+      <Text>{translate.typeMonth[language] || translate.typeMonth["en"]}</Text>
       <Input value={typeMonth} onChangeText={(value) => setTypeMonth(value)} />
     </View>
   )

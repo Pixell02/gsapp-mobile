@@ -1,4 +1,60 @@
 {
+  "guide": {
+    "pl": "Samouczek",
+    "en": "Guide",
+    "es": "Guía",
+    "de": "Anleitung",
+    "fr": "Guide"
+    },
+    "teamPosters": {
+      "pl": "Plakaty Drużyny",
+      "en": "Team Posters",
+      "de":"Teamplakate",
+      "fr":"équipe posters",
+      "es":"equipo pósters"
+    },
+  "createTeam": {
+    "pl": "Dodaj drużynę",
+    "en": "Create Team",
+    "de": "Team erstellen",
+    "fr": "Créer une équipe",
+    "es": "Crear equipo"
+    },
+    "addPlayer": {
+    "pl": "Dodaj zawodników",
+    "en": "Add Players",
+    "de": "Spieler hinzufügen",
+    "fr": "Ajouter des joueurs",
+    "es": "Agregar jugadores"
+    },
+    "addOpponent": {
+    "pl": "Dodaj rywala",
+    "en": "Add Opponent",
+    "de": "Gegner hinzufügen",
+    "fr": "Ajouter un adversaire",
+    "es": "Agregar oponente"
+    },
+    "generate": {
+    "pl": "Generuj grafikę",
+    "en": "Generate Graphics",
+    "de": "Grafiken generieren",
+    "fr": "Générer des graphiques",
+    "es": "Generar gráficos"
+    },
+    "order": {
+    "pl": "Zamów własne grafiki",
+    "en": "Order Custom Graphics",
+    "de": "Eigene Grafiken bestellen",
+    "fr": "Commander des graphiques personnalisés",
+    "es": "Ordenar gráficos personalizados"
+    },
+"navigation": {
+  "pl": "pasek nawigacji",
+  "en": "navigation bar",
+  "es": "barra de navegación",
+  "de": "Navigationsleiste",
+  "fr": "barre de navigation"
+  },
   "yourGraphics": {
     "pl": "Twoje Grafiki",
     "en": "Your Graphics",
@@ -12,5 +68,40 @@
     "es": "Tus Favoritos",
     "de": "Deine Favoriten",
     "fr": "Vos Favoris"
+  },
+  "Catalog": {
+    "pl": "Szablony",
+    "en": "Templates",
+    "es": "Plantillas",
+    "de": "Vorlagen",
+    "fr": "Modèles"
+    }, 
+  "YourCatalog": {
+    "pl": "Twoj katalog",
+    "en": "Your Catalog",
+    "es": "Tu Catálogo",
+    "de": "Dein Katalog",
+    "fr": "Votre Catalogue"
+  },
+  "YourTeamPanel": {
+    "pl": "Panel drużyny",
+    "en": "Your Team Panel",
+    "es": "Panel de Tu Equipo",
+    "de": "Dein Team-Panel",
+    "fr": "Panneau de Votre Équipe"
+  },
+  "Players": {
+    "pl": "Zawodnicy",
+    "en": "Players",
+    "es": "Jugadores",
+    "de": "Spieler",
+    "fr": "Joueurs"
+  },
+  "Opponents": {
+    "pl": "Przeciwnicy",
+    "en": "Opponents",
+    "es": "Oponentes",
+    "de": "Gegner",
+    "fr": "Adversaires"
   }
 }

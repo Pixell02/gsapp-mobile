@@ -7,6 +7,48 @@
   "de": "Team-Panel",
   "fr": "Panneau d'équipe"
   },
+  "coach": {
+    "pl": "Trenerzy",
+    "en": "trainers",
+    "es": "entrenadores",
+    "de": "Trainer",
+    "fr": "entraîneurs"
+  },
+  "addTrainer": {
+    "pl": "Dodaj trenera",
+    "en": "Add Trainer",
+    "es": "Agregar Entrenador",
+    "de": "Trainer hinzufügen",
+    "fr": "Ajouter un Entraîneur"
+  },
+  "name": {
+    "pl": "Imię",
+    "en": "Name",
+    "es": "Nombre",
+    "de": "Name",
+    "fr": "Nom"
+  },
+  "surName": {
+    "pl": "Nazwisko",
+    "en": "Surname",
+    "es": "Apellido",
+    "de": "Nachname",
+    "fr": "Nom de famille"
+  },
+  "team": {
+    "pl": "Drużyna",
+    "en": "Team",
+    "es": "Equipo",
+    "de": "Team",
+    "fr": "Équipe"
+  },
+  "addPhoto": {
+    "pl": "Dodaj zdjęcie",
+    "en": "Add Photo",
+    "es": "Agregar Foto",
+    "de": "Foto hinzufügen",
+    "fr": "Ajouter une photo"
+  },
   "addTeam": {
   "pl": "Dodaj drużynę",
   "en": "Add Team",

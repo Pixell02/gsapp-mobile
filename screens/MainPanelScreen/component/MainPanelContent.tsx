@@ -11,21 +11,43 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import RoundedButton from "../../components/RoundedButton";
 import { RootStackParamList } from "../../StartingScreen/type";
 import { useNavigation } from "@react-navigation/native";
+import { Button } from "react-native-paper";
 interface props {
   teamData: object;
   setTeamData: (teamData: object) => void;
   setIsOpen: () => void;
+  trainerData: object;
+  setTrainerData: any;
+  isTrainerOpen: boolean;
+  setIsTrainerOpen: any;
+  isEditTrainerOpen: boolean;
+  setIsEditTrainerOpen: any;
 }
 
 export default function MainPanelContent(props: props): JSX.Element {
+  console.log(props)
   const { user } = useAuthContext();
   const { documents: Team } = useCollection("Teams", ["uid", "==", user.uid]);
+  const {documents: Trainers} = useCollection("Trainers", ["uid", "==", user.uid]);
   const {language} = useContext(LanguageContext);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const handleNavigate = () => {
     navigation.navigate("GuideScreen")
   }
-  const handlePress = (team) => {
+  const handleTrainerOpen = () => {
+    props.setIsTrainerOpen();
+  }
+  const handleTrainerPress = (trainer: any) => {
+    props.setTrainerData((prev: any) => ({
+      ...prev,
+      id: trainer.id,
+      firstName: trainer.firstName,
+      secondName: trainer.secondName,
+
+    }))
+    props.setIsEditTrainerOpen(true);
+  }
+  const handlePress = (team: any) => {
     props.setTeamData(prev => ({
       ...prev,
       id: team.id,
@@ -43,9 +65,6 @@ export default function MainPanelContent(props: props): JSX.Element {
         <View>
       <Title name={(translate.teamPanel[language] || translate.teamPanel["en"])} />
       </View>
-      <View style={{marginTop: 10, marginLeft: 20}}>
-      <RoundedButton text={(translate.guide[language] || translate.guide["en"])} onPress={() => handleNavigate()} />
-      </View>
       </View>
       <ItemCenter>
         {Team &&
@@ -59,6 +78,21 @@ export default function MainPanelContent(props: props): JSX.Element {
             />
           ))}
       </ItemCenter>
+      <Title name={translate.coach[language] || translate.coach["en"]} />
+      <Button style={{backgroundColor: "black", borderRadius: 0, width: 150, marginLeft: 10}} onPress={() => handleTrainerOpen()}>
+        <Text style={{color: "white", fontFamily: "Poppins-SemiBold"}}>{translate.addTrainer[language] || translate.addTrainer["en"]}</Text>
+        </Button>
+        <ItemCenter>
+          {Trainers?.map((trainer: any) => (
+            <ItemBlock 
+            key={trainer.id}
+            firstName={trainer.firstName}
+            secondName={trainer.secondName}
+            img={trainer.img}
+            onPress={() => handleTrainerPress(trainer)}
+            />
+          ))}
+        </ItemCenter>
     </View>
   );
 }

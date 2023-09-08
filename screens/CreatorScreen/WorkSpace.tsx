@@ -33,10 +33,21 @@ import { tekoSemiBold } from "./convertedFonts/tekoSemiBold";
 import { nowThin } from "./convertedFonts/nowThin";
 import exportImage from "./functions/exportImage";
 import { useCollection } from "../../hooks/useCollection";
+import { nexeHeavy } from "./convertedFonts/nexeHeavy";
+import { gravtec } from "./convertedFonts/gravtec";
+import { paladinsExpanded } from "./convertedFonts/paladinsExpanded";
+import { kenyanCoffeBold } from "./convertedFonts/kenyanCoffeBold";
+import { kenyanCoffeItalic } from "./convertedFonts/kenyanCoffeItalic";
+import { kenyanCoffeBoldItalic } from "./convertedFonts/kenyanCoffeBoldItalic";
+import { motorBlock } from "./convertedFonts/motorBlock";
+import useBackgrounds from "./hooks/useBackgrounds";
+import { typoSpeedBlackItalic } from "./convertedFonts/typoSpeedBlackItalic";
 
 function WorkSpace({ uid }) {
   const webViewRef = useRef(null);
   const [fontLoaded, setFontLoaded] = useState(false);
+  const { backgrounds, selectedBackground, dataURL, handleFetchBackground } = useBackgrounds(uid ? uid : null);
+  const [isLoadEnded, setIsLoadEnded] = useState(false);
   const [size, setSize] = useState(700);
   const { coords } = useCoords(uid ? uid : null);
   const [text, setText] = useState("");
@@ -44,6 +55,8 @@ function WorkSpace({ uid }) {
     const { nativeEvent } = syntheticEvent;
     console.log(nativeEvent.description);
   };
+  console.log(coords)
+
   
   const handleMessage = async (e: any) => {
     const message = JSON.parse(e.nativeEvent.data);
@@ -86,6 +99,22 @@ function WorkSpace({ uid }) {
     ></script>
     
     <style>
+    @font-face {
+      font-family: motorBlock;
+      src: url(${motorBlock}) format('woff');
+    }
+    @font-face {
+      font-family: gravtrac;
+      src: url(${gravtec}) format('woff');
+    }
+    @font-face {
+      font-family: Nexa-trial-Heavy;
+      src: url(${nexeHeavy}) format('woff');
+    }
+    @font-face {
+      font-family: paladins expanded;
+      src: url(${paladinsExpanded}) format('woff');
+    }
     @font-face { 
       font-family: Poppins-ThinItalic;
       src: url(${poppinsThinItalic}) format('woff');
@@ -169,6 +198,18 @@ function WorkSpace({ uid }) {
       src: url(${kenyanCoffe}) format('woff');
     }
     @font-face {
+      font-family: "kenyan coffee bold";
+      src: url(${kenyanCoffeBold}) format('woff');
+    }
+    @font-face {
+      font-family: "kenyan coffee italic";
+      src: url(${kenyanCoffeItalic}) format('woff');
+    }
+    @font-face {
+      font-family: "kenyan coffee bold italic ";
+      src: url(${kenyanCoffeBoldItalic}) format('woff');
+    }
+    @font-face {
       font-family: "Made Outer Sans Black";
       src: url(${madeOuterSansBlack}) format('woff');
     }
@@ -201,6 +242,10 @@ function WorkSpace({ uid }) {
       font-family: "Teko-SemiBold";
       src: url(${tekoSemiBold}) format('woff');
     }
+    @font-face {
+      font-family: "Typo_Speed_Black_Italic_Demo";
+      src url(${typoSpeedBlackItalic}) format('woff'));
+    }
          
     </style>
   </head>
@@ -222,8 +267,13 @@ function WorkSpace({ uid }) {
         onError={handleWebViewError}
         onMessage={handleMessage}
         onLoad={() => console.log("loading")}
+        onLoadEnd={() => {
+          handleFetchBackground(backgrounds[0]?.src + "..." + backgrounds[0]?.color)
+          
+            setIsLoadEnded(true);
+        }}
       />
-      {coords && <EditPanel webViewRef={webViewRef} size={size} uid={uid} coords={coords} />}
+      {coords && isLoadEnded && size && <EditPanel webViewRef={webViewRef} size={size} uid={uid} coords={coords} />}
     </View>
   );
 }

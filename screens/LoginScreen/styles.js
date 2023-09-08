@@ -19,7 +19,8 @@ export default StyleSheet.create({
     width: 250
   },
   inputContainer: {
-    marginTop: 10
+    marginTop: 10,
+    width: 250
   },
   buttonContainer: {
     flexDirection: "row",

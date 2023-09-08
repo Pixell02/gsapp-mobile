@@ -61,12 +61,11 @@ export const styles = StyleSheet.create({
   picker: {
     borderWidth: 1,
     marginTop: 20,
-    borderColor: "black",
+    borderColor: "#7f7f7f",
     padding: 10,
     width: "100%",
     height: 50,
     alignContent: "center",
     justifyContent: "center",
-    borderRadius: 10,
   },
 });

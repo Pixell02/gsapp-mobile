@@ -13,7 +13,11 @@ const InputData = (props: inputProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{props.name}</Text>
-      <TextInput keyboardType={props.type || 'default'} onChangeText={props.onChangeText} value={props.text} style={styles.input} />
+      <TextInput 
+      keyboardType={props.type || 'default'} 
+      onChangeText={props.onChangeText} 
+      value={props.text} 
+      style={styles.input} />
     </View>
   )
 }
@@ -26,13 +30,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins-SemiBold",
+    marginBottom: 10,
+    fontSize: 12
   },
   input: {
     borderColor: "#7f7f7f",
     borderWidth: 1,
-    borderRadius: 5,
     padding: 10,
-    height: 50,
+    height: 40,
     width: "100%",
     backgroundColor: "#fff",
   },

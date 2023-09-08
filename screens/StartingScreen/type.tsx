@@ -14,6 +14,7 @@ export type RootStackParamList = {
   AccountScreen: undefined;
   OfferScreen: undefined;
   GuideScreen: undefined;
+  HomeScreen: undefined;
 };
 
 export type RootStackNavProps<T extends keyof RootStackParamList> = {

@@ -2,25 +2,23 @@ import React, { useContext, useEffect } from 'react'
 import { Image, Text, View } from 'react-native'
 import Header from './components/Header'
 import translate from "../../../locales/translate.json"
-import { LanguageContext } from '../../../../../context/LanguageContext'
 import { useAuthContext } from '../../../../../hooks/useAuthContext'
-import { useCollection } from '../../../../../hooks/useCollection'
 import { CheckBox } from 'react-native-elements'
-import { SelectedTeamContext } from '../../../context/selectedTeamContext'
 import { ThemeOptionContext } from '../../../context/themeOptionContext'
+import useLanguageContext from '../../../../../hooks/useLanguageContext'
+import useSelectedTeamContext from '../../../hooks/useSelectedTeamContext'
 
-const ReservePlayers = ({goalkeeper, capitan, coords, webViewRef}) => {
+const ReservePlayers = ({coords, webViewRef, isModalOpen}) => {
 
-  const { user } = useAuthContext()
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext()
   const { selectedTheme } = useContext(ThemeOptionContext);
-  const {reservePlayers, selectedReserve, handleReserveChecked} = useContext(SelectedTeamContext)
-  
+  const {reservePlayers, selectedReserve, handleReserveChecked} = useSelectedTeamContext()
+    
   useEffect(() => {
-    if (webViewRef.current && selectedReserve) {
+    if (webViewRef.current && selectedReserve && coords.reserveOne) {
       
       webViewRef.current.injectJavaScript(`
-      var themeOption = ${JSON.stringify(coords.reserveOne.themeOption)}
+      var themeOption = ${JSON.stringify(coords.reserveOne?.themeOption)}
       var array = ${JSON.stringify(selectedReserve)}
       var text = "";
       fabricCanvas._objects.forEach((item, i) => {
@@ -31,13 +29,13 @@ const ReservePlayers = ({goalkeeper, capitan, coords, webViewRef}) => {
       fabricCanvas.renderAll();
       array.forEach((player, i) => {
         let formatPlayer;
-          if ("${coords.playerOne.format}" === "NumDotSurName") {
+          if ("${coords.reserveOne.Format}" === "NumDotSurName") {
           formatPlayer = (player.number || "") + "." + player.secondName;
-        } else if ("${coords.playerOne.format}" === "NumSurName") {
+        } else if ("${coords.reserveOne.Format}" === "NumSurName") {
           formatPlayer = (player.number || "") + " " + player.secondName;
-        } else if ("${coords.playerOne.format}" === "dotted") {
+        } else if ("${coords.reserveOne.Format}" === "dotted") {
           formatPlayer = (player.number || "") + "." + player.firstName[0] + "." + player.secondName;
-        } else if ("${coords.playerOne.format}" === "oneDot") {
+        } else if ("${coords.reserveOne.Format}" === "oneDot") {
           formatPlayer = (player.number || "") + " " + player.firstName[0] + "." + player.secondName;
         } else {
           formatPlayer = player.secondName;
@@ -66,7 +64,7 @@ const ReservePlayers = ({goalkeeper, capitan, coords, webViewRef}) => {
             if(themeOption){
               themeOption.forEach((theme, i) => {
                 if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
-                  showPlayer.set({
+                  reserveText.set({
                     fill: theme.Fill
                   })
                 }
@@ -79,6 +77,8 @@ const ReservePlayers = ({goalkeeper, capitan, coords, webViewRef}) => {
   }, [selectedReserve, selectedTheme]);
   
   return (
+    <>
+    {isModalOpen.type === "reservePlayers" && (
     <View style={{width: "100%"}}>
       <Header title={translate.addReserve[language]} />
       <View style={{ marginLeft: 20 }}>
@@ -116,6 +116,8 @@ const ReservePlayers = ({goalkeeper, capitan, coords, webViewRef}) => {
         )}
       </View>
     </View>
+    )}
+    </>
   )
 }
 

@@ -21,7 +21,6 @@ const AddTeam = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
   const { imageUri, setImageUri, handleAddPhoto, preview } = useAddImage();
   const {language} = useContext(LanguageContext)
   const { user } = useAuthContext();
-  console.log(teamData.sport)
   const sportOptions = [
     { label: (translate.football[language] || translate.football["en"]), value: 'piłka nożna' },
     { label: (translate.basketball[language] || translate.basketball["en"]), value: 'koszykówka' },
@@ -122,13 +121,12 @@ const AddTeam = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
             <View
               style={{
                 borderWidth: 1,
-                borderColor: "black",
+                borderColor: "#7f7f7f",
                 padding: 10,
                 width: "100%",
                 height: 50,
                 alignContent: "center",
                 justifyContent: "center",
-                borderRadius: 10,
               }}
             >
               <Picker
@@ -157,7 +155,7 @@ const AddTeam = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
                 </>
               )}
             </View>
-            <View>
+            <View style={{width: "100%"}}>
               <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={handleSave} />
             </View>
           </View>

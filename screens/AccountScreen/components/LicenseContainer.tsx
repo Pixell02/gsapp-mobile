@@ -16,15 +16,15 @@ export default function LicenseContainer({license}) {
   console.log(licenseData)
   useEffect(() => {
     setLicenseData([
-      { name: translate.licenseType[language], value: license.license },
-      { name: translate.expireDate[language], value: license.expireDate }
+      { name: translate.licenseType[language] || translate.licenseType["en"], value: license.license },
+      { name: translate.expireDate[language] || translate.expireDate["en"], value: license.expireDate }
     ]);
   }, [license, language]);
   
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{translate.license[language]}</Text>
+      <Text style={styles.title}>{translate.license[language] || translate.license["en"]}</Text>
       <View style={styles.margin}>
       {license.license === "full-license" && licenseData.map(data => (
         <UserAccountData key={data.name} name={data.name} value={data.value} type='medium' backGround="asd" />

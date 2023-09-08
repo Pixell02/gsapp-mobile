@@ -1,18 +1,43 @@
-import React from 'react'
-import {View} from 'react-native'
-import useCustomPanResponder from '../../../hooks/useCustomPanResponder';
-import EditPlayer from './EditPlayer';
-import AddPlayer from './AddPlayer';
+import React from "react";
+import EditPlayer from "./EditPlayer";
+import AddPlayer from "./AddPlayer";
+import AddSquadPreset from "./AddSquadPreset";
+import { SelectedTeamProvider } from "../../CreatorScreen/context/selectedTeamContext";
+import EditSquadPreset from "./EditSquadPreset";
 
-const PlayerModal = ({ isOpen, setIsOpen, playerData, setPlayerData, isEditOpen, setIsEditOpen }) => {
-  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setPlayerData);
-  
- return (
-  <>
-    {isOpen && (<AddPlayer isOpen={isOpen} setIsOpen={setIsOpen} teamData={playerData} setTeamData={setPlayerData} />)}
-    {isEditOpen &&(<EditPlayer  isEditOpen={isEditOpen} setIsEditOpen={setIsEditOpen} teamData={playerData} setTeamData={setPlayerData} />) }
-  </>
- )
-}
+const PlayerModal = ({ isOpen, setIsOpen, playerData, setPlayerData, squadData, setSquadData }) => {
+  return (
+    <>
+      {isOpen === 1 && <AddPlayer isOpen={isOpen} setIsOpen={setIsOpen} teamData={playerData} setTeamData={setPlayerData} />}
+      {isOpen === 2 && (
+        <EditPlayer
+          isEditOpen={isOpen}
+          setIsEditOpen={setIsOpen}
+          teamData={playerData}
+          setTeamData={setPlayerData}
+        />
+      )}
+      {isOpen === 3 && (
+        <SelectedTeamProvider>
+          <AddSquadPreset
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            setSquadData={setSquadData}
+          />
+        </SelectedTeamProvider>
+      )}
+      {isOpen === 4 && (
+        <SelectedTeamProvider>
+          <EditSquadPreset
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            setSquadData={setSquadData}
+            data={squadData}
+          />
+        </SelectedTeamProvider>
+      )}
+    </>
+  );
+};
 
-export default PlayerModal
+export default PlayerModal;

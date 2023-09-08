@@ -18,7 +18,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
   const { user } = useAuthContext();
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
-  const { imageUri, setImageUri, handleAddPhoto, preview } = useAddImage();
+  const { setImageUri, handleAddPhoto, preview } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   const {language} = useContext(LanguageContext);
   useEffect(() => {
@@ -30,7 +30,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
     }
   }, [preview]);
   const handleSave = async () => {
-    if (!teamData.firstName || !teamData.secondName || !teamData.number) {
+    if (!teamData.firstName || !teamData.secondName) {
       Alert.alert(translate.emptyField[language]);
     } else {
       if (teamData.img) {
@@ -68,6 +68,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
               img: downloadURL,
               team: teamData.team,
               uid: user.uid,
+              number: (teamData.number || "")
             });
           }
         );
@@ -78,6 +79,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
           secondName: teamData.secondName.trim(),
           img: "",
           team: teamData.team,
+          number: (teamData.number || ""),
           uid: user.uid,
         });
       }
@@ -87,14 +89,15 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
         secondName: "",
         img: "",
         team: "",
+        number: "",
         uid: user.uid,
       }));
-      setIsOpen();
+      setIsOpen(0);
     }
   };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen} onRequestClose={() => setIsOpen(false)}>
+      <Modal animationType="slide" visible={isOpen === 1} onRequestClose={() => setIsOpen(0)}>
         <View style={styles.modalContent}>
           <Title name={(translate.addPlayer[language] || translate.addPlayer["en"])} />
           <ScrollView>
@@ -115,7 +118,6 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
             keyboardType="numeric"
             style={{borderColor: "#7f7f7f",
             borderWidth: 1,
-            borderRadius: 5,
             padding: 10,
             height: 50,
             width: "100%",
@@ -127,6 +129,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
             <View style={{width: "100%"}}>
               <Text style={{fontFamily: "Poppins_Medium"}}>{(translate.team[language] || translate.team["en"])}</Text>
               <View style={styles.picker}>
+                
                 <Picker
                   selectedValue={teamData.team}
                   onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
@@ -159,7 +162,7 @@ const AddPlayer = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
                 </>
               )}
             </View>
-            <View>
+            <View style={{width: "100%"}}>
               <RoundedButton text={(translate.save[language] || translate.save["en"])}  onPress={handleSave} />
             </View>
           </View>

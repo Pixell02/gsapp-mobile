@@ -55,7 +55,7 @@ const LeagueInput = ({webViewRef, coords}) => {
 
   return (
     <View>
-      <Input name={translate.typeLeague[language]} value={typeLeague} onChangeText={(value) => setTypeLeague(value)} />
+      <Input name={translate.typeLeague[language] || translate.typeLeague["en"]} value={typeLeague} onChangeText={(value) => setTypeLeague(value)} />
     </View>
   )
 }

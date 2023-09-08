@@ -209,6 +209,13 @@
     "de": "Keine Spieler",
     "fr": "Aucun joueur"
   },
+  "match": {
+    "pl": "Mecz",
+    "en": "Match",
+    "es": "Partido",
+    "de": "Spiel",
+    "fr": "Match"
+  },
   "hostResult": {
     "pl": "Wynik gospodarza",
     "en": "Host result",

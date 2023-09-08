@@ -1,4 +1,8 @@
 {
+  "return": {
+    "pl": "wróć",
+    "en": "back"
+  },
   "guide": {
     "pl": "Samouczek",
     "en": "Guide",

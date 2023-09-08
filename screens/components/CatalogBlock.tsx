@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     height: 150,
     marginTop: 20,
     borderWidth: 1,
-    borderRadius: 10,
     borderColor: "#c4c3c3",
     backgroundColor: "white",
   },
@@ -49,8 +48,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 100,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    height: "auto",
     flex: 1,
     resizeMode: "contain",
   },

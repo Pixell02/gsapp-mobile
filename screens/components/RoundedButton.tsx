@@ -18,9 +18,8 @@ export default function RoundedButton({ text, onPress }: RoundedButtonProps): JS
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#000000',
-    borderRadius: 15,
     height: 50,
-    width: 200,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center"
   },

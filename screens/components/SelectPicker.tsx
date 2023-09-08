@@ -44,19 +44,18 @@ export default SelectPicker
 const styles = StyleSheet.create({
   pickerContainer: {
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#7f7f7f",
     justifyContent: "center",
     padding: 10,
     height: 40,
-    width: "65%",
+    width: "100%",
     marginTop: 10,
     marginBottom: 20,
-    borderRadius: 10,
   },
   text: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: "65%"
+    width: "100%"
   },
   textStyle: {
     fontFamily: "Poppins-SemiBold",

@@ -1,6 +1,5 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
-import { useCollection } from '../../../hooks/useCollection';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {

@@ -17,8 +17,7 @@ const facebookLogo = require("../img/fb.png");
 
 export default function LoginScreen({ navigation }) {
   const { language } = useContext(LanguageContext)
-  const { login, error, handleOnPress } = useLogin();
-  const { user } = useAuthContext();
+  const {error, handleOnPress } = useLogin();
   const { googleLogin, initializeGoogleSignInAsync } = useGoogleLogin();
 
   const [loginData, setLoginData] = useState({

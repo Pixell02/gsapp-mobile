@@ -9,14 +9,24 @@ import { LanguageContext } from "../../context/LanguageContext";
 import GuideContent from "./components/GuideContent";
 import ChapterModal from "./components/ChapterModal";
 import ItemCenter from "../components/ItemCenter";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../StartingScreen/type";
+import { StackNavigationProp } from "@react-navigation/stack";
+import RoundedButton from "../components/RoundedButton";
+
+type IndividualCatalogContentNavigationProp = StackNavigationProp<RootStackParamList, "CreatorScreen">;
 
 const GuideScreen = () => {
 
   const {language} = useContext(LanguageContext)
+  const navigation = useNavigation<IndividualCatalogContentNavigationProp>();
   const [isOpen, setIsOpen] = useState({
     id: null,
     open: false,
   })
+  const handleNavigate = () => {
+    navigation.goBack();
+  }
   return (
     <View style={styles.container}>
       <TopBar />
@@ -26,11 +36,14 @@ const GuideScreen = () => {
             <Title name={(translate.guide[language] || translate.guide["en"])} />
             <ItemCenter>
               <GuideContent setIsOpen={setIsOpen} />
+              <View style={{width: "80%", marginTop: 10}}>
+                <RoundedButton text={translate.return[language]} onPress={() => handleNavigate()} />
+              </View>
             </ItemCenter>
           </>
         )}
       </MainContent>
-      <NavBar />
+      {/* <NavBar /> */}
     </View>
   );
 };

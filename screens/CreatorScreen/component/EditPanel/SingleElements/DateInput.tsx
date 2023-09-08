@@ -54,8 +54,8 @@ const DateInput = ({ webViewRef, coords }) => {
   }, [typeDate, selectedTheme]);
 
   return (
-    <View>
-      <Input name={translate.typeDate[language]} value={typeDate} onChangeText={(value) => setTypeDate(value)} />
+    <View style={{width: "100%"}}>
+      <Input name={translate.typeDate[language] || translate.typeDate["en"]} value={typeDate} onChangeText={(value) => setTypeDate(value)} />
     </View>
   );
 };
