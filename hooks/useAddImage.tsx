@@ -1,14 +1,24 @@
-import React, {useState} from 'react'
 import * as ImagePicker from "expo-image-picker";
-import {Alert} from 'react-native'
-import { Picker } from "@react-native-picker/picker";
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 
 
-const useAddImage = () => {
+
+
+const useAddImage = (setData: (value) => void) => {
 
   const [imageUri, setImageUri] = useState({});
   const [preview, setPreview] = useState("");
   const [isImage, setIsImage] = useState(false);
+
+  useEffect(() => {
+    if (preview) {
+      setData((prev: object) => ({
+        ...prev,
+        img: preview.substring(preview.lastIndexOf("/") + 1),
+      }));
+    }
+  }, [preview]);
 
   const handleAddPhoto = async () => {
     try {
