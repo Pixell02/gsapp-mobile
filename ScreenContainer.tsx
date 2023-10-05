@@ -1,26 +1,26 @@
-import React, { useContext } from "react";
-import StartingScreen from "./screens/StartingScreen/StartingScreen";
-import LoginScreen from "./screens/LoginScreen/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
-import translation from "./locales/translate.json";
-import { LanguageContext } from "./context/LanguageContext";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { Image, StyleSheet } from "react-native";
 import { useAuthContext } from "./hooks/useAuthContext";
-import MainPanelScreen from "./screens/MainPanelScreen/MainPanelScreen";
+import useLanguageContext from "./hooks/useLanguageContext";
+import translation from "./locales/translate.json";
+import AccountScreen from "./screens/AccountScreen/AccountScreen";
 import CatalogScreen from "./screens/CatalogScreen/CatalogScreen";
 import CreatorScreen from "./screens/CreatorScreen/CreatorScreen";
-import IndividualCatalogScreen from "./screens/IndividualCatalogScreen/IndividualCatalogScreen";
-import PlayersScreen from "./screens/PlayersScreen/PlayersScreen";
-import OpponentsScreen from "./screens/OpponentsScreen/OpponentsScreen";
-import AccountScreen from "./screens/AccountScreen/AccountScreen";
-import OfferScreen from "./screens/OfferScreen/OfferScreen";
+import { LicenseContextProvider } from "./screens/CreatorScreen/context/licenseContext";
 import GuideScreen from "./screens/GuideScreen/GuideScreen";
+import IndividualCatalogScreen from "./screens/IndividualCatalogScreen/IndividualCatalogScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import MainPanelScreen from "./screens/MainPanelScreen/MainPanelScreen";
+import OfferScreen from "./screens/OfferScreen/OfferScreen";
+import OpponentsScreen from "./screens/OpponentsScreen/OpponentsScreen";
+import PlayersScreen from "./screens/PlayersScreen/PlayersScreen";
+import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import StartingScreen from "./screens/StartingScreen/StartingScreen";
+import { RootStackParamList } from "./screens/StartingScreen/type";
 import SuccessScreen from "./screens/SuccessScreen/SuccessScreen";
 import translate from "./screens/components/locales/translateNavbar.json";
-import { RootStackParamList } from "./screens/StartingScreen/type";
-import useLanguageContext from "./hooks/useLanguageContext";
-import { Image, StyleSheet } from "react-native";
 
 interface NavItemProps {
   name?: string;
@@ -99,7 +99,7 @@ const HomeScreen = () => {
 };
 
 const ScreenContainer = () => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const Stack = createStackNavigator();
   const { user, authIsReady } = useAuthContext();
   return (
@@ -107,6 +107,7 @@ const ScreenContainer = () => {
       {authIsReady && (
         <>
           {user && (
+            <LicenseContextProvider>
             <Stack.Navigator>
               <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
               <Stack.Screen name="CreatorScreen" component={CreatorScreen} options={{ headerShown: false }} />
@@ -115,6 +116,7 @@ const ScreenContainer = () => {
               <Stack.Screen name="GuideScreen" component={GuideScreen} options={{ headerShown: false }} />
               <Stack.Screen name="SuccessScreen" component={SuccessScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
+            </LicenseContextProvider>
           )}
           {!user && (
             <Stack.Navigator>
