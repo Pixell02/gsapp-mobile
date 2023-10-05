@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useCollection } from './useCollection';
-import { useAuthContext } from './useAuthContext';
+import { useEffect, useState } from 'react';
+import useLicenseContext from './useLicenseContext';
 
 const useTeamUid = () => {
 
   const [uid, setUid] = useState(null);
-  const {user} = useAuthContext();
-  const {documents: license} = useCollection("user", ["uid","==", user.uid]);
-  
+  const {license} = useLicenseContext();
   useEffect(() => {
     license?.team && setUid(license.team);
   },[license])
