@@ -20,6 +20,20 @@
     "de": "Datum und Uhrzeit",
     "fr": "Date et heure"
   },
+  "field": {
+    "pl": "Boisko",
+    "en": "Field",
+    "es": "Campo",
+    "de": "Spielfeld",
+    "fr": "Terrain"
+  },
+  "squadPreset": {
+    "pl": "wzór składu",
+    "en": "squad preset",
+    "es": "plantilla de escuadra",
+    "de": "Mannschafts-Voreinstellung",
+    "fr": "préréglage d'équipe"
+  },
   "typePlace": {
     "pl": "Miejsce",
     "en": "Place",
