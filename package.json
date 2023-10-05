@@ -18,8 +18,9 @@
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
-    "@types/react": "~18.0.27",
+    "axios": "^1.5.0",
     "base-64": "^1.0.0",
+    "dotenv": "^16.3.1",
     "expo": "^48.0.19",
     "expo-auth-session": "~4.0.3",
     "expo-dev-client": "~2.2.1",
@@ -29,9 +30,11 @@
     "expo-image-picker": "^14.1.1",
     "expo-localization": "~14.1.1",
     "expo-media-library": "~15.2.3",
+    "expo-notifications": "~0.18.1",
     "expo-permissions": "~14.1.1",
     "expo-sharing": "~11.2.2",
     "expo-status-bar": "~1.4.4",
+    "expo-updates": "~0.16.4",
     "expo-web-browser": "~12.1.1",
     "firebase": "^9.22.0",
     "fontfaceobserver": "^2.3.0",
@@ -54,12 +57,14 @@
     "react-native-svg": "^13.9.0",
     "react-native-view-shot": "^3.7.0",
     "react-native-web": "~0.18.10",
-    "react-native-webview": "^13.2.2",
-    "typescript": "^4.9.4"
+    "react-native-webview": "^13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
-    "@types/fabric": "^5.3.3"
+    "@types/fabric": "^5.3.3",
+    "@types/react": "^18.2.24",
+    "@types/react-native": "^0.72.3",
+    "typescript": "^5.2.2"
   },
   "private": true
 }
