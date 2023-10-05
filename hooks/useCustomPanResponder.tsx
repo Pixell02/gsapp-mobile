@@ -1,7 +1,20 @@
 import { useRef } from 'react';
 import { PanResponder } from 'react-native';
 
-const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
+interface Props {
+  data?: {
+    firstName: string;
+    secondName: string;
+    img: string;
+    sport: string;
+  };
+  id?: (value: string) => void;
+}
+
+const useCustomPanResponder = ( 
+  isOpen: number | boolean,
+  setIsOpen: (value: number | boolean) => void,
+  id?: Props['id']) => {
   
   const panResponder = useRef(
     PanResponder.create({
@@ -11,15 +24,6 @@ const useCustomPanResponder = (isOpen, setIsOpen, data?, id?) => {
       onPanResponderRelease: (evt, gestureState) => {
         if (gestureState.dy > 50) {
           setIsOpen(typeof isOpen === 'number' ? 0 : false);
-          if (data) {
-            data(prev => ({
-              ...prev,
-              firstName: "",
-              secondName: "",
-              img: "",
-              sport: "",
-            }))
-          }
           if (id) {
             id("")
           }
