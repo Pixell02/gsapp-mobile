@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 const useFetch = (link: string) => {
   const [image, setImage] = useState(null);
-
   useEffect(() => {
     const handleFetch = async () => {
       try {
@@ -23,7 +22,7 @@ const useFetch = (link: string) => {
         console.error("Error fetching image:", error);
       }
     };
-    if(link) handleFetch();
+    if(link) {handleFetch()} else setImage(null);
   }, [link]);
   return { image };
 };
