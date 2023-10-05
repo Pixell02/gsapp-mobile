@@ -1,26 +1,23 @@
-import React, { useContext, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import Title from "../../components/Title";
-import Input from "../../components/Input";
-import UserAccountData from "./UserAccountData";
-import ItemCenter from "../../components/ItemCenter";
-import LicenseContainer from "./LicenseContainer";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import Stats from "./Stats";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useCollection } from "../../../hooks/useCollection";
-import LogoutButton from "./LogoutButton";
-import { LanguageContext } from "../../../context/LanguageContext";
-import translate from "../locales/translate.json"
-import MultiAccountContainer from "./MultiAccountContainer";
-import { useDoc } from "../../../hooks/useDoc";
 import { Button } from "react-native-paper";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useDoc } from "../../../hooks/useDoc";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import ItemCenter from "../../components/ItemCenter";
+import Title from "../../components/Title";
+import translate from "../locales/translate.json";
+import LicenseContainer from "./LicenseContainer";
+import LogoutButton from "./LogoutButton";
+import MultiAccountContainer from "./MultiAccountContainer";
+import UserAccountData from "./UserAccountData";
 
 export default function AccountContent({navigation}): JSX.Element {
   const { user } = useAuthContext();
-  const {language} = useContext(LanguageContext)
-  const { documents: license } = useCollection("user", ["uid", "==", user.uid]);
-  const {documents: orderId} = useDoc("orderId", ["uid", "==", user.uid])
+  const {language} = useLanguageContext();
+  const { documents: license } = useDoc("user", ["uid", "==", user.uid]);
+  const {documents: orderId} = useDoc("orderId", ["uid", "==", user.uid]);
   const accountData = [
     { name: translate.accountId[language] || translate.accountId["en"], value: user.uid },
     { name: translate.email[language] || translate.email["en"], value: user.email },
@@ -40,7 +37,7 @@ export default function AccountContent({navigation}): JSX.Element {
             accountData.map((data) => (
               <UserAccountData key={data.name} name={data.name} value={data.value} type="normal" backGround="light" />
             ))}
-          {license && <LicenseContainer license={license[0]} />}
+          {license && <LicenseContainer license={license} />}
           {orderId?.orderId && 
           <View style={{flexDirection: "row", alignItems: "center", marginTop: 10}}>
           <Button onPress={() => handleNavigate()} style={{width: 100, backgroundColor: "black", borderRadius: 0}}>
@@ -50,7 +47,6 @@ export default function AccountContent({navigation}): JSX.Element {
           </View>
           }
           <MultiAccountContainer />
-          {/* <Stats /> */}
         </ItemCenter>
       </View>
     </ScrollView>

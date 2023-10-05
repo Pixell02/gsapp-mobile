@@ -1,22 +1,21 @@
-import React, {useState} from 'react'
-import { useAuthContext } from './useAuthContext';
-import * as GoogleSignIn from "expo-google-sign-in";
-import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as GoogleSignIn from "expo-google-sign-in";
+import { GoogleAuthProvider, getAuth, signInWithCredential } from "firebase/auth";
+import { useEffect, useState } from 'react';
+import { useAuthContext } from './useAuthContext';
 
 const useGoogleLogin = () => {
  
   const [error, setError] = useState(null);
   const { dispatch } = useAuthContext()
 
-    const googleLogin = async(navigation) => {
+    const googleLogin = async() => {
       try {
         await GoogleSignIn.askForPlayServicesAsync();
         const { type, user } = await GoogleSignIn.signInAsync();
         
         if (type === 'success') {
-          const { accessToken } = user.auth;
-          console.log(accessToken)
+          const { accessToken } = user.auth; 
           
           AsyncStorage.setItem("accessToken", accessToken);
           const googleCredential = GoogleAuthProvider.credential(null, accessToken);
@@ -40,7 +39,11 @@ const useGoogleLogin = () => {
         console.log('Error initializing Google Sign-In:', error);
       }
     };
-    return {error, googleLogin, initializeGoogleSignInAsync}
+    useEffect(() => {
+    initializeGoogleSignInAsync();
+  }, []);
+
+    return {error, googleLogin}
 }
 
 export default useGoogleLogin

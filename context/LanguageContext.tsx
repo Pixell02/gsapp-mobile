@@ -1,5 +1,5 @@
+import * as Localization from "expo-localization";
 import React, { createContext, useEffect, useState } from 'react';
-import * as Localization from "expo-localization"
 
 const LanguageContext = createContext<Partial<any>>({});
 
@@ -21,4 +21,5 @@ const LanguageProvider = ({ children }) => {
   );
 };
 
-export { LanguageProvider, LanguageContext };
+export { LanguageContext, LanguageProvider };
+
