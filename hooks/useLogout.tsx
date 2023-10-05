@@ -1,8 +1,7 @@
 import { useAuthContext } from './useAuthContext'
 
-import { auth } from '../firebase/config'
 import { signOut } from 'firebase/auth'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { auth } from '../firebase/config'
 
 
 export const useLogout = () => {
@@ -13,7 +12,6 @@ export const useLogout = () => {
       signOut(auth)
         .then(() => {
             dispatch({type: 'LOGOUT'});
-            AsyncStorage.setItem("accessToken", "");
         })
         .catch((err) => {
             console.log(err.mess)
