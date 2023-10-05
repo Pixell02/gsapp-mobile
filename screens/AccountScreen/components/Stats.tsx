@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import {View, StyleSheet} from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import useLanguageContext from '../../../hooks/useLanguageContext'
 import Title from '../../components/Title'
-import translate  from "../locales/translate.json"
-import { LanguageContext } from '../../../context/LanguageContext'
+import translate from "../locales/translate.json"
 export default function Stats() {
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   return (
     <View style={styles.statsContainer}>
       <View style={styles.titleContainer}>

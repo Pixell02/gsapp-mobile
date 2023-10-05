@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import { View } from "react-native";
-import Title from "../../../components/Title";
-import { useCollection } from "../../../../hooks/useCollection";
+import React, { useEffect } from "react";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
-import { LanguageContext } from "../../../../context/LanguageContext";
-import useTeamOption from "../../hooks/useTeamOption";
-import translate from "../../locales/translate.json";
+import { useCollection } from "../../../../hooks/useCollection";
+import useLanguageContext from "../../../../hooks/useLanguageContext";
+import ItemBlock from "../../../components/ItemBlock";
 import ItemCenter from "../../../components/ItemCenter";
 import TeamPicker from "../../../components/TeamPicker";
-import ItemBlock from "../../../components/ItemBlock";
+import Title from "../../../components/Title";
+import useTeamOption from "../../hooks/useTeamOption";
+import translate from "../../locales/translate.json";
 
 interface playerProps {
   id: string;
   firstName: string;
   secondName: string;
-  number: string | null;
+  number: string;
   team: string;
   img: string;
 }
@@ -29,7 +28,7 @@ const MainPlayers = (props: props) => {
   const { user } = useAuthContext();
   const { documents: players } = useCollection("Players", ["uid", "==", user.uid]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const { teamOption } = useTeamOption();
   useEffect(() => {
     if (teamOption && teamOption.length > 0) {
@@ -43,7 +42,7 @@ const MainPlayers = (props: props) => {
       id: player.id,
       firstName: player.firstName,
       secondName: player.secondName,
-      number: player.number ? player.number.toString() : null,
+      number: player.number.toString(),
       team: player.team,
       img: player.img,
     }));

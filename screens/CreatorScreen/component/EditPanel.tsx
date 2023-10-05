@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import useLicenseContext from "../../../hooks/useLicenseContext";
 import ItemCenter from "../../components/ItemCenter";
-import { LicenseContext } from "../context/licenseContext";
 import { RadioProvider } from "../context/radioContext";
 import { SelectedTeamProvider } from "../context/selectedTeamContext";
 import { ThemeOptionProvider } from "../context/themeOptionContext";
@@ -13,8 +13,8 @@ import SaveButton from "./EditPanel/SaveButton";
 import SingleElements from "./EditPanel/SingleElements";
 import styles from "./style";
 
-const EditPanel = ({ webViewRef, uid, coords, size}) => {
-  const { license } = useContext(LicenseContext);
+const EditPanel = ({ webViewRef, uid, coords}) => {
+  const { license } = useLicenseContext();
   const [isModalOpen, setIsModalOpen] = useState({
     isOpen: false,
     type: "",
@@ -42,9 +42,7 @@ const EditPanel = ({ webViewRef, uid, coords, size}) => {
                     coords={coords}
                     webViewRef={webViewRef}
                     uid={uid}
-                    isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
-                    size={size}
                   />
                   {coords.numberOfMatches && (
                     <MultiElementButton coords={coords} setIsModalOpen={setIsModalOpen} setSelectedMatch={setSelectedMatch} />

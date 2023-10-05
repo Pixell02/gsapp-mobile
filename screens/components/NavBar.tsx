@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import NavItem from "./NavItem";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
+import useLanguageContext from "../../hooks/useLanguageContext";
 import { RootStackParamList } from "../../screens/StartingScreen/type";
-import translate from "./locales/translateNavbar.json"
-import { LanguageContext } from "../../context/LanguageContext";
+import NavItem from "./NavItem";
+import translate from "./locales/translateNavbar.json";
 const cardList = require("../img/icons/card-list.png");
 const gridFill = require("../img/icons/grid-fill.png");
 const people = require("../img/icons/people.png");
 const personRolodex = require("../img/icons/person-rolodex.png");
 const vs = require("../img/icons/vs.png");
-import { useNavigation } from "@react-navigation/native";
 
 interface NavItemProps {
   name: string;
@@ -22,7 +22,7 @@ interface NavItemProps {
 
 
 const NavBar = (): JSX.Element => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const navItem: NavItemProps[] = [

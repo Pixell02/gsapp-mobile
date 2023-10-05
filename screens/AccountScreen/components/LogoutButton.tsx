@@ -1,18 +1,22 @@
 
-import React, { useContext } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { auth } from "../../../firebase/config";
-import translate from "../locales/translate.json"
-import { LanguageContext } from "../../../context/LanguageContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import useLanguageContext from "../../../hooks/useLanguageContext";
 import { useLogout } from "../../../hooks/useLogout";
+import translate from "../locales/translate.json";
 
-const LogoutButton = ({ navigation }) => {
-  const {language} = useContext(LanguageContext)
+const LogoutButton = ({navigation}) => {
+  const {language} = useLanguageContext();
   const {logout} = useLogout();
  
+  const handleLogout = () => {
+    AsyncStorage.removeItem("accessToken");
+    logout();
+  }
 
   return (
-    <TouchableOpacity style={styles.button} onPress={logout}>
+    <TouchableOpacity style={styles.button} onPress={handleLogout}>
       <Text style={styles.text}>{translate.logOut[language] || translate.logOut["en"]}</Text>
     </TouchableOpacity>
   );

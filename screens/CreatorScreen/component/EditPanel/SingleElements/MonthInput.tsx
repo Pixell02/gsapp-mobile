@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
+import useLanguageContext from '../../../../../hooks/useLanguageContext'
 import Input from '../../../../components/Input'
+import useThemeOption from '../../../hooks/useThemeOption'
 import translate from "../../../locales/translate.json"
-import { LanguageContext } from '../../../../../context/LanguageContext'
-import { ThemeOptionContext } from '../../../context/themeOptionContext'
 const MonthInput = ({webViewRef, coords}) => {
 
-  const {language} = useContext(LanguageContext);
+  const {language} = useLanguageContext();
   const [typeMonth, setTypeMonth] = useState(null);
-  const {selectedTheme} = useContext(ThemeOptionContext)
+  const {selectedTheme} = useThemeOption();
   useEffect(() => {
     if(webViewRef.current && typeMonth) {
       webViewRef.current.injectJavaScript(`
@@ -20,12 +20,13 @@ const MonthInput = ({webViewRef, coords}) => {
       fabricCanvas.renderAll();
       var font = new FontFaceObserver("${coords.typeMonth.FontFamily}")
       var themeOption = ${JSON.stringify(coords.typeMonth.themeOption)}
+      
       font.load().then(() => {
         var text = new fabric.Text("${typeMonth}", {
           top: ${ coords.typeMonth.Top},
           left: ${coords.typeMonth.Left},
           className: "typeMonth",
-          selectable: false,
+          angle: ${coords.typeMonth.Angle},
           fontFamily: "${coords.typeMonth.FontFamily}",
           fontSize: ${coords.typeMonth.FontSize},
           fill: "${coords.typeMonth.Fill}",
@@ -34,7 +35,11 @@ const MonthInput = ({webViewRef, coords}) => {
         });
         if(text.width > ${coords.typeMonth.ScaleToWidth}){
           text.scaleToWidth(${coords.typeMonth.ScaleToWidth});
+          if (text.angle !== 0) {
+          text.scaleToHeight(${coords.typeMonth.ScaleToWidth});
         }
+        }
+        
         if(themeOption){
           themeOption.forEach((theme, i) => {
             

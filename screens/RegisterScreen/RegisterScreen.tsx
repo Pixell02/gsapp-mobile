@@ -1,18 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { Text, TextInput, View, ImageBackground, Alert } from "react-native";
-import styles from "../LoginScreen/styles";
-import Input from "../components/Input";
-import SocialLoginButton from "../LoginScreen/components/SocialLoginButton";
-import LoginButton from "../LoginScreen/components/LoginButton";
-import { useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../StartingScreen/type";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useSignup } from "../../hooks/useSignup";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useState } from "react";
+import { Alert, ImageBackground, Text, View } from "react-native";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
-import { LanguageContext } from "../../context/LanguageContext";
+import useLanguageContext from "../../hooks/useLanguageContext";
+import { useSignup } from "../../hooks/useSignup";
+import LoginButton from "../LoginScreen/components/LoginButton";
+import SocialLoginButton from "../LoginScreen/components/SocialLoginButton";
+import styles from "../LoginScreen/styles";
+import { RootStackParamList } from "../StartingScreen/type";
+import Input from "../components/Input";
+import translate from "./locales/translate.json";
 const googleLogo = require("../img/google.png");
-import translate from "./locales/translate.json"
 
 type StartingScreenNavigationProp = StackNavigationProp<RootStackParamList, "MainScreen">;
 
@@ -22,18 +20,13 @@ type Props = {
 
 export default function RegisterScreen({ navigation }: Props): JSX.Element {
  
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   const { signup, error } = useSignup();
-  const { googleLogin, initializeGoogleSignInAsync } = useGoogleLogin();
-  const { user } = useAuthContext();
+  const { googleLogin } = useGoogleLogin();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(() => {
-    initializeGoogleSignInAsync();
-  }, []);
 
   const handleInputChange = (inputText: string, inputName: string) => {
     const newData = { ...loginData, [inputName]: inputText };
@@ -57,7 +50,7 @@ export default function RegisterScreen({ navigation }: Props): JSX.Element {
           <Input name={(translate.password[language] || translate.password["en"])} onChangeText={(text) => handleInputChange(text, "password")} text={loginData.password} />
         </View>
         <View style={styles.buttonContainer}>
-          <SocialLoginButton press={() => googleLogin(navigation)} name={(translate.registerWithGoogle[language] || translate.registerWithGoogle["en"])} img={googleLogo} />
+          <SocialLoginButton press={() => googleLogin()} name={(translate.registerWithGoogle[language] || translate.registerWithGoogle["en"])} img={googleLogo} />
         </View>
         <View style={styles.buttonContainer}>
           <LoginButton onPress={handleNavigate} name={(translate.register[language] || translate.register["en"])}/>

@@ -1,26 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import Title from "../../components/Title";
+import useLanguageContext from "../../../hooks/useLanguageContext";
 import ItemCenter from "../../components/ItemCenter";
+import SelectPicker from "../../components/SelectPicker";
+import Title from "../../components/Title";
+import useSelectSport from "../hooks/useSelectSport";
+import translate from "../locales/translate.json";
 import CatalogContainer from "./CatalogContainer";
 import CatalogModal from "./CatalogModal";
-import translate from "../locales/translate.json";
-import { LanguageContext } from "../../../context/LanguageContext";
-import useSelectSport from "../hooks/useSelectSport";
-import SelectPicker from "../../components/SelectPicker";
 
 export default function CatalogContent(): JSX.Element {
   const { data: catalog, sportOptions, selectedSportKeys, setSelectedSportKeys } = useSelectSport();
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const [theme, setTheme] = useState([]);
 
-  // const langOptions = [
-  //   {}
-  // ]
+ 
 
   useEffect(() => {
     if (catalog) {
-      const sortedCatalog = [...catalog]; // Tworzenie kopii tablicy catalog
+      const sortedCatalog = [...catalog];
       sortedCatalog.sort((a, b) => {
         const numA = parseInt(a.theme.split(" ")[1]);
         const numB = parseInt(b.theme.split(" ")[1]);
@@ -48,10 +46,6 @@ export default function CatalogContent(): JSX.Element {
         </View>
       </View>
       )}
-      {/* <SelectPicker
-      name="język"
-      options={}
-      /> */}
       <ItemCenter>
         {theme.length === 0 && (
           <View>

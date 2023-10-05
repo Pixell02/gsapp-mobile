@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { LanguageContext } from '../../../context/LanguageContext';
-import { TeamContext } from '../context/TeamContext';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { db } from '../../../firebase/config';
+import useLanguageContext from '../../../hooks/useLanguageContext';
+import useTeamContext from './useTeamContext';
 
 const useSelectSport = () => {
  
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const [lang, setLang] = useState(language);
-  const { selectedSportKeys, sportOptions, setSelectedSportKeys } = useContext(TeamContext);
+  const { selectedSportKeys, sportOptions, setSelectedSportKeys } = useTeamContext();
   const [data, setData] = useState(null);
 
   useEffect(() => {

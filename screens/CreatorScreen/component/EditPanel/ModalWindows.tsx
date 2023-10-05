@@ -1,18 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import SquadPlayers from "./ModalComponents/SquadPlayers";
-import ReservePlayers from "./ModalComponents/ReservePlayers";
-import YourTeamGoals from "./ModalComponents/YourTeamGoals";
-import OpponentTeamGoals from "./ModalComponents/OpponentTeamGoals";
+import useLanguageContext from "../../../../hooks/useLanguageContext";
 import RoundedButton from "../../../components/RoundedButton";
 import translate from "../../locales/translate.json";
-import { LanguageContext } from "../../../../context/LanguageContext";
+import OpponentTeamGoals from "./ModalComponents/OpponentTeamGoals";
+import ReservePlayers from "./ModalComponents/ReservePlayers";
+import SquadPlayers from "./ModalComponents/SquadPlayers";
+import YourTeamGoals from "./ModalComponents/YourTeamGoals";
 import MultiElements from "./MultiElements";
 
 const ModalWindows = ({ webViewRef, isModalOpen, setIsModalOpen, coords, selectedMatch }) => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const [capitan, setCapitan] = useState(null);
-  console.log(isModalOpen)
   const [goalkeeper, setGoalkeeper] = useState(null);
   return (
     <View style={styles.modalContainer}>
@@ -27,10 +26,8 @@ const ModalWindows = ({ webViewRef, isModalOpen, setIsModalOpen, coords, selecte
       />
       <ReservePlayers
         isModalOpen={isModalOpen}
-        capitan={capitan}
         webViewRef={webViewRef}
         coords={coords}
-        goalkeeper={goalkeeper}
       />
 
       {isModalOpen.type === "yourTeamGoals" && <YourTeamGoals webViewRef={webViewRef} coords={coords} />}

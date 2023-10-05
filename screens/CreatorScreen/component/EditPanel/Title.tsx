@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { LanguageContext } from '../../../../context/LanguageContext'
-import translate from "../../locales/translate.json"
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import useLanguageContext from '../../../../hooks/useLanguageContext';
+import translate from "../../locales/translate.json";
 
 const Title = () => {
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   return (
     <View style={styles.titleContainer}>
       <Text style={styles.title}>{translate.editPanel[language]}</Text>

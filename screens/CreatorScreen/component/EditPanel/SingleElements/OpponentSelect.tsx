@@ -1,17 +1,15 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { LanguageContext } from "../../../../../context/LanguageContext";
-import { useCollection } from "../../../../../hooks/useCollection";
-import { useAuthContext } from "../../../../../hooks/useAuthContext";
-import useOpponents from "../../../hooks/useOpponents";
-import translate from "../../../locales/translate.json";
-import { Picker } from "@react-native-picker/picker";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 import RadioContext from "../../../context/radioContext";
-import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import useOpponents from "../../../hooks/useOpponents";
+import useThemeOption from "../../../hooks/useThemeOption";
+import translate from "../../../locales/translate.json";
 const OpponentSelect = ({webViewRef, coords}) => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const { opponentSelect, selectedOpponent, handleFetchOpponent } = useOpponents();
-  const {selectedTheme} = useContext(ThemeOptionContext)
+  const {selectedTheme} = useThemeOption();
   const { radioChecked } = useContext(RadioContext)
   useEffect(() => {
     if (webViewRef.current && selectedOpponent && coords.opponentImage) {
@@ -35,8 +33,9 @@ const OpponentSelect = ({webViewRef, coords}) => {
           });
           
             image.scaleToHeight(${coords.opponentImage.ScaleToHeight});
-          
-          if(${coords.opponentImage?.ScaleToWidth}){
+          console.log(image.width * image.scaleX)
+          if( image.width * image.scaleX > ${coords.opponentImage?.ScaleToWidth}){
+            console.log("asd")
             image.scaleToWidth(${coords.opponentImage?.ScaleToWidth});
           }
           fabricCanvas.add(image);

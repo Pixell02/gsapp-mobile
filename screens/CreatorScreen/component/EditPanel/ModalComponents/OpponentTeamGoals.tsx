@@ -1,18 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 import { View } from 'react-native'
-import useCreateOpponentGoals from '../../../hooks2/useCreateOpponentGoals'
-import { LanguageContext } from '../../../../../context/LanguageContext'
-import RadioContext from '../../../context/radioContext'
-import Header from './components/Header'
-import translate from '../../../locales/translate.json'
+import useLanguageContext from '../../../../../hooks/useLanguageContext'
 import InputData from '../../../../components/InputData'
+import RadioContext from '../../../context/radioContext'
+import useCreateOpponentGoals from '../../../hooks2/useCreateOpponentGoals'
+import translate from '../../../locales/translate.json'
+import Header from './components/Header'
 
 const OpponentTeamGoals = ({webViewRef, coords}) => {
   
-  const {language} = useContext(LanguageContext);
+  const {language} = useLanguageContext();
   const {opponentGoals, opponentGoalMinute, handleOpponentGoalChange, handleOpponentMinuteChange} = useCreateOpponentGoals(Array(9).fill(""))
   const {radioChecked} = useContext(RadioContext);
-  console.log(opponentGoals)
   useEffect(() => {
     if(webViewRef.current && (opponentGoals || opponentGoalMinute)) {
       webViewRef.current.injectJavaScript(`

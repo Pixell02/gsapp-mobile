@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Linking, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { LanguageContext } from '../../context/LanguageContext'
+import useLanguageContext from '../../hooks/useLanguageContext'
 
 const NoLicense = () => {
 
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
 
   const handleNavigate = () => {
     const url = `https://gsapp.pl/${language}/login`

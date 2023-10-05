@@ -1,19 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
-import {View, StyleSheet, Text} from 'react-native'
-import UserAccountData from './UserAccountData'
-import { useAuthContext } from '../../../hooks/useAuthContext'
-import { useCollection } from '../../../hooks/useCollection';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import useLanguageContext from '../../../hooks/useLanguageContext';
+import translate from "../locales/translate.json";
 import FreeTrialData from './FreeTrialData';
-import translate from "../locales/translate.json"
-import { LanguageContext } from '../../../context/LanguageContext';
+import UserAccountData from './UserAccountData';
 
 export default function LicenseContainer({license}) {
   
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
  
   const [licenseData, setLicenseData] = useState([]);
 
-  console.log(licenseData)
   useEffect(() => {
     setLicenseData([
       { name: translate.licenseType[language] || translate.licenseType["en"], value: license.license },

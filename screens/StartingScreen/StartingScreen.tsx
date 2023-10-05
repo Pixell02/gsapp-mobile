@@ -1,15 +1,15 @@
-import { ImageBackground, Text, View } from "react-native";
-import RoundedButton from "../components/RoundedButton";
-import { useContext, useEffect, useState } from "react";
-import translate from "./locales/startingScreen.json";
-import styles from "./style";
-import { LanguageContext } from "../../context/LanguageContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GoogleAuthProvider, getAuth, signInWithCredential } from "firebase/auth";
+import { useEffect } from "react";
+import { ImageBackground, Text, View } from "react-native";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import useLanguageContext from "../../hooks/useLanguageContext";
+import RoundedButton from "../components/RoundedButton";
+import translate from "./locales/startingScreen.json";
+import styles from "./style";
 
 export default function StartingScreen({ navigation }) {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const { dispatch } = useAuthContext();
 
   useEffect(() => {
