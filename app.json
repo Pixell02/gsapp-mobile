@@ -4,10 +4,11 @@
     "slug": "gsapp",
     "plugins": [
       "@react-native-google-signin/google-signin",
+      "@react-native-firebase/app",
       "expo-localization",
       "expo-media-library"
     ],
-    "version": "3.0.4",
+    "version": "3.1.0",
     "orientation": "portrait",
     "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +24,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": "38",
+      "versionCode": "47",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
