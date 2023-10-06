@@ -1,20 +1,15 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useCollection } from "../../../hooks/useCollection";
+import { useDoc } from "../../../hooks/useDoc";
 
 
 
 export const LicenseContext = createContext(null);
 
 export const LicenseContextProvider = ({children}) => {
-  const [license, setLicense] = useState(null);
+
   const {user} = useAuthContext();
-  const {documents: License} = useCollection("user", ["uid", "==", user.uid])
-  
-  useEffect(() => {
-    if(License && License[0])
-    setLicense(License[0])
-  },[License])
+  const {documents: license} = useDoc("user", ["uid", "==", user.uid])
 
   return (
     <LicenseContext.Provider value={{license}}>
