@@ -1,6 +1,6 @@
-import { Picker } from '@react-native-picker/picker'
-import React, {FC} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
+import React, { FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface Option {
   label: string;
@@ -26,7 +26,7 @@ const SelectPicker: FC<SelectPickerProps> = ({name, options, onValueChange, sele
         onValueChange={(value) => onValueChange(value)}
         >
           <Picker.Item label='' value='' />
-        {options && options.map((option: any, i: number) => (
+        {options?.map((option: Option, i: number) => (
           <Picker.Item
           key={i}
           label={option.label}
