@@ -1,21 +1,21 @@
+import { doc, setDoc } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
 import { View } from "react-native";
-import Title from "../../components/Title";
-import useCheckBox from "../hooks/useCheckBox";
-import RadioContainer from "./RadioContainer";
-import ScreenContainer from "../../components/ScreenContainer";
-import PromoCodeContainer from "./PromoCodeContainer";
-import PromoCodeProvider from "../context/PromoCodeContext";
-import ItemCenter from "../../components/ItemCenter";
-import PriceContainer from "./PriceContainer";
-import UserPaymentData from "./UserPaymentData";
-import { useCollection } from "../../../hooks/useCollection";
+import { db } from "../../../firebase/config";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useCollection } from "../../../hooks/useCollection";
+import ItemCenter from "../../components/ItemCenter";
+import ScreenContainer from "../../components/ScreenContainer";
+import Title from "../../components/Title";
+import PromoCodeProvider from "../context/PromoCodeContext";
+import useCheckBox from "../hooks/useCheckBox";
 import usePaymentData from "../hooks/usePaymentData";
 import useProducts from "../hooks/useProducts";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
-import { getFunctions, httpsCallable } from "firebase/functions";
+import PriceContainer from "./PriceContainer";
+import PromoCodeContainer from "./PromoCodeContainer";
+import RadioContainer from "./RadioContainer";
+import UserPaymentData from "./UserPaymentData";
 
 const OfferContainer = ({ setPaymentLink }) => {
   const { user } = useAuthContext();
