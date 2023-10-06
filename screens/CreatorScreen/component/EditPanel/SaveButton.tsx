@@ -1,21 +1,28 @@
 import { addDoc, collection, deleteField, doc, updateDoc } from "firebase/firestore";
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
-import { LanguageContext } from "../../../../context/LanguageContext";
 import { db } from "../../../../firebase/config";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useDoc } from "../../../../hooks/useDoc";
+import useLanguageContext from "../../../../hooks/useLanguageContext";
 import RoundedButton from "../../../components/RoundedButton";
-import { ThemeOptionContext } from "../../context/themeOptionContext";
+import exportImage from "../../functions/exportImage";
+import useMessageContext from "../../hooks/useMessageContext";
+import useThemeOption from "../../hooks/useThemeOption";
 import translate from "../../locales/translate.json";
 
 const SaveButton = ({ webViewRef }) => {
-  const { language } = useContext(LanguageContext);
-  // const { license } = useContext(LicenseContext);
+  const { language } = useLanguageContext();
+  const {message} = useMessageContext();
   const {user} = useAuthContext();
-  const { documents: license } =useDoc("user", ["uid", "==", user.uid]);
-  const { posterInfo } = useContext(ThemeOptionContext);
+  const { documents: license } = useDoc("user", ["uid", "==", user.uid]);
+  const { posterInfo } = useThemeOption();
   
+  useEffect(() => {
+    if(message?.type === "image") exportImage(message.message)
+  },[message])
+
+
   const handleSave = () => {
     webViewRef.current.injectJavaScript(`
       var canvas = document.querySelector("#image");
