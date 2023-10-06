@@ -1,8 +1,11 @@
-import { Picker } from '@react-native-picker/picker'
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
+
 
 export default function TeamPicker({Teams, selectedValue, setSelectedValue}) {
+  
   return (
     <View>
       <View style={{ width: "100%", alignItems: "center" }}>
