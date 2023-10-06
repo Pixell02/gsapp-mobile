@@ -1,20 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
-import Header from './components/Header'
-import translate from "../../../locales/translate.json"
-import { LanguageContext } from '../../../../../context/LanguageContext'
-import usePlayers from '../../../hooks/usePlayers'
-import useCreateYourTeamGoals from '../../../hooks/useCreateYourTeamGoals'
+import useLanguageContext from '../../../../../hooks/useLanguageContext'
 import InputData from '../../../../components/InputData'
 import SelectPicker from '../../../../components/SelectPicker'
-import RadioContext from '../../../context/radioContext'
+import useCreateYourTeamGoals from '../../../hooks/useCreateYourTeamGoals'
+import usePlayers from '../../../hooks/usePlayers'
+import useRadioContext from '../../../hooks/useRadioContext'
+import useThemeOption from '../../../hooks/useThemeOption'
+import translate from "../../../locales/translate.json"
+import Header from './components/Header'
 
 const YourTeamGoals = ({webViewRef, coords}) => {
 
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   const {yourTeamGoal, yourTeamGoalMinute, handleYourTeamMinuteChange, handleGoalChange} = useCreateYourTeamGoals(Array(9).fill(""))
-  const {playerOptions} = usePlayers();
-  const {radioChecked} = useContext(RadioContext)
+  const { selectedTheme } = useThemeOption();
+  const {playerOptions} = usePlayers(webViewRef, selectedTheme);
+  const {radioChecked} = useRadioContext();
 
   useEffect(() => {
     if(webViewRef.current && (yourTeamGoal || yourTeamGoalMinute)) {
