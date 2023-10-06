@@ -1,9 +1,13 @@
-import React from 'react'
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import React from 'react';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import useModalContextProvider from '../MainPanelScreen/component/hooks/useModalContextProvider';
 
-const AddBtn = ({onPress}):JSX.Element => {
+const AddBtn = ():JSX.Element => {
+
+  const { setIsModalOpen} = useModalContextProvider();
+
   return (
-    <TouchableOpacity onPress={onPress} style={styles.btn}>
+    <TouchableOpacity onPress={() => setIsModalOpen(1)} style={styles.btn}>
       <Image style={styles.img} source={require("./icons/plus-btn.png")} />
     </TouchableOpacity>
   )
