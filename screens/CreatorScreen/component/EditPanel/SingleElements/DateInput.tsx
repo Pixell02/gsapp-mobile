@@ -1,61 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 import Input from "../../../../components/Input";
+import useAddText from "../../../hooks/useAddText";
+import useThemeOption from "../../../hooks/useThemeOption";
 import translate from "../../../locales/translate.json";
-import { LanguageContext } from "../../../../../context/LanguageContext";
-import { ThemeOptionContext } from "../../../context/themeOptionContext";
 
 const DateInput = ({ webViewRef, coords }) => {
-  const { language } = useContext(LanguageContext);
-  const { selectedTheme } = useContext(ThemeOptionContext);
+  const { language } = useLanguageContext();
+  const { selectedTheme } = useThemeOption();
   const [typeDate, setTypeDate] = useState(null);
-
+  const { handleAddText } = useAddText(webViewRef);
   useEffect(() => {
-    if (webViewRef.current && typeDate) {
-      webViewRef.current.injectJavaScript(`
-      fabricCanvas._objects.forEach((item, i) => {
-        if (item.className === "typeData") {
-          fabricCanvas.remove(item);
-        }
-      });
-      fabricCanvas.renderAll();
-      var themeOption = ${JSON.stringify(coords.typeData.themeOption)}
-      var font = new FontFaceObserver("${coords.typeData.FontFamily}")
-      font.load().then(() => {
-        var text = new fabric.Text("${typeDate}", {
-          top: ${coords.typeData.Top},
-          left: ${coords.typeData.Left},
-          className: "typeData",
-          selectable: false,
-          fontFamily: "${coords.typeData.FontFamily}",
-          fontSize: ${coords.typeData.FontSize},
-          fill: "${coords.typeData.Fill}",
-          originX: "${coords.typeData.OriginX}",
-          originY: "${coords.typeData.OriginY}",
-        });
-        if(text.width > ${coords.typeData.ScaleToWidth}){
-          text.scaleToWidth(${coords.typeData.ScaleToWidth});
-        }
-        if(themeOption){
-        themeOption.forEach((theme, i) => {
-          if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
-            text.set({
-              fill: theme.Fill
-            })
-          }
-        })
-      }
-        fabricCanvas.add(text);
-        fabricCanvas.renderAll();
-      });
-        
-    `);
+    if (webViewRef.current) {
+      handleAddText(typeDate, selectedTheme, "typeDate", coords.typeData);
     }
   }, [typeDate, selectedTheme]);
 
   return (
-    <View style={{width: "100%"}}>
-      <Input name={translate.typeDate[language] || translate.typeDate["en"]} value={typeDate} onChangeText={(value) => setTypeDate(value)} />
+    <View style={{ width: "100%" }}>
+      <Input
+        name={translate.typeDate[language] || translate.typeDate["en"]}
+        value={typeDate}
+        onChangeText={(value: string) => setTypeDate(value)}
+      />
     </View>
   );
 };

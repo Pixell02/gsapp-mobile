@@ -1,62 +1,45 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import Input from '../../../../components/Input'
-import translate from "../../../locales/translate.json"
-import { LanguageContext } from '../../../../../context/LanguageContext'
-import { ThemeOptionContext } from '../../../context/themeOptionContext'
-const PlaceInput = ({webViewRef, coords}) => {
-
-  const {language} = useContext(LanguageContext)
-  const [typePlace, setTypePlace] = useState(null);
-  const {selectedTheme} = useContext(ThemeOptionContext)
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
+import Input from "../../../../components/Input";
+import SelectPicker from "../../../../components/SelectPicker";
+import useAddText from "../../../hooks/useAddText";
+import usePlacePresetOption from "../../../hooks/usePlacePresetOption";
+import useThemeOption from "../../../hooks/useThemeOption";
+import translate from "../../../locales/translate.json";
+const PlaceInput = ({ webViewRef, coords }) => {
+  const { language } = useLanguageContext();
+  const [typePlace, setTypePlace] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState(null);
+  const { selectedTheme } = useThemeOption();
+  const { placePreset } = usePlacePresetOption();
+  const { handleAddText } = useAddText(webViewRef);
   useEffect(() => {
-    if(webViewRef.current && typePlace) {
-      webViewRef.current.injectJavaScript(`
-      fabricCanvas._objects.forEach((item, i) => {
-        if (item.className === "typePlace") {
-          fabricCanvas.remove(item);
-        }
-      });
-      fabricCanvas.renderAll();
-      var themeOption = ${JSON.stringify(coords.typePlace.themeOption)}
-      var font = new FontFaceObserver("${coords.typePlace.FontFamily}")
-      font.load().then(() => {
-        var text = new fabric.Text("${typePlace}", {
-          top: ${ coords.typePlace.Top},
-          left: ${coords.typePlace.Left},
-          className: "typePlace",
-          selectable: false,
-          fontFamily: "${coords.typePlace.FontFamily}",
-          fontSize: ${coords.typePlace.FontSize},
-          fill: "${coords.typePlace.Fill}",
-          originX: "${coords.typePlace.OriginX}",
-          originY: "${coords.typePlace.OriginY}",
-        });
-        if(text.width > ${coords.typePlace.ScaleToWidth}){
-          text.scaleToWidth(${coords.typePlace.ScaleToWidth});
-        }
-        if(themeOption){
-          themeOption.forEach((theme, i) => {
-            if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
-              text.set({
-                fill: theme.Fill
-              })
-            }
-          })
-        }
-        fabricCanvas.add(text);
-        fabricCanvas.renderAll();
-      });
-    `);
+    if (webViewRef.current) {
+      handleAddText(typePlace, selectedTheme, "typePlace", coords.typePlace);
     }
-  },[typePlace, selectedTheme])
+  }, [typePlace, selectedTheme]);
+  
 
   return (
     <View>
-      <Input name={translate.typePlace[language] || translate.typePlace["en"]} value={typePlace} onChangeText={(value) => setTypePlace(value)} /> 
+      <Input
+        name={translate.typePlace[language] || translate.typePlace["en"]}
+        value={typePlace}
+        onChangeText={(value: string) => setTypePlace(value)}
+      />
+      {placePreset?.length > 0 && (
+        <View>
+          <SelectPicker
+            name={translate.field[language || "en"]}
+            options={placePreset}
+            onValueChange={(value) => setSelectedOption(value)}
+            selectedValue={selectedOption}
+          />
+        </View>
+      )}
     </View>
-  )
-}
+  );
+};
 
-
-export default PlaceInput
+export default PlaceInput;
