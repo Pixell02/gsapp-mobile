@@ -1,13 +1,14 @@
 import React from 'react'
 import { View } from 'react-native'
-import Title from '../../../components/Title'
-import useLanguageContext from '../../../../hooks/useLanguageContext'
-import RoundedButton from '../../../components/RoundedButton'
-import translate from '../../locales/translate.json'
-import { useCollection } from '../../../../hooks/useCollection'
 import { useAuthContext } from '../../../../hooks/useAuthContext'
+import { useCollection } from '../../../../hooks/useCollection'
+import useLanguageContext from '../../../../hooks/useLanguageContext'
+import useTeamCollection from '../../../../hooks/useTeamCollection'
 import ItemCenter from '../../../components/ItemCenter'
+import RoundedButton from '../../../components/RoundedButton'
 import SlabBlock from '../../../components/SlabBlock'
+import Title from '../../../components/Title'
+import translate from '../../locales/translate.json'
 
 interface itemProps {
   id: string,
@@ -25,7 +26,7 @@ const PlaygroundContent = (props:props) => {
   const { language } = useLanguageContext();
   const { user } = useAuthContext();
   const { documents: placePreset } = useCollection("placePreset", ["uid", "==", user.uid])
-
+  const {documents: LicensePlacePreset} = useTeamCollection("placePreset");
   const handlePress = (item: itemProps) => {
     props.setPlace({...item})
     props.setIsOpen(4)
@@ -38,7 +39,10 @@ const PlaygroundContent = (props:props) => {
         </View>
         <ItemCenter>
           {placePreset?.map((item: itemProps) => (
-            <SlabBlock place={item.place} onPress={() => handlePress(item)} />
+            <SlabBlock key={item.place} place={item.place} onPress={() => handlePress(item)} />
+          ))}
+          {LicensePlacePreset?.map((item: itemProps) => (
+            <SlabBlock key={item.place} place={item.place} onPress={() => handlePress(item)} />
           ))}
         </ItemCenter>
       
