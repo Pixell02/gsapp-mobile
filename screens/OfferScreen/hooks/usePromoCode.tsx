@@ -1,13 +1,13 @@
-import { collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
-import React, { useContext, useState } from "react";
-import { db } from "../../../firebase/config";
-import { LanguageContext } from "../../../context/LanguageContext";
-import translate from "../locales/translate.json";
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import moment from "moment/moment";
+import { useState } from "react";
+import { db } from "../../../firebase/config";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import translate from "../locales/translate.json";
 
 const usePromoCode = () => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const { user } = useAuthContext();
 
   const [promoCode, setPromoCode] = useState({
@@ -17,7 +17,6 @@ const usePromoCode = () => {
   const [alert, setAlert] = useState("");
 
   const handleUseCode = async (value: string) => {
-    console.log(value);
     let ref = query(collection(db, "promoCode"), where("code", "==", value));
 
     try {
@@ -26,7 +25,6 @@ const usePromoCode = () => {
       snapshot.docs.forEach((doc) => {
         results.push({ ...doc.data(), id: doc.id });
       });
-      console.log(results);
 
       if (results.length > 0) {
         const docRef = doc(db, "promoCode", results[0].id);
@@ -43,9 +41,6 @@ const usePromoCode = () => {
               uid: user.uid,
             });
           }
-          // await updateDoc(docRef, {
-          //   amount: Number(results[0].amount) - 1,
-          // });
           setPromoCode(results[0]);
           setAlert(translate.success[language]);
         }

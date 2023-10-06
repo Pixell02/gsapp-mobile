@@ -1,35 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, View, ImageBackground, Alert } from "react-native";
-import styles from "./styles";
-import Input from "../components/Input";
-import SocialLoginButton from "./components/SocialLoginButton";
-import LoginButton from "./components/LoginButton";
-import { useLogin } from "../../hooks/useLogin";
-import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
-import * as GoogleSignIn from "expo-google-sign-in";
+import React, { useState } from "react";
+import { ImageBackground, Text, View } from "react-native";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import useLanguageContext from "../../hooks/useLanguageContext";
+import { useLogin } from "../../hooks/useLogin";
+import Input from "../components/Input";
+import LoginButton from "./components/LoginButton";
+import SocialLoginButton from "./components/SocialLoginButton";
 import translate from "./locales/translate.json";
-import { LanguageContext } from "../../context/LanguageContext";
+import styles from "./styles";
 const googleLogo = require("../img/google.png");
-const facebookLogo = require("../img/fb.png");
 
-export default function LoginScreen({ navigation }) {
-  const { language } = useContext(LanguageContext)
+export default function LoginScreen() {
+  const { language } = useLanguageContext();
   const {error, handleOnPress } = useLogin();
-  const { googleLogin, initializeGoogleSignInAsync } = useGoogleLogin();
+  const { googleLogin } = useGoogleLogin();
 
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(() => {
-    initializeGoogleSignInAsync();
-  }, []);
-
-  const handleInputChange = (inputText, inputName) => {
+  const handleInputChange = (inputText: string, inputName: string) => {
     const newData = { ...loginData, [inputName]: inputText };
     setLoginData(newData);
   };
@@ -38,13 +28,13 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground source={require("../../assets/do_tla.png")} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Input name={(translate.email[language] || translate.email["en"])}  onChangeText={(text) => handleInputChange(text, "email")} text={loginData.email} />
+          <Input name={(translate.email[language] || translate.email["en"])}  onChangeText={(text: string) => handleInputChange(text, "email")} text={loginData.email} />
         </View>
         <View style={styles.inputContainer}>
           <Input
             isPassword={true}
             name={(translate.password[language] || translate.password["en"])} 
-            onChangeText={(text) => handleInputChange(text, "password")}
+            onChangeText={(text: string) => handleInputChange(text, "password")}
             text={loginData.password}
           />
         </View>
@@ -52,13 +42,13 @@ export default function LoginScreen({ navigation }) {
           <SocialLoginButton
             name={(translate.loginWithGoogle[language] || translate.loginWithGoogle["en"])} 
             img={googleLogo}
-            press={() => googleLogin(navigation)}
+            press={() => googleLogin()}
           />
         </View>
         <View style={styles.buttonContainer}>
           <LoginButton
             name={(translate.login[language] || translate.login["en"])} 
-            onPress={() => handleOnPress(navigation, loginData.email, loginData.password)}
+            onPress={() => handleOnPress(loginData.email, loginData.password)}
           />
         </View>
         {error && (

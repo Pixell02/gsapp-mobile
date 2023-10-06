@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../../hooks/useAuthContext'
 import { countries } from '../component/countries'
 
@@ -15,7 +14,7 @@ const usePaymentData = (userData) => {
     buyer: {
       firstName: '',
       lastName: '',
-      email: '',
+      email: user.email,
       delivery: {
         street: '',
         postalCode: '',
@@ -59,7 +58,7 @@ const usePaymentData = (userData) => {
   const handleChange = (value: string, name: string) => {
     setPaymentData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value.trim()
     }));
   }
 
@@ -68,7 +67,7 @@ const usePaymentData = (userData) => {
     ...prevPaymentData,
     buyer: {
       ...prevPaymentData.buyer,
-      [name]: value
+      [name]: value.trim()
     }
   }));
   };
@@ -80,7 +79,7 @@ const usePaymentData = (userData) => {
         ...prevPaymentData.buyer,
         delivery: {
           ...prevPaymentData.buyer.delivery,
-          [name]: value
+          [name]: value.trim()
         }
       }
     }));

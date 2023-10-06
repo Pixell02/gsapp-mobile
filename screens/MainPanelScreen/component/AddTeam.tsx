@@ -1,133 +1,47 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Modal, Alert, Text, Image, TouchableOpacity } from "react-native";
-import InputData from "../../components/InputData";
-import * as ImagePicker from "expo-image-picker";
-import RoundedButton from "../../components/RoundedButton";
-import { styles } from "./styles/styles";
-import Title from "../../components/Title";
-import useAddImage from "../../../hooks/useAddImage";
 import { Picker } from "@react-native-picker/picker";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useCollection } from "../../../hooks/useCollection";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../firebase/config";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import React from "react";
+import { Modal, Text, View } from "react-native";
+import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
-import translate from "../locales/translate.json"
-import { LanguageContext } from "../../../context/LanguageContext";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import InputData from "../../components/InputData";
+import PreviewBlock from "../../components/PreviewBlock";
+import RoundedButton from "../../components/RoundedButton";
+import Title from "../../components/Title";
+import translate from "../locales/translate.json";
+import useDataContextProvider from "./hooks/useDataContextProvider";
+import useHandleTeamEvents from "./hooks/useHandleTeamEvents";
+import useModalContextProvider from "./hooks/useModalContextProvider";
+import useSportOptions from "./hooks/useSportOptions";
+import { styles } from "./styles/styles";
 
-const AddTeam = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
-  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
-  const { imageUri, setImageUri, handleAddPhoto, preview } = useAddImage();
-  const {language} = useContext(LanguageContext)
-  const { user } = useAuthContext();
-  const sportOptions = [
-    { label: (translate.football[language] || translate.football["en"]), value: 'piłka nożna' },
-    { label: (translate.basketball[language] || translate.basketball["en"]), value: 'koszykówka' },
-    { label: (translate.volleyball[language] || translate.volleyball["en"]), value: 'siatkówka' },
-    { label: (translate.hockey[language] || translate.hockey["en"]), value: 'hokej' },
-    {label: (translate.handball[language] || translate.handball["en"]), value: 'piłka ręczna'}
-  ]
-
-  useEffect(() => {
-    if (preview) {
-      setTeamData((prev) => ({
-        ...prev,
-        img: preview.substring(preview.lastIndexOf("/") + 1),
-      }));
-    }
-  }, [preview]);
-  const handleSave = async () => {
-    if (!teamData.firstName || !teamData.secondName || !teamData.sport) {
-      Alert.alert(translate.emptyField[language]);
-    } else {
-      if (teamData.img) {
-        const storage = getStorage();
-        const metadata = {
-          contentType: "image/png",
-        };
-        const teamRef = ref(storage, `${user.uid}/herb/${teamData.firstName}_${teamData.secondName}`);
-        const response = await fetch(preview);
-        const blob = await response.blob();
-        const uploadTask = uploadBytesResumable(teamRef, blob, metadata);
-
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
-            switch (snapshot.state) {
-              case "paused":
-                console.log("Upload is paused");
-                break;
-              case "running":
-                console.log("Upload is running");
-                break;
-            }
-          },
-          (error) => {
-            console.log(error);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            addDoc(collection(db, "Teams"), {
-              firstName: teamData.firstName.trim(),
-              secondName: teamData.secondName.trim(),
-              img: downloadURL,
-              sport: teamData.sport,
-              uid: user.uid,
-            });
-          }
-        );
-      } else {
-        const docRef = collection(db, "Teams");
-        addDoc(docRef, {
-          firstName: teamData.firstName.trim(),
-          secondName: teamData.secondName.trim(),
-          img: "",
-          sport: teamData.sport,
-          uid: user.uid,
-        });
-      }
-      setTeamData((prev) => ({
-        ...prev,
-        firstName: "",
-        secondName: "",
-        img: "",
-        sport: "piłka nożna",
-        uid: user.uid,
-      }));
-      setIsOpen();
-    }
-  };
-
+const AddTeam = () => {
+  const {isModalOpen, setIsModalOpen} = useModalContextProvider();
+  const {teamData, setTeamData} = useDataContextProvider();
+  const panResponder = useCustomPanResponder(isModalOpen, setIsModalOpen);
+  const { setImageUri, handleAddPhoto, preview } = useAddImage(setTeamData);
+  const { handleSave } = useHandleTeamEvents({ setTeamData, setIsModalOpen });
+  const {language} = useLanguageContext();
+  const sportOptions = useSportOptions();
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen} onRequestClose={() => setIsOpen(false)}>
+      <Modal animationType="slide" visible={isModalOpen === 1} onRequestClose={() => setIsModalOpen(0)}>
         <View style={styles.modalContent}>
           <Title name={(translate.addTeam[language] || translate.addTeam["en"])}/>
           <View style={styles.inputCenter}>
             <InputData
               name={(translate.firstTeamName[language] || translate.firstTeamName["en"])}
               text={teamData.firstName}
-              onChangeText={(value) => setTeamData((prev) => ({ ...prev, firstName: value }))}
+              onChangeText={(value) => setTeamData((prev) => ({ ...prev, firstName: value.trim() }))}
             />
             <InputData
               name={(translate.secondTeamName[language] || translate.secondTeamName["en"])}
               text={teamData.secondName}
-              onChangeText={(value) => setTeamData((prev) => ({ ...prev, secondName: value }))}
+              onChangeText={(value) => setTeamData((prev) => ({ ...prev, secondName: value.trim() }))}
             /> 
             <Text style={{width:"100%", fontFamily:"Poppins-SemiBold"}}>{(translate.sport[language] || translate.sport["en"])}</Text>
             <View
-              style={{
-                borderWidth: 1,
-                borderColor: "#7f7f7f",
-                padding: 10,
-                width: "100%",
-                height: 50,
-                alignContent: "center",
-                justifyContent: "center",
-              }}
+              style={styles.pickerContainer}
             >
               <Picker
                 selectedValue={teamData.sport}
@@ -141,22 +55,9 @@ const AddTeam = ({ isOpen, teamData, setTeamData, setIsOpen }) => {
             <View style={styles.margin}>
               <RoundedButton text={(translate.addImage[language] || translate.addImage["en"])} onPress={handleAddPhoto} />
             </View>
-            <View style={styles.imageContainer}>
-              {preview && (
-                <>
-                  <View style={styles.imageContent}>
-                    <Image source={{ uri: preview }} style={styles.image} />
-                  </View>
-                  <View style={styles.binContent}>
-                    <TouchableOpacity onPress={() => setImageUri("")}>
-                      <Image source={require("../../img/bin.png")} style={styles.binImage} />
-                    </TouchableOpacity>
-                  </View>
-                </>
-              )}
-            </View>
+            <PreviewBlock preview={preview} setImageUri={setImageUri} />
             <View style={{width: "100%"}}>
-              <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={handleSave} />
+              <RoundedButton text={(translate.save[language] || translate.save["en"])} onPress={() => handleSave(teamData, preview)} />
             </View>
           </View>
         </View>

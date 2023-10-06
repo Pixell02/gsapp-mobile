@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import InputData from "../../components/InputData";
-import translate from "../locales/translate.json";
-import useLanguageContext from "../../../hooks/useLanguageContext";
-import ItemCenter from "../../components/ItemCenter";
-import { Button } from "react-native-paper";
 import { CheckBox } from "react-native-elements";
+import { Button } from "react-native-paper";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import InputData from "../../components/InputData";
+import ItemCenter from "../../components/ItemCenter";
+import translate from "../locales/translate.json";
 
 const zipCodeRegex = /^\d{2}-\d{3}$/;
 const nipRegex = /^\d{10}$/;
@@ -60,11 +60,13 @@ const UserPaymentData: React.FC<any> = ({ paymentData, isLoading, isChecked, set
         text={paymentData.buyer.firstName}
         onChangeText={(value) => handleDataChange(value, "firstName")}
       />
+      {paymentData.buyer.firstName === "" && <Text style={{color: "red"}}>puste pole</Text>}
       <InputData
         name={translate.lastName[language] || translate.lastName["en"]}
         text={paymentData.buyer.lastName}
         onChangeText={(value) => handleDataChange(value, "lastName")}
       />
+      {paymentData.buyer.lastName === "" && <Text style={{color: "red"}}>puste pole</Text>}
       <InputData
         name={translate.email[language] || translate.email["en"]}
         text={paymentData.buyer.email}
@@ -75,17 +77,19 @@ const UserPaymentData: React.FC<any> = ({ paymentData, isLoading, isChecked, set
         text={paymentData.buyer.delivery.street}
         onChangeText={(value) => handleDeliveryDataChange(value, "street")}
       />
+      {paymentData.buyer.delivery.street === "" && <Text style={{color: "red"}}>puste pole</Text>}
       <InputData
         name={translate.postalCode[language] || translate.postalCode["en"]}
         text={paymentData.buyer.delivery.postalCode}
         onChangeText={(value) => handleDeliveryDataChange(value, "postalCode")}
       />
+      {!zipCodeRegex.test(paymentData.buyer.delivery.postalCode) && <Text style={{color: "red"}}>błąd</Text>}
       <InputData
         name={translate.city[language] || translate.city["en"]}
         text={paymentData.buyer.delivery.city}
         onChangeText={(value) => handleDeliveryDataChange(value, "city")}
       />
-
+      {paymentData.buyer.delivery.city === "" && <Text style={{color: "red"}}>puste pole</Text>}
       <View>
         <CheckBox
           checked={isChecked}
@@ -101,23 +105,26 @@ const UserPaymentData: React.FC<any> = ({ paymentData, isLoading, isChecked, set
             text={paymentData.companyName}
             onChangeText={(value) => handleChange(value, "companyName")}
           />
+          {paymentData.companyName === "" && <Text style={{color: "red"}}>puste pole</Text>}
           <InputData
             name={translate.vatId[language] || translate.vatId["en"]}
             text={paymentData.NIP}
             onChangeText={(value) => handleChange(value, "NIP")}
           />
+          {!nipRegex.test(paymentData.NIP) && <Text style={{color: "red"}}>błąd</Text>}
         </View>
       )}
+      {isLoading && <Text>...Przetwarzanie</Text>}
       <Button
         onPress={() => handleSave()}
-        style={{ backgroundColor: "black", borderRadius: 0, marginTop: 20, marginBottom: 20 }}
+        style={!activeButton ?{ backgroundColor: "gray", borderRadius: 0, marginTop: 20, marginBottom: 20 } : {backgroundColor: "black", borderRadius: 0, marginTop: 20, marginBottom: 20 }}
         disabled={!activeButton}
       >
         <Text style={{ color: "white", fontFamily: "Poppins-SemiBold" }}>
           {translate.buy[language] || translate.buy["en"]}
         </Text>
       </Button>
-      {isLoading && <Text>...Przetwarzanie</Text>}
+      
       
     </View>
   );

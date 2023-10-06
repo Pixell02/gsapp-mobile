@@ -2,8 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import useTeamUid from "../../../hooks/useTeamUid";
 import MainPlayers from "./PlayersMainContent/MainPlayers";
-import TeamPlayers from "./PlayersMainContent/TeamPlayers";
 import SquadPreset from "./PlayersMainContent/SquadPreset";
+import TeamPlayers from "./PlayersMainContent/TeamPlayers";
 
 interface props {
   playerData: object;
@@ -16,6 +16,7 @@ interface props {
 
 export default function PlayersMainContent(props: props): JSX.Element {
   const uid = useTeamUid();
+  console.log(uid)
   return (
     <View>
       <MainPlayers
