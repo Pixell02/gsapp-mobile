@@ -3,7 +3,7 @@ import {
   getAuth,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// import {API_KEY} from "@env"
+
 
 const firebaseConfig = {
  apiKey: process.env.API_KEY,
