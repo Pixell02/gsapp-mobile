@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { ThemeOptionContext } from "../../../context/themeOptionContext";
 import InputData from "../../../../components/InputData";
+import useThemeOption from "../../../hooks/useThemeOption";
 
 const TextInput = ({ webViewRef, coords }) => {
   const [textValue, setTextValue] = useState<string>("");
-  const { selectedTheme } = useContext(ThemeOptionContext);
+  const { selectedTheme } = useThemeOption();
   useEffect(() => {
-    if (webViewRef && textValue !== "") {
+    if (webViewRef && textValue) {
       webViewRef.current.injectJavaScript(`
-      fabricCanvas._objects.forEach((item, i) => {
-        if (item.className === "${coords.className}") {
-          fabricCanvas.remove(item);
-        }
-      });
-      fabricCanvas.renderAll();
+      var object = fabricCanvas.getObjects().find((item) => item.className === "${coords.className}");
+      if(object){
+        object.set("text", "${textValue}")
+         if(text.width > ${coords.ScaleToWidth}){
+          text.scaleToWidth(${coords.ScaleToWidth});
+          fabricCanvas.renderAll();
+        } else {
       var themeOption = ${JSON.stringify(coords.themeOption)}
       var font = new FontFaceObserver("${coords.FontFamily}")
       font.load().then(() => {
@@ -31,6 +32,9 @@ const TextInput = ({ webViewRef, coords }) => {
         });
         if(text.width > ${coords.ScaleToWidth}){
           text.scaleToWidth(${coords.ScaleToWidth});
+          if (text.angle !== 0) {
+          text.scaleToHeight(${coords.ScaleToWidth});
+          }
         }
         if(themeOption){
           themeOption.forEach((theme, i) => {
@@ -45,6 +49,7 @@ const TextInput = ({ webViewRef, coords }) => {
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
       });
+    }
     `);
     }
   }, [textValue]);

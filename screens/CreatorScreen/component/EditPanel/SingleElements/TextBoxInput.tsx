@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import { TextInput, View } from "react-native";
-import InputData from "../../../../components/InputData";
-import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import TextArea from "../../../../components/TextArea";
+import useThemeOption from "../../../hooks/useThemeOption";
 
 const TextBoxInput = ({ webViewRef, coords }) => {
-  const [textValue, setTextValue] = useState(null);
-  console.log(textValue)
-  const { selectedTheme } = useContext(ThemeOptionContext);
+  const [textValue, setTextValue] = useState<string>("");
+  const { selectedTheme } = useThemeOption();
   
   useEffect(() => {
     if (webViewRef && textValue) {
       webViewRef.current.injectJavaScript(`
-      fabricCanvas._objects.forEach((item, i) => {
-        if (item.className === "${coords.className}") {
-          fabricCanvas.remove(item);
+      var object = fabricCanvas.getObjects().find((item) => item.className === "${coords.className}");
+      if(object){
+        object.set("text", "${textValue}")
+         if(text.width > ${coords.ScaleToWidth}){
+          text.scaleToWidth(${coords.ScaleToWidth});
         }
-      });
-      fabricCanvas.renderAll();
+        fabricCanvas.renderAll();
+      } else {
       var themeOption = ${JSON.stringify(coords.themeOption)}
       var font = new FontFaceObserver("${coords.FontFamily}")
       font.load().then(() => {
@@ -50,6 +50,7 @@ const TextBoxInput = ({ webViewRef, coords }) => {
         fabricCanvas.add(text);
         fabricCanvas.renderAll();
       });
+    }
     `);
     }
   }, [textValue]);
