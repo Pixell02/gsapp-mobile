@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { WebView } from "react-native-webview";
 import useFetch from "../../hooks/useFetch";
@@ -49,8 +49,9 @@ function WorkSpace({ uid }) {
     uid ? uid : null
   );
   const {handleMessage} = useMessageContext();
-  const [isLoadEnded, setIsLoadEnded] = useState(false);
-  const [size, setSize] = useState(700);
+
+  useEffect
+
   const { coords } = useCoords(uid ? uid : null);
   const handleWebViewError = (syntheticEvent) => {
     const { nativeEvent } = syntheticEvent;
@@ -58,19 +59,8 @@ function WorkSpace({ uid }) {
   const { image: watermark } = useFetch(
     "https://firebasestorage.googleapis.com/v0/b/poster-dd714.appspot.com/o/logo%2Fadaptive-icon.png?alt=media&token=c3970fb2-b78a-4339-868a-79c7763cf9ed"
   );
-
-  // const handleMessage = async (e: any) => {
-  //   const message = JSON.parse(e.nativeEvent.data);
-  //   if (message.type === "image") {
-  //     exportImage(message.message);
-  //   } else {
-  //     if (message.width > message.height) {
-  //       setSize(message.width);
-  //     } else {
-  //       setSize(message.height);
-  //     }
-  //   }
-  // };
+const [isLoadend, setIsLoadend] = useState(false)
+  
 
   return (
     <View style={{ flex: 1, width: "100%" }}>
@@ -244,7 +234,7 @@ function WorkSpace({ uid }) {
     }
     @font-face {
       font-family: "Typo_Speed_Black_Italic_Demo";
-      src url(${typoSpeedBlackItalic}) format('woff'));
+      src: url(${typoSpeedBlackItalic}) format('woff');
     }
          
     </style>
@@ -267,20 +257,13 @@ function WorkSpace({ uid }) {
         javaScriptEnabled={true}
         originWhitelist={["*"]}
         onError={handleWebViewError}
-        // onMessage={(e) => handleMessage(e)}
+        onMessage={handleMessage}
         onLoad={() => console.log("loading")}
-        onLoadEnd={() => {
-          handleFetchBackground(
-            backgrounds[0]?.src + "..." + backgrounds[0]?.color
-          );
-
-          setIsLoadEnded(true);
-        }}
+        onLoadEnd={() => setIsLoadend(true)}
       />
-      {coords && isLoadEnded && size && (
+      {coords && isLoadend &&(
         <EditPanel
           webViewRef={webViewRef}
-          size={size}
           uid={uid}
           coords={coords}
         />
