@@ -23,11 +23,11 @@ const useTeamPosters = () => {
         
         setTeamPosters(results)
     })
-
+   
     }
   },[License])
 
-  return {yourPoster, teamPosters, License}
+  return {teamPosters, yourPoster, License}
 }
 
 export default useTeamPosters
