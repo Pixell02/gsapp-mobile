@@ -1,9 +1,8 @@
-import React from 'react'
-import { Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
+import { Alert } from 'react-native';
 
-const exportImage = async(dataURL) => {
+const exportImage = async(dataURL: string) => {
   try {
     const { status } = await MediaLibrary.requestPermissionsAsync();
     const fileUri = `${FileSystem.documentDirectory}image.jpg`;
