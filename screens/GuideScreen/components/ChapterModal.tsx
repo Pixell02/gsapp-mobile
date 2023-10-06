@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import ChapterTitle from "./ChapterTitle";
-import { LanguageContext } from "../../../context/LanguageContext";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import ItemCenter from "../../components/ItemCenter";
+import RoundedButton from "../../components/RoundedButton";
 import Title from "../../components/Title";
 import Description from "./Description";
-import RoundedButton from "../../components/RoundedButton";
-import ItemCenter from "../../components/ItemCenter";
 
 const ChapterModal = ({ chapter, isOpen, setIsOpen }) => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const panResponder = useCustomPanResponder(isOpen.open, setIsOpen);
   console.log(isOpen)
   return (
