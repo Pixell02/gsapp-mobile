@@ -1,15 +1,33 @@
-import React, { useContext, useState } from 'react'
-import { Alert, View } from 'react-native'
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useCollection } from '../../../hooks/useCollection';
+import useLanguageContext from '../../../hooks/useLanguageContext';
+import useTeamCollection from '../../../hooks/useTeamCollection';
 import translate from "../locales/translate.json";
-import { LanguageContext } from '../../../context/LanguageContext';
+
+interface playerProps {
+  firstName: string;
+  secondName: string;
+  number: string;
+}
+
 const useSquadPlayers = () => {
   const { user } = useAuthContext();
-  const { language} = useContext(LanguageContext)
-  const { documents: Players } = useCollection("Players", ["uid", "==", user.uid]);
+  const { language} = useLanguageContext();
+  const [Players, setPlayers] = useState(null);
+  const { documents: players } = useCollection("Players", ["uid", "==", user.uid]);
+  const { documents: LicensedPlayers} = useTeamCollection("Players");
   const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const handlePlayerChecked = (player) => {
+
+  useEffect(() => {
+    const combinedArray = [];
+    if(players) combinedArray.push(players);
+    if(LicensedPlayers) combinedArray.push(LicensedPlayers);
+    setPlayers(combinedArray);
+  },[players, LicensedPlayers])
+
+  const handlePlayerChecked = (player: playerProps) => {
     const { firstName, secondName, number } = player;
     
     const isSelected = selectedPlayers.some(
