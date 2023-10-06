@@ -45,7 +45,7 @@ import useMessageContext from "./hooks/useMessageContext";
 
 function WorkSpace({ uid }) {
   const webViewRef = useRef(null);
-  const { backgrounds, handleFetchBackground } = useBackgrounds(
+  const { backgrounds} = useBackgrounds(
     uid ? uid : null
   );
   const {handleMessage} = useMessageContext();
