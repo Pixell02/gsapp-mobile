@@ -1,26 +1,28 @@
-import { useEffect, useState } from 'react'
-import { useAuthContext } from '../../../hooks/useAuthContext'
-import { useCollection } from '../../../hooks/useCollection'
+import { useEffect, useState } from "react";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useCollection } from "../../../hooks/useCollection";
 
 const usePlayers = (webViewRef, selectedTheme) => {
-
-  const { user } = useAuthContext()
-  const {documents: Players} = useCollection("Players", ["uid", "==", user.uid])
+  const { user } = useAuthContext();
+  const { documents: Players } = useCollection("Players", [
+    "uid",
+    "==",
+    user.uid,
+  ]);
   const [playerOptions, setPlayerOptions] = useState(null);
 
   useEffect(() => {
     const options = Players?.map((player, i) => ({
       label: player.firstName + " " + player.secondName,
-      value: {...player}
+      value: { ...player },
     }));
     setPlayerOptions(options);
-
-  },[Players])
+  }, [Players]);
 
   const handleAddPlayerName = (coords, player) => {
     webViewRef.current.injectJavaScript(`
       var themeOption = ${JSON.stringify(coords.player?.themeOption)}
-      fabricCanvas._objects.forEach((item, i) => {
+      fabricCanvas?._objects.forEach((item, i) => {
         if (item.className === "yourPlayer") {
           fabricCanvas.remove(item);
         }
@@ -52,7 +54,7 @@ const usePlayers = (webViewRef, selectedTheme) => {
         }
         if(themeOption){
           themeOption.forEach((theme, i) => {
-            console.log(theme.color === "${selectedTheme}", theme.Fill)
+           
             if ((theme.color === "${selectedTheme}") || (theme.label === "${selectedTheme}")) {
               playerName.set({
                 fill: theme.Fill
@@ -64,15 +66,15 @@ const usePlayers = (webViewRef, selectedTheme) => {
         fabricCanvas.renderAll();
       })
       `);
-  }
-  const handleAddPlayerImage = (coords, image) => {
-    webViewRef.current.injectJavaScript(`
-        fabricCanvas._objects.forEach((item, i) => {
+  };
+  const handleAddPlayerImage = (coords, image: string) => {
+    if (coords && image) {
+      webViewRef.current.injectJavaScript(`
+        fabricCanvas?._objects.forEach((item, i) => {
           if (item.className === "playerImage") {
             fabricCanvas.remove(item);
           }
         });
-        fabricCanvas.renderAll();
         var playerImage = new Image();
         playerImage.src = "${image}";
         playerImage.onload = () => {
@@ -86,12 +88,14 @@ const usePlayers = (webViewRef, selectedTheme) => {
           image.scaleToWidth(${coords.ScaleToWidth});
           
           fabricCanvas.add(image);
+          image.moveTo(1);
           fabricCanvas.renderAll();
         };
       `);
-  }
+    }
+  };
 
-  return {playerOptions, handleAddPlayerName, handleAddPlayerImage}
-}
+  return { playerOptions, handleAddPlayerName, handleAddPlayerImage };
+};
 
-export default usePlayers
+export default usePlayers;
