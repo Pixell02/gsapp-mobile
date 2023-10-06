@@ -1,82 +1,67 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { LanguageContext } from "../../../../../context/LanguageContext";
-import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
+import useAddBackround from "../../../hooks/useAddBackround";
 import useBackgrounds from "../../../hooks/useBackgrounds";
+import useMessageContext from "../../../hooks/useMessageContext";
 import translate from "../../../locales/translate.json";
 
-export default function ThemeOption({ webViewRef, uid, size }) {
-  const { language } = useContext(LanguageContext);
-  const { backgrounds, selectedBackground, dataURL, handleFetchBackground } = useBackgrounds(uid ? uid : null);
-  const { setSelectedTheme } = useContext(ThemeOptionContext);
-  const imageRef = useRef(null);
+export default function ThemeOption({ webViewRef, uid, setAdditionalLayer }) {
+  const { language } = useLanguageContext();
+  const { backgrounds, selectedBackground, dataURL, setSelectedBackground, additionalLayer } =
+    useBackgrounds(uid ? uid : null);
+    const { handleAddBackground } = useAddBackround(webViewRef);
+  const { message } = useMessageContext();
+  const [size, setSize] = useState(600);
   useEffect(() => {
-    if (selectedBackground) {
-      setSelectedTheme(selectedBackground.split("...")[1]);
+    if (message?.type === "resolution") {
+      if (message.width > message.height) {
+        setSize(message.width);
+      } else {
+        setSize(message.height);
+      }
     }
-  }, [selectedBackground]);
+  }, [message]);
 
   useEffect(() => {
     if (webViewRef.current && dataURL) {
-        webViewRef.current.injectJavaScript(`
-        var fabricCanvas;
-        var backgroundImage = new Image();
-        backgroundImage.src = "${dataURL}";
-        backgroundImage.onload = function() {
-          
-          if(!fabricCanvas){
-           fabricCanvas = new fabric.Canvas(canvas, {
-            width: backgroundImage.width,
-            height: backgroundImage.height,
-            selection: false
-          });
-          }
-          var bg = new fabric.Image(backgroundImage, {
-            left: 0,
-            top: 0,
-            width: backgroundImage.width,
-            height: backgroundImage.height
-          });
-          fabricCanvas.add(bg)
-          // window.ReactNativeWebView.postMessage(JSON.stringify())
-         var image = document.querySelector("#image");
-      image.style.transform = "scale(${600 / size})";
-          var data = {
-            width: backgroundImage.width,
-            height: backgroundImage.height,
-            type: 'resolution'
-          }
-          window.ReactNativeWebView.postMessage(JSON.stringify(data));
-        };
-      `);
-      
+      webViewRef.current.injectJavaScript(handleAddBackground(dataURL, size));
     }
-  }, [dataURL, size]);
+  }, [dataURL, size, webViewRef]);
 
   useEffect(() => {
-    if (backgrounds?.length > 0) {
-      handleFetchBackground(backgrounds[0].src + "..." + backgrounds[0].color);
-    }
-  }, [backgrounds]);
+    if(additionalLayer)  setAdditionalLayer(additionalLayer);
+  },[additionalLayer])
 
-
+  
   return (
     <>
-        <View style={styles.text}>
-          <Text style={styles.textStyle}>{translate.themes[language] || translate.themes["en"]}</Text>
-        </View>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedBackground ? selectedBackground : null}
-            onValueChange={(value) => handleFetchBackground(value)}
-          >
-            <Picker.Item key={-1} label="" value="" />
-            {backgrounds?.map((item: any, i: number) => (
-              <Picker.Item key={i} label={item.color} value={item.src + "..." + item.color} />
-            ))}
-          </Picker>
-        </View>
+    {backgrounds?.length > 1 && (
+      <>
+      <View style={styles.text}>
+        <Text style={styles.textStyle}>
+          {translate.themes[language] || translate.themes["en"]}
+        </Text>
+      </View>
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={selectedBackground ? selectedBackground : null}
+          onValueChange={(value) => setSelectedBackground(value)}
+        >
+          <Picker.Item key={-1} label="" value="" />
+          {backgrounds?.map((item: any, i: number) => (
+            <Picker.Item
+              key={i}
+              label={item.color}
+              value={item}
+            />
+          ))}
+        </Picker>
+      </View>
+      </>
+    )}
+      
     </>
   );
 }
