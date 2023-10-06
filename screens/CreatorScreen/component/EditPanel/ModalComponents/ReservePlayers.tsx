@@ -1,12 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import { Image, Text, View } from 'react-native'
-import Header from './components/Header'
-import translate from "../../../locales/translate.json"
-import { useAuthContext } from '../../../../../hooks/useAuthContext'
 import { CheckBox } from 'react-native-elements'
-import { ThemeOptionContext } from '../../../context/themeOptionContext'
 import useLanguageContext from '../../../../../hooks/useLanguageContext'
+import { ThemeOptionContext } from '../../../context/themeOptionContext'
 import useSelectedTeamContext from '../../../hooks/useSelectedTeamContext'
+import translate from "../../../locales/translate.json"
+import Header from './components/Header'
 
 const ReservePlayers = ({coords, webViewRef, isModalOpen}) => {
 
