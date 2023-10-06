@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Header from "./components/Header";
-import translate from "../../../locales/translate.json";
-import { LanguageContext } from "../../../../../context/LanguageContext";
+import React from "react";
+import { View } from "react-native";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 import SelectPicker from "../../../../components/SelectPicker";
 import usePlayers from "../../../hooks/usePlayers";
+import translate from "../../../locales/translate.json";
+import Header from "./components/Header";
 
-const PlayersRoles = ({ capitan, setCapitan, goalkeeper, setGoalkeeper }) => {
+const PlayersRoles = ({ capitan, setCapitan, goalkeeper, setGoalkeeper, webViewRef, selectedTheme }) => {
   
-  const { language } = useContext(LanguageContext);
-  const {playerOptions} = usePlayers();
+  const { language } = useLanguageContext();
+  const {playerOptions} = usePlayers(webViewRef, selectedTheme);
   return (
     <View style={{ width: "100%", alignItems: "center" }}>
       <Header title={translate.setRules[language]} />
@@ -30,24 +30,3 @@ const PlayersRoles = ({ capitan, setCapitan, goalkeeper, setGoalkeeper }) => {
 };
 
 export default PlayersRoles;
-const styles = StyleSheet.create({
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "black",
-    justifyContent: "center",
-    padding: 10,
-    height: 40,
-    width: "65%",
-    marginTop: 10,
-    marginBottom: 20,
-    borderRadius: 10,
-  },
-  text: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    width: "65%",
-  },
-  textStyle: {
-    fontFamily: "Poppins-SemiBold",
-  },
-});
