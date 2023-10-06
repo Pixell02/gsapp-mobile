@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { Image, Text, View } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Header from "./components/Header";
-import translate from "../../../locales/translate.json";
-import PlayersRoles from "./PlayersRoles";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 import { ThemeOptionContext } from "../../../context/themeOptionContext";
 import useSelectedTeamContext from "../../../hooks/useSelectedTeamContext";
-import useLanguageContext from "../../../../../hooks/useLanguageContext";
+import translate from "../../../locales/translate.json";
+import PlayersRoles from "./PlayersRoles";
+import Header from "./components/Header";
 
 const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capitan, setCapitan, coords }) => {
 
@@ -40,10 +40,10 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
         } else {
           formatPlayer = player.secondName;
         }
-        if("${goalkeeper?.split("...")[0] + " " + goalkeeper?.split("...")[1]}" === player.firstName + " " + player.secondName) {
+        if("${goalkeeper?.firstName + " " + goalkeeper?.secondName}" === player.firstName + " " + player.secondName) {
           formatPlayer += " (gk)";
         }
-        if("${capitan?.split("...")[0] + " " + capitan?.split("...")[1]}" === player.firstName + " " + player.secondName) {
+        if("${capitan?.firstName + " " + capitan?.secondName}" === player.firstName + " " + player.secondName) {
           formatPlayer += " (c)";
         }
         text = text + formatPlayer + "\\n";
@@ -104,7 +104,6 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
       `);
     }
   }, [selectedPlayers, goalkeeper, capitan, selectedTheme]);
-  
   return (
     <View style={{ width: "100%" }}>
       {isModalOpen.type === "squadPlayers" && (
@@ -115,8 +114,7 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
           <Text>{translate.noPlayers[language]}</Text>
         ) : (
           <View>
-            {Players &&
-              Players.map((player, i) => (
+            {Players?.map((player, i) => (
                 <View key={i} style={{ flexDirection: "row", alignItems: "center" }}>
                   <View style={{ width: "70%" }}>
                     <CheckBox
@@ -146,7 +144,7 @@ const SquadPlayers = ({isModalOpen, webViewRef, goalkeeper, setGoalkeeper, capit
       </>
       )}
       {isModalOpen.type === "PlayersRoles" && (
-        <PlayersRoles capitan={capitan} setCapitan={setCapitan} setGoalkeeper={setGoalkeeper} goalkeeper={goalkeeper} />
+        <PlayersRoles capitan={capitan} webViewRef={webViewRef} selectedTheme={selectedTheme} setCapitan={setCapitan} setGoalkeeper={setGoalkeeper} goalkeeper={goalkeeper} />
       )}
       
     </View>
