@@ -1,17 +1,13 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import translate from "../../../locales/translate.json";
-import { LanguageContext } from "../../../../../context/LanguageContext";
-import { Picker } from "@react-native-picker/picker";
-import { useAuthContext } from "../../../../../hooks/useAuthContext";
-import { useCollection } from "../../../../../hooks/useCollection";
-import { useFonts } from "expo-font";
-import useYourTeam from "../../../hooks/useYourTeam";
+import useLanguageContext from "../../../../../hooks/useLanguageContext";
 import RadioContext from "../../../context/radioContext";
-import FontFaceObserver from "fontfaceobserver";
 import { ThemeOptionContext } from "../../../context/themeOptionContext";
+import useYourTeam from "../../../hooks/useYourTeam";
+import translate from "../../../locales/translate.json";
 const YourTeam = ({ webViewRef, coords }) => {
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
   const { yourTeams, selectedTeam, handleSelectTeam } = useYourTeam();
   const { selectedTheme } = useContext(ThemeOptionContext);
   const { radioChecked } = useContext(RadioContext);
@@ -38,7 +34,9 @@ const YourTeam = ({ webViewRef, coords }) => {
           });
           image.scaleToHeight(${coords.yourTeamLogo.ScaleToHeight});
           if(${coords.yourTeamLogo?.ScaleToWidth}){
-            image.scaleToWidth(${coords.yourTeamLogo?.ScaleToWidth});
+            if (image.width * image.scaleX > ${coords.yourTeamLogo.ScaleToWidth}) {
+              image.scaleToWidth(${coords.yourTeamLogo?.ScaleToWidth});
+            }
           }
           fabricCanvas.add(image);
           fabricCanvas.renderAll();

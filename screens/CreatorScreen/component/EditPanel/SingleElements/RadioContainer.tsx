@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import useLanguageContext from '../../../../../hooks/useLanguageContext';
 import RadioContext from '../../../context/radioContext';
-import translate from "../../../locales/translate.json"
-import { LanguageContext } from '../../../../../context/LanguageContext';
+import translate from "../../../locales/translate.json";
 const RadioContainer = () => {
   
   const {radioChecked, setRadioChecked} = useContext(RadioContext)
-  const {language} = useContext(LanguageContext);
+  const {language} = useLanguageContext();
   return (
     <View style={{width: "100%", alignItems: "center", justifyContent: "space-between"}}>
     <RadioButton.Group
