@@ -6,7 +6,7 @@ export const MessageContext = createContext(null);
 
 
 const MessageContextProvider = ({children}) => {
-    const [message, setMessage] = useState({});
+    const [message, setMessage] = useState(null);
 
     const handleMessage = (e: any) => {
     const message = JSON.parse(e.nativeEvent.data);
