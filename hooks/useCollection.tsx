@@ -8,7 +8,7 @@ import { CollectionReference, DocumentData, Query, QuerySnapshot, collection, on
 
 export const useCollection = (c: string, _q?: any[]) => {
   const [documents, setDocuments] = useState<DocumentData | null>(null);
-  console.log(_q)
+  
   useEffect(() => {
     const fetchData = async () => {
      let ref: CollectionReference | Query = collection(db, c);
