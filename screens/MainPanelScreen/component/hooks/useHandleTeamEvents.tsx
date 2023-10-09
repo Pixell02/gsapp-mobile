@@ -4,8 +4,8 @@ import { db } from "../../../../firebase/config";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
 import useStorage from "../../../../hooks/useStorage";
+import { teamDataProps } from "../../context/DataContext";
 import translate from "../../locales/translate.json";
-import { teamDataProps } from "../context/DataContext";
 import useHandleTeamData from "./useHandleTeamData";
 const useHandleTeamEvents = ({ setTeamData, setIsModalOpen }) => {
   const { user } = useAuthContext();

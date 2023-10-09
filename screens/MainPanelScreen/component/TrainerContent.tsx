@@ -8,8 +8,8 @@ import useTeamCollection from "../../../hooks/useTeamCollection";
 import ItemBlock from "../../components/ItemBlock";
 import ItemCenter from "../../components/ItemCenter";
 import Title from "../../components/Title";
+import { trainerProps } from "../context/DataContext";
 import translate from "../locales/translate.json";
-import { trainerProps } from "./context/DataContext";
 import useDataContextProvider from "./hooks/useDataContextProvider";
 import useModalContextProvider from "./hooks/useModalContextProvider";
 

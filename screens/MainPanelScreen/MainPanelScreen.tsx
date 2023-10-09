@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { ModalContextProvider } from "../../context/ModalContext";
 import AddBtn from "../components/AddBtn";
 import MainContent from "../components/MainContent";
 import TopBar from "../components/TopBar";
 import MainPanelContent from "./component/MainPanelContent";
 import TeamModal from "./component/TeamModal";
-import { DataProvider } from "./component/context/DataContext";
-import { ModalContextProvider } from "./component/context/ModalContext";
+import { DataProvider } from "./context/DataContext";
 
 export default function MainPanelScreen(): JSX.Element {
   return (

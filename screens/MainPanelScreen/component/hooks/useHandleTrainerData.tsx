@@ -4,8 +4,8 @@ import { db } from '../../../../firebase/config';
 import { useAuthContext } from '../../../../hooks/useAuthContext';
 import useLanguageContext from '../../../../hooks/useLanguageContext';
 import useStorage from '../../../../hooks/useStorage';
+import { trainerProps } from '../../context/DataContext';
 import translate from "../../locales/translate.json";
-import { trainerProps } from '../context/DataContext';
 import useDataContextProvider from './useDataContextProvider';
 import useModalContextProvider from './useModalContextProvider';
 const useHandleTrainerData = () => {
