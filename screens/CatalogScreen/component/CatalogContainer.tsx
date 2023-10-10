@@ -1,11 +1,10 @@
-import React from 'react'
-import {Text, View, StyleSheet} from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
   name: string;
   id: string;
-  // favorite: boolean;
   key: string;
   open: () => void;
   setName: (name: string) => void;
