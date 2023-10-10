@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useCollection } from '../../../hooks/useCollection';
+import useDataContext from './useDataContext';
 
 interface TeamProps {
   firstName: string;
@@ -17,6 +18,7 @@ const useTeamOption = () => {
   const { user } = useAuthContext();
   const [teamOption, setTeamOption] = useState<optionProps[]>([]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
+  const { setSelectedValue } = useDataContext();
   useEffect(() => {
     const option = Teams?.map((team: TeamProps, i: string) => ({
       id: i,
@@ -26,7 +28,11 @@ const useTeamOption = () => {
     
     setTeamOption(option)
   },[Teams])
-  
+useEffect(() => {
+  if (teamOption && teamOption.length > 0) {
+    setSelectedValue(teamOption[0].value);
+  }
+}, [teamOption]);  
   
 
   return {teamOption}
