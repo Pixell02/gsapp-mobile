@@ -1,10 +1,16 @@
 import useLanguageContext from '../../../../hooks/useLanguageContext';
 import translate from "../../locales/translate.json";
+
+interface sportOptionProps {
+  label: string;
+  value: string;
+}
+
 const useSportOptions = () => {
 
     const {language} = useLanguageContext();
 
-    const sportOptions = [
+    const sportOptions: sportOptionProps[] = [
     {
       label: translate.football[language] || translate.football["en"],
       value: "piłka nożna",
