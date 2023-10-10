@@ -1,20 +1,21 @@
-import { Children, createContext, useContext, useEffect, useState } from "react";
-import useSquadPlayers from "../hooks/useSquadPlayers";
+import { createContext, useEffect, useState } from "react";
 import { Alert } from "react-native";
-import translate from "../locales/translate.json"
-import { LanguageContext } from "../../../context/LanguageContext";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import { playerProps } from "../../PlayersScreen/PlayersScreen";
+import useSquadPlayers from "../hooks/useSquadPlayers";
+import translate from "../locales/translate.json";
 
 export const SelectedTeamContext = createContext(null);
 
 export const SelectedTeamProvider = ({ children }) => {
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedReserve, setSelectedReserve] = useState([]);
   const { Players, selectedPlayers, handlePlayerChecked } = useSquadPlayers();
   const [reservePlayers, setReservePlayers] = useState(null);
   useEffect(() => {
     const filteredPlayers = Players?.filter(
-      (player: any) =>
+      (player: playerProps) =>
         !selectedPlayers.some(
           (selectedPlayer) =>
             selectedPlayer.firstName === player.firstName &&
@@ -25,7 +26,7 @@ export const SelectedTeamProvider = ({ children }) => {
     setReservePlayers(filteredPlayers);
   }, [Players, selectedPlayers]);
 
-  const handleReserveChecked = (reserve) => {
+  const handleReserveChecked = (reserve: playerProps) => {
     const { firstName, secondName, number } = reserve;
     
     const isSelected = selectedReserve.some(
@@ -36,8 +37,8 @@ export const SelectedTeamProvider = ({ children }) => {
     );
 
     if (isSelected) {
-      setSelectedReserve((prevselectedReserves) =>
-        prevselectedReserves.filter(
+      setSelectedReserve((prev) =>
+        prev.filter(
           (selectedReserve) =>
             selectedReserve.firstName !== firstName ||
             selectedReserve.secondName !== secondName ||
@@ -46,8 +47,8 @@ export const SelectedTeamProvider = ({ children }) => {
       );
     } else {
 if(selectedReserve.length !== 9){
-      setSelectedReserve((prevselectedReserves) => [
-        ...prevselectedReserves,
+      setSelectedReserve((prev) => [
+        ...prev,
         { firstName, secondName, number },
       ]);
       } else {
