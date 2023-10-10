@@ -1,125 +1,55 @@
 import { Picker } from "@react-native-picker/picker";
-import { addDoc, collection } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import React, { useEffect } from "react";
-import { Alert, Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Modal, Text, View } from "react-native";
 import InputData from "../../../components/InputData";
+import PreviewBlock from "../../../components/PreviewBlock";
 import RoundedButton from "../../../components/RoundedButton";
 import Title from "../../../components/Title";
-import { db } from "../../../firebase/config";
 import useAddImage from "../../../hooks/useAddImage";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCollection } from "../../../hooks/useCollection";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import useLanguageContext from "../../../hooks/useLanguageContext";
+import useModalContextProvider from "../../MainPanelScreen/component/hooks/useModalContextProvider";
 import { styles } from "../../MainPanelScreen/component/styles/styles";
+import { OpponentDataProps } from "../context/DataContext";
+import useDataContext from "../hooks/useDataContext";
+import useHandleOpponentEvents from "../hooks/useHandleOpponentEvents";
 import translate from "../locales/translate.json";
 
-export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }) {
+export default function AddOpponent() {
   const { user } = useAuthContext();
+  const {isModalOpen, setIsModalOpen} = useModalContextProvider();
+  const { opponentData, setOpponentData } = useDataContext();
   const {language} = useLanguageContext();
-  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
-  const { setImageUri, handleAddPhoto, preview } = useAddImage();
- 
+  const panResponder = useCustomPanResponder(isModalOpen, setIsModalOpen);
+  const { setImageUri, handleAddPhoto, preview } = useAddImage(setOpponentData);
+  const { handleSave } = useHandleOpponentEvents({ setOpponentData, setIsModalOpen });
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-    useEffect(() => {
-      if(Teams) {
-        setTeamData(prev => ({...prev, team: Teams[0].firstName + " " + Teams[0].secondName}))
-      }
-    },[Teams])
-  useEffect(() => {
-    if (preview) {
-      setTeamData((prev) => ({
-        ...prev,
-        img: preview.substring(preview.lastIndexOf("/") + 1),
-      }));
-    }
-  }, [preview]);
-  const handleSave = async () => {
-    if (!teamData.firstName || !teamData.secondName || !teamData.team) {
-      Alert.alert(translate.emptyField[language]);
-    } else {
-      if (teamData.img) {
-        const storage = getStorage();
-        const metadata = {
-          contentType: "image/png",
-        };
-        const teamRef = ref(storage, `${user.uid}/herb/${teamData.firstName}_${teamData.secondName}`);
-        const response = await fetch(preview);
-        const blob = await response.blob();
-        const uploadTask = uploadBytesResumable(teamRef, blob, metadata);
-
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
-            switch (snapshot.state) {
-              case "paused":
-                console.log("Upload is paused");
-                break;
-              case "running":
-                console.log("Upload is running");
-                break;
-            }
-          },
-          (error) => {
-            console.log(error);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            addDoc(collection(db, "Opponents"), {
-              firstName: teamData.firstName,
-              secondName: teamData.secondName,
-              img: downloadURL,
-              team: teamData.team,
-              uid: user.uid,
-            });
-          }
-        );
-      } else {
-        const docRef = collection(db, "Opponents");
-        addDoc(docRef, {
-          firstName: teamData.firstName,
-          secondName: teamData.secondName,
-          img: "",
-          team: teamData.team,
-          uid: user.uid,
-        });
-      }
-      setTeamData((prev) => ({
-        ...prev,
-        firstName: "",
-        secondName: "",
-        img: "",
-        team: "",
-        uid: user.uid,
-      }));
-      setIsOpen();
-    }
-  };
+   
+  
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen === 1} onRequestClose={() => setIsOpen(0)}>
+      <Modal animationType="slide" visible={isModalOpen === 1} onRequestClose={() => setIsModalOpen(0)}>
         <View style={styles.modalContent}>
           <Title name={translate.addOpponent[language]} />
           <View style={styles.inputCenter}>
             <InputData
               name={translate.firstOpponentName[language]}
-              text={teamData.firstName}
-              onChangeText={(value) => setTeamData((prev) => ({ ...prev, firstName: value }))}
+              text={opponentData.firstName}
+              onChangeText={(value) => setOpponentData((prev: OpponentDataProps) => ({ ...prev, firstName: value.trim() }))}
             />
             <InputData
               name={translate.secondOpponentName[language]}
-              text={teamData.secondName}
-              onChangeText={(value) => setTeamData((prev) => ({ ...prev, secondName: value }))}
+              text={opponentData.secondName}
+              onChangeText={(value) => setOpponentData((prev: OpponentDataProps) => ({ ...prev, secondName: value.trim() }))}
             />
-            <View style={{width: "100%"}}>
-              <Text style={{fontFamily: "Poppins_Medium"}}>{translate.team[language]}</Text>
+            <View style={{ width: "100%" }}>
+              <Text style={{ fontFamily: "Poppins_Medium" }}>{translate.team[language]}</Text>
               <View style={styles.picker}>
                 <Picker
-                  selectedValue={teamData.team}
-                  onValueChange={(itemValue) => setTeamData((prev) => ({ ...prev, team: itemValue }))}
+                  selectedValue={opponentData.team}
+                  onValueChange={(itemValue) => setOpponentData((prev) => ({ ...prev, team: itemValue }))}
                 >
                   {Teams &&
                     Teams.map((item) => (
@@ -135,22 +65,9 @@ export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }
             <View style={styles.margin}>
               <RoundedButton text={translate.addPhoto[language]} onPress={handleAddPhoto} />
             </View>
-            <View style={styles.imageContainer}>
-              {preview && (
-                <>
-                  <View style={styles.imageContent}>
-                    <Image source={{ uri: preview }} style={styles.image} />
-                  </View>
-                  <View style={styles.binContent}>
-                    <TouchableOpacity onPress={() => setImageUri("")}>
-                      <Image source={require("../../img/bin.png")} style={styles.binImage} />
-                    </TouchableOpacity>
-                  </View>
-                </>
-              )}
-            </View>
-            <View style={{width:"100%"}}>
-              <RoundedButton text={translate.save[language]} onPress={handleSave} />
+            <PreviewBlock preview={preview} setImageUri={setImageUri} />
+            <View style={{ width: "100%" }}>
+              <RoundedButton text={translate.save[language]} onPress={() => handleSave(opponentData, preview)} />
             </View>
           </View>
         </View>
