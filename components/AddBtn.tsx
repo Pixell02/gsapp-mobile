@@ -4,7 +4,7 @@ import useModalContextProvider from '../screens/MainPanelScreen/component/hooks/
 
 const AddBtn = ():JSX.Element => {
 
-  const { setIsModalOpen} = useModalContextProvider();
+  const { setIsModalOpen } = useModalContextProvider();
 
   return (
     <TouchableOpacity onPress={() => setIsModalOpen(1)} style={styles.btn}>
