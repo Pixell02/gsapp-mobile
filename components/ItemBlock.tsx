@@ -1,7 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import style from "../StartingScreen/style";
 
 interface TeamType {
   id: string;

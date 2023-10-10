@@ -1,8 +1,8 @@
-import { StackNavigationProp, createStackNavigator } from "@react-navigation/stack";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { RootStackParamList } from "../StartingScreen/type";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Image, StyleSheet, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { RootStackParamList } from "../screens/StartingScreen/type";
 interface imageProps {
   source: any;
 }

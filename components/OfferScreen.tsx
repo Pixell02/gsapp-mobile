@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import WebView from "react-native-webview";
-import LoadingScreen from "../components/LoadingScreen";
 import MainContent from "../components/MainContent";
 import ScreenContainer from "../components/ScreenContainer";
 import TopBar from "../components/TopBar";
-import OfferContainer from "./component/OfferContainer";
-import PromoCodeProvider from "./context/PromoCodeContext";
+import OfferContainer from "../screens/OfferScreen/component/OfferContainer";
+import PromoCodeProvider from "../screens/OfferScreen/context/PromoCodeContext";
+import LoadingScreen from "./LoadingScreen";
 
 interface OfferScreenProps {
   navigation: any;

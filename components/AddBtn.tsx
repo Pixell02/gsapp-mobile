@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import useModalContextProvider from '../MainPanelScreen/component/hooks/useModalContextProvider';
+import useModalContextProvider from '../screens/MainPanelScreen/component/hooks/useModalContextProvider';
 
 const AddBtn = ():JSX.Element => {
 
