@@ -6,6 +6,8 @@ import Title from "../../../../components/Title";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useCollection } from "../../../../hooks/useCollection";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
+import useModalContextProvider from "../../../MainPanelScreen/component/hooks/useModalContextProvider";
+import useDataContext from "../../hooks/useDataContext";
 import useTeamOption from "../../hooks/useTeamOption";
 import translate from "../../locales/translate.json";
 
@@ -17,47 +19,44 @@ interface playerProps {
   team: string;
   img: string;
 }
-interface props {
-  setPlayerData: (value: object) => void;
-  setIsOpen: (value: number) => void;
-  selectedValue: string;
-  setSelectedValue: (value: string) => void;
-}
 
-const MainPlayers = (props: props) => {
+
+const MainPlayers = () => {
   const { user } = useAuthContext();
+   const { isModalOpen, setIsModalOpen } = useModalContextProvider();
+   const { playerData, setPlayerData, selectedValue, setSelectedValue } = useDataContext();
   const { documents: players } = useCollection("Players", ["uid", "==", user.uid]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   const { language } = useLanguageContext();
   const { teamOption } = useTeamOption();
   useEffect(() => {
     if (teamOption && teamOption.length > 0) {
-      props.setSelectedValue(teamOption[0].value);
+      setSelectedValue(teamOption[0].value);
     }
   }, [teamOption]);
 
   const handlePress = (player: playerProps) => {
-    props.setPlayerData((prev: playerProps) => ({
+    setPlayerData((prev: playerProps) => ({
       ...prev,
       id: player.id,
       firstName: player.firstName,
       secondName: player.secondName,
-      number: player.number.toString(),
+      number: player.number,
       team: player.team,
       img: player.img,
     }));
-    props.setIsOpen(2);
+   setIsModalOpen(0)
   };
 
   return (
     <>
       <Title name={translate.title[language] || translate.title["en"]} />
       {Teams && (
-        <TeamPicker Teams={Teams} selectedValue={props.selectedValue} setSelectedValue={props.setSelectedValue} />
+        <TeamPicker Teams={Teams} selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
       )}
       <ItemCenter>
         {players
-          ?.filter((player: playerProps) => player.team === props.selectedValue)
+          ?.filter((player: playerProps) => player.team === selectedValue)
           .map((player: playerProps, i: number) => (
             <ItemBlock
               key={i}
