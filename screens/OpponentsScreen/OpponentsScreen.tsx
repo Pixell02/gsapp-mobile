@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import ScreenContainer from "../components/ScreenContainer";
-import { RootStackParamList } from "../StartingScreen/type";
-import { StackNavigationProp } from "@react-navigation/stack";
-import TopBar from "../components/TopBar";
-import MainContent from "../components/MainContent";
-import NavBar from "../components/NavBar";
-import OpponentsContent from "./components/OpponentsContent";
-import AddBtn from "../components/AddBtn";
+import AddBtn from "../../components/AddBtn";
+import MainContent from "../../components/MainContent";
+import ScreenContainer from "../../components/ScreenContainer";
+import TopBar from "../../components/TopBar";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import OpponentModal from "./components/OpponentModal";
+import OpponentsContent from "./components/OpponentsContent";
 
-type OpponentsScreenNavigationProp = StackNavigationProp<RootStackParamList, "OpponentsScreen">;
 
-type Props = {
-  navigation: OpponentsScreenNavigationProp;
-};
 
-export default function OpponentsScreen({ navigation }: Props) {
+export default function OpponentsScreen() {
   const [isOpen, setIsOpen] = useState(0);
   const { user } = useAuthContext();
   const [selectedValue, setSelectedValue] = useState("");
@@ -44,7 +36,7 @@ export default function OpponentsScreen({ navigation }: Props) {
           setPlace={setPlace}
         />
       )}
-      <AddBtn onPress={() => setIsOpen(1)} />
+      <AddBtn />
       <MainContent>
         <OpponentsContent
           setOpponentData={setOpponentData}
