@@ -15,6 +15,7 @@ const useCustomPanResponder = (
   isOpen: number | boolean,
   setIsOpen: (value: number | boolean) => void,
   id?: Props['id']) => {
+    
   
   const panResponder = useRef(
     PanResponder.create({
