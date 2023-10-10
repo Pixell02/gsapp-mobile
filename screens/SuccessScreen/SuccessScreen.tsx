@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import ScreenContainer from "../components/ScreenContainer";
-import { useCollection } from "../../hooks/useCollection";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { Text, View } from "react-native";
-import ItemCenter from "../components/ItemCenter";
-import { getFunctions, httpsCallable } from "firebase/functions";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import ItemCenter from "../../components/ItemCenter";
+import ScreenContainer from "../../components/ScreenContainer";
+import { db } from "../../firebase/config";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCollection } from "../../hooks/useCollection";
 
 const SuccessScreen = ({ navigation }) => {
   const { user } = useAuthContext();

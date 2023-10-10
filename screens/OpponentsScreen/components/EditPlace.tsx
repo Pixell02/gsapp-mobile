@@ -1,12 +1,12 @@
+import { collection, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
-import useLanguageContext from "../../../hooks/useLanguageContext";
-import { collection, doc, updateDoc } from "firebase/firestore";
-import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import InputData from "../../../components/InputData";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
 import { db } from "../../../firebase/config";
-import Title from "../../components/Title";
-import InputData from "../../components/InputData";
-import RoundedButton from "../../components/RoundedButton";
+import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import useLanguageContext from "../../../hooks/useLanguageContext";
 import { styles } from "../../MainPanelScreen/component/styles/styles";
 import translate from "../locales/translate.json";
 

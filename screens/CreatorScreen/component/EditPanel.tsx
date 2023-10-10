@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import ItemCenter from "../../../components/ItemCenter";
 import useLicenseContext from "../../../hooks/useLicenseContext";
-import ItemCenter from "../../components/ItemCenter";
 import { RadioProvider } from "../context/radioContext";
 import { SelectedTeamProvider } from "../context/selectedTeamContext";
 import { ThemeOptionProvider } from "../context/themeOptionContext";

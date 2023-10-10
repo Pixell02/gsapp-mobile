@@ -1,23 +1,23 @@
-import React, { useContext, useEffect } from "react";
-import { View, Alert, Modal, Image, TouchableOpacity, Text, TextInput } from "react-native";
-import { styles } from "../../MainPanelScreen/component/styles/styles";
-import useAddImage from "../../../hooks/useAddImage";
-import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../firebase/config";
-import Title from "../../components/Title";
-import InputData from "../../components/InputData";
 import { Picker } from "@react-native-picker/picker";
-import RoundedButton from "../../components/RoundedButton";
+import { addDoc, collection } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useEffect } from "react";
+import { Alert, Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import InputData from "../../../components/InputData";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
+import { db } from "../../../firebase/config";
+import useAddImage from "../../../hooks/useAddImage";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCollection } from "../../../hooks/useCollection";
-import { LanguageContext } from "../../../context/LanguageContext";
-import translate from "../locales/translate.json"
+import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import { styles } from "../../MainPanelScreen/component/styles/styles";
+import translate from "../locales/translate.json";
 
 export default function AddOpponent({ isOpen, teamData, setTeamData, setIsOpen }) {
   const { user } = useAuthContext();
-  const {language} = useContext(LanguageContext)
+  const {language} = useLanguageContext();
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
   const { setImageUri, handleAddPhoto, preview } = useAddImage();
  

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import Title from '../components/Title'
-import RoundedButton from '../components/RoundedButton'
+import RoundedButton from '../../components/RoundedButton'
+import Title from '../../components/Title'
 
 const Alert = ({handlePressAlert}) => {
   return (

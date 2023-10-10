@@ -1,12 +1,12 @@
-import React from 'react'
-import { View } from 'react-native'
-import Title from '../../../components/Title'
-import ItemCenter from '../../../components/ItemCenter'
-import translate from '../../locales/translate.json';
-import useLanguageContext from '../../../../hooks/useLanguageContext';
+import React from 'react';
+import { View } from 'react-native';
+import ItemBlock from '../../../../components/ItemBlock';
+import ItemCenter from '../../../../components/ItemCenter';
+import TeamPicker from '../../../../components/TeamPicker';
+import Title from '../../../../components/Title';
 import { useCollection } from '../../../../hooks/useCollection';
-import ItemBlock from '../../../components/ItemBlock';
-import TeamPicker from '../../../components/TeamPicker';
+import useLanguageContext from '../../../../hooks/useLanguageContext';
+import translate from '../../locales/translate.json';
 
 interface props {
   uid: string;

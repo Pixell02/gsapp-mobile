@@ -1,16 +1,16 @@
+import { collection, doc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Modal, ScrollView, View } from "react-native";
-import useSelectedTeamContext from "../../CreatorScreen/hooks/useSelectedTeamContext";
-import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
-import translate from "../locales/translate.json";
-import useLanguageContext from "../../../hooks/useLanguageContext";
-import Title from "../../components/Title";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import InputData from "../../../components/InputData";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
 import { db } from "../../../firebase/config";
-import RoundedButton from "../../components/RoundedButton";
+import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import useSelectedTeamContext from "../../CreatorScreen/hooks/useSelectedTeamContext";
+import translate from "../locales/translate.json";
 import PlayersToCheck from "./AddSquadPreset/PlayersToCheck";
 import ReserveToCheck from "./AddSquadPreset/ReserveToCheck";
-import InputData from "../../components/InputData";
 
 const EditSquadPreset = ({ isOpen, setIsOpen, setSquadData, data }) => {
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setSquadData);

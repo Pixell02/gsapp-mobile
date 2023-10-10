@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import Input from "../../../../../components/Input";
+import SelectPicker from "../../../../../components/SelectPicker";
 import useLanguageContext from "../../../../../hooks/useLanguageContext";
-import Input from "../../../../components/Input";
-import SelectPicker from "../../../../components/SelectPicker";
 import useAddText from "../../../hooks/useAddText";
 import usePlacePresetOption from "../../../hooks/usePlacePresetOption";
 import useThemeOption from "../../../hooks/useThemeOption";

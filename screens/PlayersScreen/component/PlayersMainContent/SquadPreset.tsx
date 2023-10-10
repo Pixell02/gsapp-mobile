@@ -1,13 +1,13 @@
 import React from "react";
 import { View } from "react-native";
-import Title from "../../../components/Title";
-import translate from "../../locales/translate.json";
-import useLanguageContext from "../../../../hooks/useLanguageContext";
-import RoundedButton from "../../../components/RoundedButton";
-import { useCollection } from "../../../../hooks/useCollection";
+import ItemCenter from "../../../../components/ItemCenter";
+import RoundedButton from "../../../../components/RoundedButton";
+import SlabBlock from "../../../../components/SlabBlock";
+import Title from "../../../../components/Title";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
-import ItemCenter from "../../../components/ItemCenter";
-import SlabBlock from "../../../components/SlabBlock";
+import { useCollection } from "../../../../hooks/useCollection";
+import useLanguageContext from "../../../../hooks/useLanguageContext";
+import translate from "../../locales/translate.json";
 
 const SquadPreset = ({ setSquadData, setIsOpen }) => {
   const { language } = useLanguageContext();

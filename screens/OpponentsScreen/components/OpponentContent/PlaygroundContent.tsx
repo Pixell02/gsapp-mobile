@@ -1,13 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
+import ItemCenter from '../../../../components/ItemCenter'
+import RoundedButton from '../../../../components/RoundedButton'
+import SlabBlock from '../../../../components/SlabBlock'
+import Title from '../../../../components/Title'
 import { useAuthContext } from '../../../../hooks/useAuthContext'
 import { useCollection } from '../../../../hooks/useCollection'
 import useLanguageContext from '../../../../hooks/useLanguageContext'
 import useTeamCollection from '../../../../hooks/useTeamCollection'
-import ItemCenter from '../../../components/ItemCenter'
-import RoundedButton from '../../../components/RoundedButton'
-import SlabBlock from '../../../components/SlabBlock'
-import Title from '../../../components/Title'
 import translate from '../../locales/translate.json'
 
 interface itemProps {

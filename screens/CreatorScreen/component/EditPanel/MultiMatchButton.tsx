@@ -1,6 +1,6 @@
-import React from 'react'
-import { View } from 'react-native'
-import RoundedButton from '../../../components/RoundedButton'
+import React from 'react';
+import { View } from 'react-native';
+import RoundedButton from '../../../../components/RoundedButton';
 
 interface propsTypes {
   i: number;

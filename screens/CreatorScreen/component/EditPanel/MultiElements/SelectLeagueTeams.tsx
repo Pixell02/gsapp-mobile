@@ -1,7 +1,7 @@
 import React from "react";
-import useSelectTeams from "./hooks/useSelectTeams";
 import { View } from "react-native";
-import SelectPicker from "../../../../components/SelectPicker";
+import SelectPicker from "../../../../../components/SelectPicker";
+import useSelectTeams from "./hooks/useSelectTeams";
 
 const SelectLeagueTeams = ({ webViewRef, coords, selectedMatch }) => {
   const { teamOption, setSelectedGuest, selectedGuest } = useSelectTeams(webViewRef, coords, selectedMatch);

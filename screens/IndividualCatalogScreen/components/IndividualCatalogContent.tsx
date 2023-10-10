@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { View } from "react-native"; // Import Image from react-native
+import ItemBlock from "../../../components/ItemBlock";
+import ItemCenter from "../../../components/ItemCenter";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import useLanguageContext from "../../../hooks/useLanguageContext";
 import { RootStackParamList } from "../../StartingScreen/type";
-import ItemBlock from "../../components/ItemBlock";
-import ItemCenter from "../../components/ItemCenter";
-import RoundedButton from "../../components/RoundedButton";
-import Title from "../../components/Title";
 import useTeamPosters from "../hooks/useTeamPosters";
 import translate from "../locales/translate.json";
 import NavContainer from "./NavContainer";

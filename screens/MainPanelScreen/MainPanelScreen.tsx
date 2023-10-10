@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import AddBtn from "../../components/AddBtn";
+import MainContent from "../../components/MainContent";
+import TopBar from "../../components/TopBar";
 import { ModalContextProvider } from "../../context/ModalContext";
-import AddBtn from "../components/AddBtn";
-import MainContent from "../components/MainContent";
-import TopBar from "../components/TopBar";
 import MainPanelContent from "./component/MainPanelContent";
 import TeamModal from "./component/TeamModal";
 import { DataProvider } from "./context/DataContext";

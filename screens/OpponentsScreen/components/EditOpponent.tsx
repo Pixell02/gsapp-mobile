@@ -1,26 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Alert, Modal, Image, TouchableOpacity, Text, TextInput } from "react-native";
-import { styles } from "../../MainPanelScreen/component/styles/styles";
-import useAddImage from "../../../hooks/useAddImage";
-import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
-import Title from "../../components/Title";
-import InputData from "../../components/InputData";
 import { Picker } from "@react-native-picker/picker";
-import RoundedButton from "../../components/RoundedButton";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useEffect } from "react";
+import { Alert, Modal, Text, View } from "react-native";
+import InputData from "../../../components/InputData";
+import PreviewBlock from "../../../components/PreviewBlock";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
+import { db } from "../../../firebase/config";
+import useAddImage from "../../../hooks/useAddImage";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCollection } from "../../../hooks/useCollection";
+import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
+import useLanguageContext from "../../../hooks/useLanguageContext";
+import { styles } from "../../MainPanelScreen/component/styles/styles";
 import translate from "../locales/translate.json";
-import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function EditOpponent({ isOpen, teamData, setIsOpen, setTeamData }) {
   const { user } = useAuthContext();
   const panResponder = useCustomPanResponder(isOpen, setIsOpen, setTeamData);
   const { imageUri, setImageUri, handleAddPhoto, preview, setPreview, isImage, setIsImage } = useAddImage();
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
-  const { language } = useContext(LanguageContext);
+  const { language } = useLanguageContext();
 
   const handleDeleteItem = () => {
     const docRef = doc(db, "Opponents", teamData.id);
@@ -28,14 +29,7 @@ export default function EditOpponent({ isOpen, teamData, setIsOpen, setTeamData 
     setIsOpen(0);
   };
 
-  const handleDeletePhoto = () => {
-    setTeamData((prev) => ({
-      ...prev,
-      img: "",
-    }));
-    setPreview(null);
-    setIsImage(false);
-  };
+  
   useEffect(() => {
     if (preview) {
       setTeamData((prev) => ({
@@ -146,18 +140,7 @@ export default function EditOpponent({ isOpen, teamData, setIsOpen, setTeamData 
             <View style={styles.margin}>
               <RoundedButton text={translate.addPhoto[language]} onPress={handleAddPhoto} />
             </View>
-            <View style={styles.imageContainer}>
-              {(preview || teamData.img) && (
-                <>
-                  <View style={styles.imageContent}>
-                    <Image source={{ uri: preview ? preview : teamData.img }} style={styles.image} />
-                  </View>
-                  <TouchableOpacity onPress={() => handleDeletePhoto()}>
-                    <Image source={require("../../img/bin.png")} style={styles.binImage} />
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
+            <PreviewBlock preview={preview} setImageUri={setImageUri} />
             <View style={{ width: "100%" }}>
               <RoundedButton text={translate.save[language]} onPress={handleSave} />
             </View>

@@ -1,7 +1,7 @@
 import React from 'react'
-import useTextLayer from './hooks/useTextLayer'
 import { View } from 'react-native'
-import InputData from '../../../../components/InputData'
+import InputData from '../../../../../components/InputData'
+import useTextLayer from './hooks/useTextLayer'
 
 const UniversalNumberLayer = ({webViewRef, coords, properties, selectedMatch}) => {
 

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { Button } from "react-native-paper";
+import InputData from "../../../components/InputData";
+import ItemCenter from "../../../components/ItemCenter";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import InputData from "../../components/InputData";
-import ItemCenter from "../../components/ItemCenter";
 import translate from "../locales/translate.json";
 
 const zipCodeRegex = /^\d{2}-\d{3}$/;

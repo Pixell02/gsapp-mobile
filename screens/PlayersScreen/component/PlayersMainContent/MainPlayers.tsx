@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import ItemBlock from "../../../../components/ItemBlock";
+import ItemCenter from "../../../../components/ItemCenter";
+import TeamPicker from "../../../../components/TeamPicker";
+import Title from "../../../../components/Title";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useCollection } from "../../../../hooks/useCollection";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
-import ItemBlock from "../../../components/ItemBlock";
-import ItemCenter from "../../../components/ItemCenter";
-import TeamPicker from "../../../components/TeamPicker";
-import Title from "../../../components/Title";
 import useTeamOption from "../../hooks/useTeamOption";
 import translate from "../../locales/translate.json";
 

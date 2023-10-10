@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
+import ItemBlock from '../../../components/ItemBlock';
+import ItemCenter from '../../../components/ItemCenter';
+import Title from '../../../components/Title';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useCollection } from '../../../hooks/useCollection';
 import useLanguageContext from '../../../hooks/useLanguageContext';
 import useTeamCollection from '../../../hooks/useTeamCollection';
-import ItemBlock from '../../components/ItemBlock';
-import ItemCenter from '../../components/ItemCenter';
-import Title from '../../components/Title';
 import { teamDataProps } from '../context/DataContext';
 import translate from "../locales/translate.json";
 import useDataContextProvider from './hooks/useDataContextProvider';

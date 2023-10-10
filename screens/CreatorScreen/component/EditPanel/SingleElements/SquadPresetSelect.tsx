@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import SelectPicker from '../../../../../components/SelectPicker';
 import useLanguageContext from '../../../../../hooks/useLanguageContext';
-import SelectPicker from '../../../../components/SelectPicker';
 import { ThemeOptionContext } from '../../../context/themeOptionContext';
 import useSquadPresetOption from '../../../hooks/useSquadPresetOption';
 import translate from "../../../locales/translate.json";

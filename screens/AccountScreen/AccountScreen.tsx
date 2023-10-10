@@ -1,13 +1,12 @@
-import React from 'react'
-import { Text, View } from 'react-native'
-import ScreenContainer from '../components/ScreenContainer'
-import TopBar from '../components/TopBar'
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../StartingScreen/type';
-import MainContent from '../components/MainContent';
-import NavBar from '../components/NavBar';
-import AccountContent from './components/AccountContent';
+import React from 'react';
+import { Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import MainContent from '../../components/MainContent';
+import ScreenContainer from '../../components/ScreenContainer';
+import TopBar from '../../components/TopBar';
+import { RootStackParamList } from '../StartingScreen/type';
+import AccountContent from './components/AccountContent';
 
 type CatalogScreenNavigationProp = StackNavigationProp<RootStackParamList, "CatalogScreen">;
 
@@ -28,7 +27,6 @@ export default function AccountScreen({navigation}: Props) {
       <MainContent>
         <AccountContent navigation={navigation} />
       </MainContent>
-      {/* <NavBar /> */}
     </ScreenContainer>
   )
 }

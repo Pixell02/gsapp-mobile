@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Modal, View } from 'react-native'
-import useCustomPanResponder from '../../../hooks/useCustomPanResponder';
-import { styles } from "../../MainPanelScreen/component/styles/styles";
-import RoundedButton from '../../components/RoundedButton';
-import translate from "../locales/translate.json"
-import useLanguageContext from '../../../hooks/useLanguageContext';
-import Title from '../../components/Title';
-import InputData from '../../components/InputData';
 import { addDoc, collection } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { Modal, View } from 'react-native';
+import InputData from '../../../components/InputData';
+import RoundedButton from '../../../components/RoundedButton';
+import Title from '../../../components/Title';
 import { db } from '../../../firebase/config';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import useCustomPanResponder from '../../../hooks/useCustomPanResponder';
+import useLanguageContext from '../../../hooks/useLanguageContext';
+import { styles } from "../../MainPanelScreen/component/styles/styles";
+import translate from "../locales/translate.json";
 
 const AddPlace = ({isOpen, setIsOpen, setData}) => {
   const { language } =useLanguageContext(); 

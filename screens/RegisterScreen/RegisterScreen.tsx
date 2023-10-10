@@ -1,6 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useState } from "react";
 import { Alert, ImageBackground, Text, View } from "react-native";
+import Input from "../../components/Input";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
 import useLanguageContext from "../../hooks/useLanguageContext";
 import { useSignup } from "../../hooks/useSignup";
@@ -8,7 +9,6 @@ import LoginButton from "../LoginScreen/components/LoginButton";
 import SocialLoginButton from "../LoginScreen/components/SocialLoginButton";
 import styles from "../LoginScreen/styles";
 import { RootStackParamList } from "../StartingScreen/type";
-import Input from "../components/Input";
 import translate from "./locales/translate.json";
 const googleLogo = require("../img/google.png");
 

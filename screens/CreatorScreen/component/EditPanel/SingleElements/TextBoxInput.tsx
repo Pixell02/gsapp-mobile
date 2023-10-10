@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import TextArea from "../../../../components/TextArea";
+import TextArea from "../../../../../components/TextArea";
 import useThemeOption from "../../../hooks/useThemeOption";
 
 const TextBoxInput = ({ webViewRef, coords }) => {

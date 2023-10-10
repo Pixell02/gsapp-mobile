@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
+import Input from '../../../../../components/Input'
 import useLanguageContext from '../../../../../hooks/useLanguageContext'
-import Input from '../../../../components/Input'
 import useAddText from '../../../hooks/useAddText'
 import useThemeOption from '../../../hooks/useThemeOption'
 import translate from "../../../locales/translate.json"

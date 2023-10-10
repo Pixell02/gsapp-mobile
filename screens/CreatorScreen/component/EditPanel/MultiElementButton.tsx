@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import RoundedButton from "../../../components/RoundedButton";
+import RoundedButton from "../../../../components/RoundedButton";
 
 const MultiElementButton = ({ coords, setIsModalOpen, setSelectedMatch }) => {
   const handleButtonClick = (buttonNumber: number) => {

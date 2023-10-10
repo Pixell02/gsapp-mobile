@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import Title from '../../../components/Title'
 import useLanguageContext from '../../../hooks/useLanguageContext'
-import Title from '../../components/Title'
 import translate from "../locales/translate.json"
 export default function Stats() {
   const {language} = useLanguageContext();

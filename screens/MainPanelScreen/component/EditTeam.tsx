@@ -1,13 +1,13 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { Modal, Text, View } from "react-native";
+import InputData from "../../../components/InputData";
+import PreviewBlock from "../../../components/PreviewBlock";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
 import useAddImage from "../../../hooks/useAddImage";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import InputData from "../../components/InputData";
-import PreviewBlock from "../../components/PreviewBlock";
-import RoundedButton from "../../components/RoundedButton";
-import Title from "../../components/Title";
 import { teamDataProps } from "../context/DataContext";
 import translate from "../locales/translate.json";
 import useDataContextProvider from "./hooks/useDataContextProvider";

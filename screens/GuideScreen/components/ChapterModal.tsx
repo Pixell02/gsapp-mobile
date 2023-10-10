@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
+import ItemCenter from "../../../components/ItemCenter";
+import RoundedButton from "../../../components/RoundedButton";
+import Title from "../../../components/Title";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import ItemCenter from "../../components/ItemCenter";
-import RoundedButton from "../../components/RoundedButton";
-import Title from "../../components/Title";
 import Description from "./Description";
 
 const ChapterModal = ({ chapter, isOpen, setIsOpen }) => {

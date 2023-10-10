@@ -1,10 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import MainContent from '../../components/MainContent';
+import ScreenContainer from '../../components/ScreenContainer';
+import TopBar from '../../components/TopBar';
 import { RootStackParamList } from '../StartingScreen/type';
-import MainContent from '../components/MainContent';
-import ScreenContainer from '../components/ScreenContainer';
-import TopBar from '../components/TopBar';
 import IndividualCatalogContent from './components/IndividualCatalogContent';
 
 type YourCatalogScreenNavigationProp = StackNavigationProp<RootStackParamList, "YourCatalogScreen">;

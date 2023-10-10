@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
+import SelectPicker from "../../../../../components/SelectPicker";
 import useLanguageContext from "../../../../../hooks/useLanguageContext";
-import SelectPicker from "../../../../components/SelectPicker";
 import usePlayers from "../../../hooks/usePlayers";
 import translate from "../../../locales/translate.json";
 import Header from "./components/Header";

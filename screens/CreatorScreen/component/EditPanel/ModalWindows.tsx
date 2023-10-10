@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import RoundedButton from "../../../../components/RoundedButton";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
-import RoundedButton from "../../../components/RoundedButton";
 import translate from "../../locales/translate.json";
 import OpponentTeamGoals from "./ModalComponents/OpponentTeamGoals";
 import ReservePlayers from "./ModalComponents/ReservePlayers";

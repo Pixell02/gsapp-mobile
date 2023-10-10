@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ImageBackground, Text, View } from "react-native";
+import Input from "../../components/Input";
 import useGoogleLogin from "../../hooks/useGoogleLogin";
 import useLanguageContext from "../../hooks/useLanguageContext";
 import { useLogin } from "../../hooks/useLogin";
-import Input from "../components/Input";
 import LoginButton from "./components/LoginButton";
 import SocialLoginButton from "./components/SocialLoginButton";
 import translate from "./locales/translate.json";

@@ -1,9 +1,9 @@
 import React from "react";
-import useSelectTeams from "./hooks/useSelectTeams";
 import { View } from "react-native";
-import SelectPicker from "../../../../components/SelectPicker";
+import SelectPicker from "../../../../../components/SelectPicker";
 import useLanguageContext from "../../../../../hooks/useLanguageContext";
-import translate from "../../../locales/translate.json"
+import translate from "../../../locales/translate.json";
+import useSelectTeams from "./hooks/useSelectTeams";
 
 const SelectTeams = ({ webViewRef, coords, selectedMatch }) => {
   const { teamOption, setSelectedHost, setSelectedGuest, selectedGuest, selectedHost } = useSelectTeams(webViewRef, coords, selectedMatch);

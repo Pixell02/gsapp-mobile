@@ -1,18 +1,17 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import TopBar from "../components/TopBar";
-import MainContent from "../components/MainContent";
-import NavBar from "../components/NavBar";
-import Title from "../components/Title";
-import translate from "./locales/translate.json";
+import ItemCenter from "../../components/ItemCenter";
+import MainContent from "../../components/MainContent";
+import RoundedButton from "../../components/RoundedButton";
+import Title from "../../components/Title";
+import TopBar from "../../components/TopBar";
 import { LanguageContext } from "../../context/LanguageContext";
-import GuideContent from "./components/GuideContent";
-import ChapterModal from "./components/ChapterModal";
-import ItemCenter from "../components/ItemCenter";
-import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../StartingScreen/type";
-import { StackNavigationProp } from "@react-navigation/stack";
-import RoundedButton from "../components/RoundedButton";
+import ChapterModal from "./components/ChapterModal";
+import GuideContent from "./components/GuideContent";
+import translate from "./locales/translate.json";
 
 type IndividualCatalogContentNavigationProp = StackNavigationProp<RootStackParamList, "CreatorScreen">;
 

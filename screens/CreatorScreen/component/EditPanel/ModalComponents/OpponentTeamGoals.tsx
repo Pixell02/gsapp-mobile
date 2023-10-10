@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
+import InputData from '../../../../../components/InputData'
 import useLanguageContext from '../../../../../hooks/useLanguageContext'
-import InputData from '../../../../components/InputData'
 import useCreateOpponentGoals from '../../../hooks/useCreateOpponentGoals'
 import useRadioContext from '../../../hooks/useRadioContext'
 import translate from '../../../locales/translate.json'
