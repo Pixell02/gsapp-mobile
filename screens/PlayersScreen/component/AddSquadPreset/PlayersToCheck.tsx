@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Image, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { CheckBox } from "react-native-elements";
-import useSelectedTeamContext from "../../../CreatorScreen/hooks/useSelectedTeamContext";
-import SelectPicker from "../../../components/SelectPicker";
-import translate from "../../locales/translate.json";
+import SelectPicker from "../../../../components/SelectPicker";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
+import useSelectedTeamContext from "../../../CreatorScreen/hooks/useSelectedTeamContext";
+import translate from "../../locales/translate.json";
 import usePlayerOption from "./hooks/usePlayerOption";
 
 const PlayersToCheck = ({ goalkeeper, setGoalkeeper, capitan, setCapitan }) => {
