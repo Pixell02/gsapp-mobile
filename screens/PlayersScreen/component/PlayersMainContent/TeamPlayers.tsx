@@ -6,14 +6,12 @@ import TeamPicker from '../../../../components/TeamPicker';
 import Title from '../../../../components/Title';
 import { useCollection } from '../../../../hooks/useCollection';
 import useLanguageContext from '../../../../hooks/useLanguageContext';
+import useModalContextProvider from '../../../MainPanelScreen/component/hooks/useModalContextProvider';
+import useDataContext from '../../hooks/useDataContext';
 import translate from '../../locales/translate.json';
 
 interface props {
   uid: string;
-  setPlayerData: (value: object) => void;
-  selectedValue: string;
-  setSelectedValue: (value: string) => void;
-  setIsOpen: (value: number) => void;
 }
 
 interface playerProps {
@@ -28,25 +26,22 @@ interface playerProps {
 const TeamPlayers = (props: props) => {
 
   const { language } = useLanguageContext();
+   const { setIsModalOpen } = useModalContextProvider();
+   const { setPlayerData, selectedValue, setSelectedValue } = useDataContext();
   const { documents: teamPlayers } = useCollection("Players", ["uid", "==", props.uid]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", props.uid]);
   const handlePress = (player: playerProps) => {
-    props.setPlayerData((prev: playerProps) => ({
+    setPlayerData((prev: playerProps) => ({
       ...prev,
-      id: player.id,
-      firstName: player.firstName,
-      secondName: player.secondName,
-      number: player.number ? player.number.toString() : null,
-      team: player.team,
-      img: player.img,
+      ...player
     }));
-    props.setIsOpen(2);
+    setIsModalOpen(2);
   };
   return (
     <View>
       <Title name={translate.teamPlayers[language] || translate.teamPlayers["en"]} />
       {Teams && (
-        <TeamPicker Teams={Teams} selectedValue={props.selectedValue} setSelectedValue={props.setSelectedValue} />
+        <TeamPicker Teams={Teams} selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
       )}
           <ItemCenter>
               {teamPlayers?.map((player: playerProps, i:number) => (
@@ -54,7 +49,7 @@ const TeamPlayers = (props: props) => {
                 key={i}
                 firstName={player.firstName}
                 secondName={player.secondName}
-                img={player.img ? player.img : null}
+                img={player.img || null}
                 onPress={() => handlePress(player)}
               />
               ))}
