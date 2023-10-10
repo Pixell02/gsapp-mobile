@@ -1,60 +1,38 @@
-import React, { useState } from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { View, StyleSheet } from "react-native";
-import { RootStackParamList } from "../StartingScreen/type";
-import TopBar from "../components/TopBar";
-import MainContent from "../components/MainContent";
-import PlayersMainContent from "./component/PlayersMainContent";
-import AddBtn from "../components/AddBtn";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import AddBtn from "../../components/AddBtn";
+import MainContent from "../../components/MainContent";
+import TopBar from "../../components/TopBar";
+import { ModalContextProvider } from "../../context/ModalContext";
 import PlayerModal from "./component/PlayerModal";
+import PlayersMainContent from "./component/PlayersMainContent";
+import { DataProvider } from "./context/DataContext";
 
-type PlayersScreenNavigationProp = StackNavigationProp<RootStackParamList, "PlayersScreen">;
 
-type Props = {
-  navigation: PlayersScreenNavigationProp;
-};
+export interface playerProps {
+  id: string;
+  firstName: string;
+  secondName: string;
+  number: string;
+  team: string;
+  uid: string;
+}
 
-export default function PlayersScreen({ navigation }: Props): JSX.Element {
-  const [isOpen, setIsOpen] = useState(0);
-  const { user } = useAuthContext();
-  const [selectedValue, setSelectedValue] = useState("");
-  const [squadData, setSquadData] = useState(null);
-  const [playerData, setPlayerData] = useState({
-    firstName: "",
-    secondName: "",
-    img: null,
-    number: null,
-    team: "",
-    uid: user.uid,
-  });
+export default function PlayersScreen(): JSX.Element {
+
   return (
-    
-      <View style={styles.container}>
-        <TopBar />
-        {isOpen !== 0 && (
-          <PlayerModal
-            isOpen={isOpen}
-            setIsOpen={() => setIsOpen(0)}
-            playerData={playerData}
-            setPlayerData={setPlayerData}
-            squadData={squadData}
-            setSquadData={setSquadData}
-          />
-        )}
-        <AddBtn onPress={() => setIsOpen(1)} />
-        <MainContent>
-          <PlayersMainContent
-            setIsOpen={setIsOpen}
-            setPlayerData={setPlayerData}
-            playerData={playerData}
-            selectedValue={selectedValue}
-            setSelectedValue={setSelectedValue}
-            setSquadData={setSquadData}
-          />
-        </MainContent>
-      </View>
-    
+    <ModalContextProvider>
+      <DataProvider>
+        <View style={styles.container}>
+          <TopBar />
+          <PlayerModal />
+          <AddBtn />
+          <MainContent>
+            <PlayersMainContent />
+          </MainContent>
+        </View>
+      </DataProvider>
+    </ModalContextProvider>
   );
 }
 
