@@ -1,39 +1,25 @@
 import React from "react";
-import EditPlayer from "./EditPlayer";
+import { SelectedTeamProvider } from "../../CreatorScreen/context/selectedTeamContext";
+import useModalContextProvider from "../../MainPanelScreen/component/hooks/useModalContextProvider";
 import AddPlayer from "./AddPlayer";
 import AddSquadPreset from "./AddSquadPreset";
-import { SelectedTeamProvider } from "../../CreatorScreen/context/selectedTeamContext";
+import EditPlayer from "./EditPlayer";
 import EditSquadPreset from "./EditSquadPreset";
 
-const PlayerModal = ({ isOpen, setIsOpen, playerData, setPlayerData, squadData, setSquadData }) => {
+const PlayerModal = (): JSX.Element => {
+  const { isModalOpen } = useModalContextProvider();
   return (
     <>
-      {isOpen === 1 && <AddPlayer isOpen={isOpen} setIsOpen={setIsOpen} teamData={playerData} setTeamData={setPlayerData} />}
-      {isOpen === 2 && (
-        <EditPlayer
-          isEditOpen={isOpen}
-          setIsEditOpen={setIsOpen}
-          teamData={playerData}
-          setTeamData={setPlayerData}
-        />
-      )}
-      {isOpen === 3 && (
+      {isModalOpen === 1 && <AddPlayer />}
+      {isModalOpen === 2 && <EditPlayer />}
+      {isModalOpen === 3 && (
         <SelectedTeamProvider>
-          <AddSquadPreset
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            setSquadData={setSquadData}
-          />
+          <AddSquadPreset />
         </SelectedTeamProvider>
       )}
-      {isOpen === 4 && (
+      {isModalOpen === 4 && (
         <SelectedTeamProvider>
-          <EditSquadPreset
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            setSquadData={setSquadData}
-            data={squadData}
-          />
+          <EditSquadPreset />
         </SelectedTeamProvider>
       )}
     </>
