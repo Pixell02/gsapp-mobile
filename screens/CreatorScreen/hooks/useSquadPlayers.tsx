@@ -4,13 +4,10 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useCollection } from '../../../hooks/useCollection';
 import useLanguageContext from '../../../hooks/useLanguageContext';
 import useTeamCollection from '../../../hooks/useTeamCollection';
+import { selectedPlayerProps } from '../../PlayersScreen/context/DataContext';
 import translate from "../locales/translate.json";
 
-interface playerProps {
-  firstName: string;
-  secondName: string;
-  number: string;
-}
+
 
 const useSquadPlayers = () => {
   const { user } = useAuthContext();
@@ -27,36 +24,28 @@ const useSquadPlayers = () => {
     setPlayers(combinedArray);
   },[players, LicensedPlayers])
 
-  const handlePlayerChecked = (player: playerProps) => {
+  const handlePlayerChecked = (player: selectedPlayerProps) => {
     const { firstName, secondName, number } = player;
-    
+
     const isSelected = selectedPlayers.some(
       (selectedPlayer) =>
-        selectedPlayer.firstName === firstName &&
-        selectedPlayer.secondName === secondName &&
-        selectedPlayer.number === number
+        selectedPlayer.firstName === firstName && selectedPlayer.secondName === secondName && selectedPlayer.number === number
     );
 
     if (isSelected) {
       setSelectedPlayers((prevSelectedPlayers) =>
         prevSelectedPlayers.filter(
           (selectedPlayer) =>
-            selectedPlayer.firstName !== firstName ||
-            selectedPlayer.secondName !== secondName ||
-            selectedPlayer.number !== number
+            selectedPlayer.firstName !== firstName || selectedPlayer.secondName !== secondName || selectedPlayer.number !== number
         )
       );
     } else {
-if(selectedPlayers.length !== 11){
-      setSelectedPlayers((prevSelectedPlayers) => [
-        ...prevSelectedPlayers,
-        { firstName, secondName, number },
-      ]);
-      }else {
-    Alert.alert(translate.elevenAlert[language])
-  }
+      if (selectedPlayers.length !== 11) {
+        setSelectedPlayers((prevSelectedPlayers) => [...prevSelectedPlayers, { firstName, secondName, number }]);
+      } else {
+        Alert.alert(translate.elevenAlert[language]);
+      }
     }
-   
   };
 
   return {Players, selectedPlayers, handlePlayerChecked}
