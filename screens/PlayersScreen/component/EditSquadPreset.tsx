@@ -1,5 +1,5 @@
 import { collection, doc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, ScrollView, View } from "react-native";
 import InputData from "../../../components/InputData";
 import RoundedButton from "../../../components/RoundedButton";
@@ -7,47 +7,37 @@ import Title from "../../../components/Title";
 import { db } from "../../../firebase/config";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import useSelectedTeamContext from "../../CreatorScreen/hooks/useSelectedTeamContext";
+import useModalContextProvider from "../../MainPanelScreen/component/hooks/useModalContextProvider";
+import { squadPresetProps } from "../context/DataContext";
+import useDataContext from "../hooks/useDataContext";
 import translate from "../locales/translate.json";
 import PlayersToCheck from "./AddSquadPreset/PlayersToCheck";
 import ReserveToCheck from "./AddSquadPreset/ReserveToCheck";
 
-const EditSquadPreset = ({ isOpen, setIsOpen, setSquadData, data }) => {
-  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setSquadData);
-  
+const EditSquadPreset = () => {
+  const { isModalOpen, setIsModalOpen } = useModalContextProvider();
+  const panResponder = useCustomPanResponder(isModalOpen, setIsModalOpen);
+  const { squadData, setSquadData } = useDataContext();
   const [isPressed, setIsPressed] = useState(false);
-  const [goalkeeper, setGoalkeeper] = useState(data.goalkeeper);
-  const [capitan, setCapitan] = useState(data.capitan);
-  const { selectedPlayers, selectedReserve, handleReserveChecked, handlePlayerChecked } = useSelectedTeamContext();
-  const [presetName, setPresetName] = useState(data.presetName)
   const { language } = useLanguageContext();
-  useEffect(() => {
-    data?.squadPlayers?.map((player) => (
-      handlePlayerChecked(player)
-    ))
-    data?.reservePlayers?.map((reserve) => (
-      handleReserveChecked(reserve)
-    ))
-  },[data])
 
-  const handleClose = () => {
-    setIsOpen(0)
-  }
+  const handleValueChange = (value: string, className: string) => {
+    setSquadData((prev: squadPresetProps) => ({
+      ...prev,
+      [className]: value,
+    }));
+  };
 
   const handleSave = () => {
-    const docRef = doc(collection(db, "squadPreset"))
+    const docRef = doc(collection(db, "squadPreset"));
     updateDoc(docRef, {
-      capitan: capitan,
-      goalkeeper: goalkeeper,
-      squadPlayers: selectedPlayers,
-      reservePlayers: selectedReserve,
-      presetName: presetName,
-    })
-    setIsOpen(0)
-  }
+      ...squadData,
+    });
+    setIsModalOpen(0);
+  };
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen === 4} onRequestClose={() => setIsOpen(0)}>
+      <Modal animationType="slide" visible={isModalOpen === 4} onRequestClose={() => setIsModalOpen(0)}>
         <Title name={translate.squadPreset[language || "en"]} />
         <ScrollView>
           <View style={{ justifyContent: "center", width: "100%", alignItems: "center" }}>
@@ -56,17 +46,14 @@ const EditSquadPreset = ({ isOpen, setIsOpen, setSquadData, data }) => {
                 text={isPressed ? translate.addPlayer[language || "en"] : translate.addReserve[language || "en"]}
                 onPress={() => setIsPressed(!isPressed)}
               />
-              <InputData text={presetName} name="Nazwa wzoru" onChangeText={(value) => setPresetName(value)} />
+              <InputData
+                text={squadData.presetName}
+                name="Nazwa wzoru"
+                onChangeText={(value) => handleValueChange(value, "presetName")}
+              />
             </View>
           </View>
-          {!isPressed && (
-            <PlayersToCheck
-              capitan={capitan}
-              setCapitan={setCapitan}
-              goalkeeper={goalkeeper}
-              setGoalkeeper={setGoalkeeper}
-            />
-          )}
+          {!isPressed && <PlayersToCheck />}
           {isPressed && <ReserveToCheck />}
           <View style={{ justifyContent: "center", width: "100%", alignItems: "center" }}>
             <View style={{ width: "80%" }}>
