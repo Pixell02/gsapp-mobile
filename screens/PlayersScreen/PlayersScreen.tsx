@@ -8,7 +8,6 @@ import PlayerModal from "./component/PlayerModal";
 import PlayersMainContent from "./component/PlayersMainContent";
 import { DataProvider } from "./context/DataContext";
 
-
 export interface playerProps {
   id: string;
   firstName: string;
@@ -19,7 +18,6 @@ export interface playerProps {
 }
 
 export default function PlayersScreen(): JSX.Element {
-
   return (
     <ModalContextProvider>
       <DataProvider>
