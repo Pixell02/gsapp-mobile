@@ -8,11 +8,11 @@ import { playerProps } from "../PlayersScreen";
 import translate from "../locales/translate.json";
 
 interface props {
-  setTeamData: (value: playerProps) => void;
-  setIsEditOpen: (value: number) => void;
+  setPlayerData: React.Dispatch<React.SetStateAction<playerProps>>;
+  setIsModalOpen: (value: number) => void;
 }
 
-const useHandleEvents = ({ setTeamData, setIsEditOpen }: props) => {
+const useHandleEvents = ({ setPlayerData, setIsModalOpen }: props) => {
   const { language } = useLanguageContext();
   const { handleAddImage } = useStorage();
   const { user } = useAuthContext();
@@ -20,7 +20,7 @@ const useHandleEvents = ({ setTeamData, setIsEditOpen }: props) => {
   const handleDeleteItem = (teamData: playerProps) => {
     const docRef = doc(db, "Players", teamData.id);
     deleteDoc(docRef);
-    setTeamData({
+    setPlayerData({
       id: "",
       firstName: "",
       secondName: "",
@@ -28,7 +28,7 @@ const useHandleEvents = ({ setTeamData, setIsEditOpen }: props) => {
       number: "",
       uid: user.uid,
     });
-    setIsEditOpen(0);
+    setIsModalOpen(0);
   };
 
   const handleSave = async (
@@ -58,7 +58,7 @@ const useHandleEvents = ({ setTeamData, setIsEditOpen }: props) => {
           ...teamData,
         });
       }
-      setTeamData({
+      setPlayerData({
         id: "",
         firstName: "",
         secondName: "",
@@ -66,7 +66,7 @@ const useHandleEvents = ({ setTeamData, setIsEditOpen }: props) => {
         number: "",
         uid: user.uid,
       });
-      setIsEditOpen(0);
+      setIsModalOpen(0);
     }
   };
 
