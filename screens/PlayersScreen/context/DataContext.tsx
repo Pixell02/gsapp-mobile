@@ -34,5 +34,5 @@ export const DataProvider = ({ children }: props) => {
     uid: user.uid,
   });
 
-  return <DataContext.Provider value={{ playerData, setPlayerData }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ playerData, setPlayerData, selectedValue, setSelectedValue, squadData, setSquadData }}>{children}</DataContext.Provider>;
 };
