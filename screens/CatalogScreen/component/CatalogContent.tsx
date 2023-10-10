@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
+import ItemCenter from "../../../components/ItemCenter";
+import SelectPicker from "../../../components/SelectPicker";
+import Title from "../../../components/Title";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import ItemCenter from "../../components/ItemCenter";
-import SelectPicker from "../../components/SelectPicker";
-import Title from "../../components/Title";
 import useSelectSport from "../hooks/useSelectSport";
+import useSortCatalog from "../hooks/useSortCatalog";
 import translate from "../locales/translate.json";
 import CatalogContainer from "./CatalogContainer";
 import CatalogModal from "./CatalogModal";
@@ -12,27 +13,13 @@ import CatalogModal from "./CatalogModal";
 export default function CatalogContent(): JSX.Element {
   const { data: catalog, sportOptions, selectedSportKeys, setSelectedSportKeys } = useSelectSport();
   const { language } = useLanguageContext();
-  const [theme, setTheme] = useState([]);
-
- 
-
-  useEffect(() => {
-    if (catalog) {
-      const sortedCatalog = [...catalog];
-      sortedCatalog.sort((a, b) => {
-        const numA = parseInt(a.theme.split(" ")[1]);
-        const numB = parseInt(b.theme.split(" ")[1]);
-        return numA - numB;
-      });
-      setTheme(sortedCatalog);
-    }
-  }, [catalog]);
+  const theme = useSortCatalog(catalog);
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   return (
     <View>
-      {id && isOpen && <CatalogModal isOpen={isOpen} setIsOpen={setIsOpen} name={name} id={id} setId={setId} />}
+      {id && isOpen && <CatalogModal isOpen={isOpen} setIsOpen={setIsOpen} name={name} id={id} />}
       <Title name={translate.catalog[language] || translate.catalog["en"]} />
       {sportOptions?.length > 1 && (
          <View style={{width: "100%", alignItems: "center"}}>
@@ -52,8 +39,7 @@ export default function CatalogContent(): JSX.Element {
             <Text>No Content</Text>
           </View>
         )}
-        {theme &&
-          theme.map((theme, i) => (
+        {theme?.map((theme) => (
             <CatalogContainer
               key={theme.id}
               id={theme.id}
