@@ -15,7 +15,7 @@ interface optionProps {
 
 const useTeamOption = () => {
   const { user } = useAuthContext();
-  const [teamOption, setTeamOption] = useState<optionProps[] | []>([]);
+  const [teamOption, setTeamOption] = useState<optionProps[]>([]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   useEffect(() => {
     const option = Teams?.map((team: TeamProps, i: string) => ({
