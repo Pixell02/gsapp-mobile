@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ItemBlock from "../../../../components/ItemBlock";
 import ItemCenter from "../../../../components/ItemCenter";
 import TeamPicker from "../../../../components/TeamPicker";
@@ -8,7 +8,6 @@ import { useCollection } from "../../../../hooks/useCollection";
 import useLanguageContext from "../../../../hooks/useLanguageContext";
 import useModalContextProvider from "../../../MainPanelScreen/component/hooks/useModalContextProvider";
 import useDataContext from "../../hooks/useDataContext";
-import useTeamOption from "../../hooks/useTeamOption";
 import translate from "../../locales/translate.json";
 
 interface playerProps {
@@ -23,27 +22,17 @@ interface playerProps {
 
 const MainPlayers = () => {
   const { user } = useAuthContext();
-   const { isModalOpen, setIsModalOpen } = useModalContextProvider();
-   const { playerData, setPlayerData, selectedValue, setSelectedValue } = useDataContext();
+   const { setIsModalOpen } = useModalContextProvider();
+   const { setPlayerData, selectedValue, setSelectedValue } = useDataContext();
   const { documents: players } = useCollection("Players", ["uid", "==", user.uid]);
   const { documents: Teams } = useCollection("Teams", ["uid", "==", user.uid]);
   const { language } = useLanguageContext();
-  const { teamOption } = useTeamOption();
-  useEffect(() => {
-    if (teamOption && teamOption.length > 0) {
-      setSelectedValue(teamOption[0].value);
-    }
-  }, [teamOption]);
+  
 
   const handlePress = (player: playerProps) => {
     setPlayerData((prev: playerProps) => ({
       ...prev,
-      id: player.id,
-      firstName: player.firstName,
-      secondName: player.secondName,
-      number: player.number,
-      team: player.team,
-      img: player.img,
+      ...player
     }));
    setIsModalOpen(0)
   };
