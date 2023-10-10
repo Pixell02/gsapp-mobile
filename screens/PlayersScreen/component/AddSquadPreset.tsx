@@ -8,41 +8,36 @@ import { db } from "../../../firebase/config";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import useCustomPanResponder from "../../../hooks/useCustomPanResponder";
 import useLanguageContext from "../../../hooks/useLanguageContext";
-import useSelectedTeamContext from "../../CreatorScreen/hooks/useSelectedTeamContext";
+import useModalContextProvider from "../../MainPanelScreen/component/hooks/useModalContextProvider";
+import useDataContext from "../hooks/useDataContext";
 import translate from "../locales/translate.json";
 import PlayersToCheck from "./AddSquadPreset/PlayersToCheck";
 import ReserveToCheck from "./AddSquadPreset/ReserveToCheck";
 
-const AddSquadPreset = ({ isOpen, setIsOpen, setSquadData }) => {
-  const panResponder = useCustomPanResponder(isOpen, setIsOpen, setSquadData);
+const AddSquadPreset = (): JSX.Element => {
+  const { isModalOpen, setIsModalOpen } = useModalContextProvider();
+  const { squadData } = useDataContext();
+  const panResponder = useCustomPanResponder(isModalOpen, setIsModalOpen);
   const { user } = useAuthContext();
   const [isPressed, setIsPressed] = useState(false);
-  const [goalkeeper, setGoalkeeper] = useState("");
-  const [capitan, setCapitan] = useState("");
-  const { selectedPlayers, selectedReserve } = useSelectedTeamContext();
-  const [presetName, setPresetName] = useState("")
+  const [presetName, setPresetName] = useState("");
   const { language } = useLanguageContext();
 
   const handleSave = () => {
     const docRef = collection(db, "squadPreset");
     addDoc(docRef, {
-      capitan: capitan,
-      goalkeeper: goalkeeper,
-      squadPlayers: selectedPlayers,
-      reservePlayers: selectedReserve,
-      presetName: presetName,
-      uid: user.uid
-    })
-    setIsOpen(0)
-  }
+      ...squadData,
+      uid: user.uid,
+    });
+    setIsModalOpen(0);
+  };
 
   return (
     <View {...panResponder.panHandlers}>
-      <Modal animationType="slide" visible={isOpen === 3} onRequestClose={() => setIsOpen(0)}>
+      <Modal animationType="slide" visible={isModalOpen === 3} onRequestClose={() => setIsModalOpen(0)}>
         <Title name={translate.squadPreset[language || "en"]} />
         <ScrollView>
           <View style={{ justifyContent: "center", width: "100%", alignItems: "center" }}>
-
             <View style={{ width: "80%" }}>
               <RoundedButton
                 text={isPressed ? translate.addPlayer[language || "en"] : translate.addReserve[language || "en"]}
@@ -51,13 +46,14 @@ const AddSquadPreset = ({ isOpen, setIsOpen, setSquadData }) => {
               <InputData text={presetName} name="Nazwa wzoru" onChangeText={(value) => setPresetName(value)} />
             </View>
           </View>
-          {!isPressed && <PlayersToCheck capitan={capitan} setCapitan={setCapitan} goalkeeper={goalkeeper} setGoalkeeper={setGoalkeeper} />}
+          {!isPressed && (
+            <PlayersToCheck  />
+          )}
           {isPressed && <ReserveToCheck />}
           <View style={{ justifyContent: "center", width: "100%", alignItems: "center" }}>
             <View style={{ width: "80%" }}>
               <RoundedButton onPress={handleSave} text={translate.save[language || "en"]} />
             </View>
-
           </View>
         </ScrollView>
       </Modal>
